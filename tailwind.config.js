@@ -15,7 +15,8 @@ module.exports = {
         'modern-white': '#F7F7F7'
       },
       fontFamily: {
-        poppins: ['Poppins', ...defaultTheme.fontFamily.mono]
+        poppins: ['Poppins', ...defaultTheme.fontFamily.mono],
+        raleway: ['Raleway', ...defaultTheme.fontFamily.mono]
       }
     },
   },
