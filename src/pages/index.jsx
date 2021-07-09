@@ -6,7 +6,7 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <div>
+      <div className="flex flex-row items-center jusify-center w-full h-screen bg-honey">
         <h1>Cozy Homepage</h1>
       </div>
     </>
