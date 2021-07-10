@@ -49,7 +49,7 @@ export default function Login() {
                   <input type="password" name="password" placeholder="Password" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-end w-full space-y-3">
-                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white">Login</button>
+                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none">Login</button>
                   <Link href="/signup">
                     <a className="md:hidden flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-honey text-modern-black">Create Account</a>
                   </Link>
