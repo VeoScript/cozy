@@ -14,7 +14,7 @@ export default function SideBar() {
       <div className="flex flex-col space-y-5">
         {navigations.map(({ icon, href }, i) => (
           <Link href={href} key={i}>
-            <a className={`${router.pathname === href ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full`}>{ icon }</a>
+            <a className={`${router.pathname === href ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:bg-opacity-80 hover:text-honey`}>{ icon }</a>
           </Link>
         ))}
       </div>
