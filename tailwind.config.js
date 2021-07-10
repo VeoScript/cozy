@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'honey': '#FFCE00',
         'modern-black': '#1A1A1A',
+        'modern-dim': '#222222',
         'modern-white': '#F7F7F7'
       },
       fontFamily: {
