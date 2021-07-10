@@ -1,6 +1,6 @@
 export default function Dashboard() {
   return (
-    <div className="flex flex-col w-full max-w-sm h-full overflow-y-auto px-10 py-10 space-y-10 rounded-l-2xl bg-modern-dim">
+    <div className="flex flex-col w-full max-w-sm h-full overflow-y-auto px-10 py-10 space-y-10 rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center w-full space-x-3">
         <span className="text-[#58F547] text-3xl">&bull;</span>
         <div className="flex flex-col">
