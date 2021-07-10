@@ -34,13 +34,13 @@ export default function SignUp() {
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                   </svg>
-                  <input type="text" name="username" placeholder="Profile URL" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
+                  <input type="text" name="avatar" placeholder="Profile URL" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
                 </div>
                 <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
                   </svg>
-                  <input type="text" name="username" placeholder="Name" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
+                  <input type="text" name="name" placeholder="Name" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
                 </div>
                 <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -58,10 +58,10 @@ export default function SignUp() {
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                   </svg>
-                  <input type="password" name="password" placeholder="Re-enter Password" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
+                  <input type="password" name="repassword" placeholder="Re-enter Password" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none" />
                 </div>
                 <div className="flex flex-col items-center justify-end w-full space-y-3">
-                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white">Sign Up</button>
+                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none">Sign Up</button>
                   <Link href="/login">
                     <a className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-honey text-modern-black">Back to Login</a>
                   </Link>
