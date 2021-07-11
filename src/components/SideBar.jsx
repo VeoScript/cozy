@@ -27,7 +27,7 @@ export default function SideBar() {
           </Link>
         </div>
       </div>
-      <div className="fixed md:hidden bottom-0 flex flex-row items-center justify-between w-full px-5 bg-honey">
+      <div className="fixed md:hidden bottom-0 z-50 flex flex-row items-center justify-between w-full px-5 bg-honey">
         {mobile_navigations.map(({ icon, href }, i) => (
           <Link href={href} key={i}>
             <a className={`${router.pathname === href ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:bg-opacity-80 hover:text-honey`}>{ icon }</a>

@@ -18,15 +18,15 @@ export default function ContactDisplay() {
       <div className="contact-list flex flex-col items-center w-full h-full overflow-y-auto">
         <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10">
           <span className="w-full max-w-[40px] text-xs">Profile</span>
-          <span className="w-full max-w-sm text-xs">Name</span>
-          <span className="w-full max-w-xs text-xs">Phone</span>
-          <span className="w-full max-w-xs text-xs">Actions</span>
+          <span className="w-full max-w-[14rem] text-xs">Name</span>
+          <span className="w-full max-w-[28rem] text-xs">Phone</span>
+          <span className="w-full max-w-[8rem] text-xs">Actions</span>
         </div>
         <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-t border-b border-modern-white border-opacity-10 bg-modern-dim">
           <img src="https://64.media.tumblr.com/777b82fbdc6768d1b2e5f02957ff9e51/acfd59a2153ef06e-4f/s1280x1920/46e004f9c43a907c532da035b6831f3797373b4d.jpg" className="w-full max-w-[40px] h-10 object-cover rounded-full" />
           <span className="w-full max-w-sm text-xs">Jennie Kim</span>
           <span className="w-full max-w-sm text-xs">09759863533</span>
-          <span className="flex items-center w-full max-w-sm text-xs space-x-1">
+          <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
             <button className="transition ease-in-out duration-200 bg-modern-black px-3 py-3 rounded-full hover:scale-95">
               <svg className="w-4 h-4 text-modern-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"></path>
