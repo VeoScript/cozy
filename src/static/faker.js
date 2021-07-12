@@ -44,3 +44,36 @@ export const people = [
     'youtube': '/'
   }
 ]
+
+export const diary = [
+  {
+    'photo': 'https://pbs.twimg.com/media/DbI61jRVMAYuuf9.jpg',
+    'title': 'Keep Dreaming',
+    'date': 'September 13, 1998',
+    'content': 'When you feel the sunlight fade into the cold night dont know where to turn I dont know where to turn and all the dreams youre dreaming seem to lose their meaning Let me in your world baby, let me in your world all you need is someone you can hold dont be sad, youre not alone',
+  },
+  {
+    'photo': 'https://data.whicdn.com/images/323379869/original.jpg',
+    'title': 'I will be your home',
+    'date': 'September 13, 1998',
+    'content': 'When you feel the sunlight fade into the cold night dont know where to turn I dont know where to turn and all the dreams youre dreaming seem to lose their meaning Let me in your world baby, let me in your world all you need is someone you can hold dont be sad, youre not alone',
+  },
+  {
+    'photo': 'https://p.favim.com/orig/2018/09/29/aesthetic-dream-vibe-Favim.com-6367740.jpg',
+    'title': 'Without you',
+    'date': 'September 13, 1998',
+    'content': 'When you feel the sunlight fade into the cold night dont know where to turn I dont know where to turn and all the dreams youre dreaming seem to lose their meaning Let me in your world baby, let me in your world all you need is someone you can hold dont be sad, youre not alone',
+  },
+  {
+    'photo': 'https://pbs.twimg.com/media/CubWfeNWgAAssLu.jpg',
+    'title': 'Alone',
+    'date': 'September 13, 1998',
+    'content': 'When you feel the sunlight fade into the cold night dont know where to turn I dont know where to turn and all the dreams youre dreaming seem to lose their meaning Let me in your world baby, let me in your world all you need is someone you can hold dont be sad, youre not alone',
+  },
+  {
+    'photo': 'https://s11.favim.com/orig/7/779/7790/77902/pink-color-sky-Favim.com-7790272.jpg',
+    'title': 'Dreaming of you',
+    'date': 'September 13, 1998',
+    'content': 'When you feel the sunlight fade into the cold night dont know where to turn I dont know where to turn and all the dreams youre dreaming seem to lose their meaning Let me in your world baby, let me in your world all you need is someone you can hold dont be sad, youre not alone',
+  }
+]
