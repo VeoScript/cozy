@@ -8,7 +8,7 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="hidden md:flex flex-col items-center justify-between w-full max-w-[5rem] h-full overflow-y-auto py-16 space-y-10">
+      <div className="hidden md:flex flex-col items-center justify-between w-full max-w-[5rem] h-full overflow-hidden py-16 space-y-10">
         <Link href="/">
           <a className="font-black font-raleway text-xl">COZY</a>
         </Link>
