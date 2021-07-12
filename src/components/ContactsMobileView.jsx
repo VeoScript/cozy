@@ -22,16 +22,11 @@ export default function ContactsMobileView() {
         </div>
       </div>
       <Scrollbar>
-        <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto py-16 px-5 mb-3">
+        <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto pt-16 pb-5 px-5">
           {people.map(({ avatar, name, phone, email, facebook, twitter, instagram, tiktok, youtube }, i) => (
             <div className="flex flex-col w-full max-w-full md:max-w-md h-full max-h-[13rem] rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
               <div className="flex flex-row justify-between items-center w-full">
                 <div className="flex flex-row items-end justify-start space-x-1">
-                  <button className="transition ease-in-out duration-200 rounded-full hover:scale-95">
-                    <svg className="w-4 h-4 text-modern-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"></path>
-                    </svg>
-                  </button>
                   <button className="transition ease-in-out duration-200 rounded-full hover:scale-95">
                     <svg className="w-4 h-4 text-honey" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -60,27 +55,27 @@ export default function ContactsMobileView() {
                 <span className="text-xs md:text-sm text-gray-400 mt-1">{email}</span>
                 <div className="flex flex-row items-center justify-center w-full mt-3 space-x-2">
                   <Link href={facebook}>
-                    <a target="_blank">
+                    <a className={`${!facebook ? 'hidden' : 'block'}`} target="_blank">
                       <FacebookSmall />
                     </a>
                   </Link>
                   <Link href={twitter}>
-                    <a target="_blank">
+                    <a className={`${!twitter ? 'hidden' : 'block'}`} target="_blank">
                       <TwitterSmall />
                     </a>
                   </Link>
                   <Link href={instagram}>
-                    <a target="_blank">
+                    <a className={`${!instagram ? 'hidden' : 'block'}`} target="_blank">
                       <InstagramSmall />
                     </a>
                   </Link>
                   <Link href={tiktok}>
-                    <a target="_blank">
+                    <a className={`${!tiktok ? 'hidden' : 'block'}`} target="_blank">
                       <TikTokSmall />
                     </a>
                   </Link>
                   <Link href={youtube}>
-                    <a target="_blank">
+                    <a className={`${!youtube ? 'hidden' : 'block'}`} target="_blank">
                       <YouTubeSmall />
                     </a>
                   </Link>
