@@ -8,7 +8,7 @@ export const people = [
     'twitter': '/',
     'instagram': '/',
     'tiktok': '/',
-    'youtube': ''
+    'youtube': '/'
   },
   {
     'avatar': 'https://cf.shopee.ph/file/46f7ebaa7dbac43476f3c328935d79c0',
@@ -19,7 +19,7 @@ export const people = [
     'twitter': '/',
     'instagram': '/',
     'tiktok': '/',
-    'youtube': ''
+    'youtube': '/'
   },
   {
     'avatar': 'https://lh3.googleusercontent.com/VTX8O3fEDZcfpFsEwQKM_E1sEjTVw9HExPEybwvUr81XzcM2nYz5PDPqAVQuG-DDcaiqJZUK8SgePosw2_8ecB5zLniyyz-uBT-ndrWLsrubvQO5=s0',
@@ -30,7 +30,7 @@ export const people = [
     'twitter': '/',
     'instagram': '/',
     'tiktok': '/',
-    'youtube': ''
+    'youtube': '/'
   },
   {
     'avatar': 'https://pbs.twimg.com/media/EzH3-JTXIAAH6H9.jpg',
@@ -41,6 +41,6 @@ export const people = [
     'twitter': '/',
     'instagram': '/',
     'tiktok': '/',
-    'youtube': ''
+    'youtube': '/'
   }
 ]

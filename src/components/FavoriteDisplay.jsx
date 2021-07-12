@@ -22,7 +22,7 @@ export default function FavoriteDisplay() {
         </div>
       </div>
       <Scrollbar>
-        <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto py-16 px-5 mb-3">
+        <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto pt-16 pb-5 px-5">
           {people.map(({ avatar, name, phone, email, facebook, twitter, instagram, tiktok, youtube }, i) => (
             <div className="flex flex-col w-full max-w-full md:max-w-md h-full max-h-[13rem] rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
               <div className="flex flex-row justify-center items-center w-full">
@@ -43,27 +43,27 @@ export default function FavoriteDisplay() {
                 <span className="text-xs md:text-sm text-gray-400 mt-1">{email}</span>
                 <div className="flex flex-row items-center justify-center w-full mt-3 space-x-2">
                   <Link href={facebook}>
-                    <a target="_blank">
+                    <a className={`${!facebook ? 'hidden' : 'block'}`} target="_blank">
                       <FacebookSmall />
                     </a>
                   </Link>
                   <Link href={twitter}>
-                    <a target="_blank">
+                    <a className={`${!twitter ? 'hidden' : 'block'}`} target="_blank">
                       <TwitterSmall />
                     </a>
                   </Link>
                   <Link href={instagram}>
-                    <a target="_blank">
+                    <a className={`${!instagram ? 'hidden' : 'block'}`} target="_blank">
                       <InstagramSmall />
                     </a>
                   </Link>
                   <Link href={tiktok}>
-                    <a target="_blank">
+                    <a className={`${!tiktok ? 'hidden' : 'block'}`} target="_blank">
                       <TikTokSmall />
                     </a>
                   </Link>
                   <Link href={youtube}>
-                    <a target="_blank">
+                    <a className={`${!youtube ? 'hidden' : 'block'}`} target="_blank">
                       <YouTubeSmall />
                     </a>
                   </Link>
