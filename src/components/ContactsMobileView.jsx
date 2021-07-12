@@ -86,8 +86,8 @@ export default function ContactsMobileView() {
         </div>
       </Scrollbar>
       <div className="relative">
-        <div className="absolute bottom-5 md:bottom-10 right-5 md:right-10 z-50">
-          <button className="px-3 py-3 bg-honey text-modern-dim rounded-full transition ease-in-out duration-300 transform hover:rotate-180 hover:scale-95 focus:outline-none">
+        <div className="fixed bottom-20 md:bottom-10 right-8 md:right-10 z-10">
+          <button className="px-4 py-4 bg-honey text-modern-dim rounded-full transition ease-in-out duration-300 transform hover:rotate-180 hover:scale-95 focus:outline-none">
             <svg className="w-6 md:w-8 h-6 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
