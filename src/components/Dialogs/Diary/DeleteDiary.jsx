@@ -31,7 +31,7 @@ export default function DeleteDiary({ title }) {
           className="fixed inset-0 z-10 overflow-y-auto"
           onClose={closeModal}
         >
-          <div className="min-h-screen px-4 pb-10 md:pb-0 text-center bg-modern-white bg-opacity-20">
+          <div className="min-h-screen px-4 pb-10 md:pb-0 text-center bg-modern-black bg-opacity-60">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -60,7 +60,7 @@ export default function DeleteDiary({ title }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-red-600 bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h1"
                   className="flex flex-row items-center justify-between w-full text-lg font-medium leading-6 text-modern-white"
