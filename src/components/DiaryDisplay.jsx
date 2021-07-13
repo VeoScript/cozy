@@ -34,14 +34,14 @@ export default function DiaryDisplay() {
       <Scrollbar>
         {/* for desktop view */}
         <div className="contact-list hidden md:flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden">
-          <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10">
+          <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10 border-b border-modern-white border-opacity-10">
             <span className="w-full max-w-[40px] text-xs">Photo</span>
             <span className="w-full max-w-[14rem] text-xs pl-3">Title</span>
             <span className="w-full max-w-[28rem] text-xs pl-5">Date</span>
             <span className="w-full max-w-[8rem] text-xs">Actions</span>
           </div>
           {diary.map(({ photo, title, date }, i) => (
-            <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-t border-b border-modern-white border-opacity-10 bg-modern-dim" key={i}>
+            <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim" key={i}>
               <img src={photo} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
               <span className="w-full max-w-sm text-sm">{title}</span>
               <span className="w-full max-w-sm text-xs">{date}</span>
