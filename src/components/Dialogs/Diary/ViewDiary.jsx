@@ -86,10 +86,10 @@ export default function ViewDiary({ photo, title, content, date }) {
                       </button>
                   </div>
                 </div>
-                <div className="my-10">
+                <div className="my-8">
                   <div className="flex flex-col items-center w-full space-y-5">
                     <div className="flex">
-                      <img className="w-[23rem] h-32 object-cover rounded-xl bg-modern-dim" src={photo} alt="profile" />
+                      <img className="w-[30rem] h-52 object-cover rounded-xl bg-modern-dim" src={photo} alt="profile" />
                     </div>
                     <div className="flex flex-col items-center w-full space-y-3">
                       <span className="text-lg md:text-xl">{title}</span>
