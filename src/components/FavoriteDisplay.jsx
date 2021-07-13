@@ -23,8 +23,8 @@ export default function FavoriteDisplay() {
       </div>
       <Scrollbar>
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto pt-16 pb-5 px-5">
-          {people.map(({ avatar, name, phone, email, facebook, twitter, instagram, tiktok, youtube }, i) => (
-            <div className="flex flex-col w-full max-w-full md:max-w-md h-full max-h-[13rem] rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
+          {people.map(({ avatar, name, phone, email, address, facebook, twitter, instagram, tiktok, youtube }, i) => (
+            <div className="flex flex-col w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
               <div className="flex flex-row justify-center items-center w-full">
                 <div className="flex justify-center w-full -mt-16 ml-10">
                   <img className="w-24 h-24 object-cover rounded-full" src={avatar} />
@@ -38,10 +38,7 @@ export default function FavoriteDisplay() {
                 </div>
               </div>
               <div className="flex flex-col items-center w-full">
-                <span className="text-lg md:text-lg">{name}</span>
-                <span className="text-xs md:text-base text-gray-400">{phone}</span>
-                <span className="text-xs md:text-sm text-gray-400 mt-1">{email}</span>
-                <div className="flex flex-row items-center justify-center w-full mt-3 space-x-2">
+                <div className="flex flex-row items-center justify-center w-full mb-3 space-x-2">
                   <Link href={facebook}>
                     <a className={`${!facebook ? 'hidden' : 'block'}`} target="_blank">
                       <FacebookSmall />
@@ -68,6 +65,10 @@ export default function FavoriteDisplay() {
                     </a>
                   </Link>
                 </div>
+                <span className="text-lg md:text-lg">{name}</span>
+                <span className="text-xs md:text-base text-gray-400">{phone}</span>
+                <span className="text-xs md:text-sm text-gray-400 mt-1">{email}</span>
+                <span className="text-[10px] md:text-xs text-gray-400 mt-1">{address}</span>
               </div>
             </div>
           ))}
