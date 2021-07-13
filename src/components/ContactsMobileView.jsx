@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import CreateNew from './Dialogs/MobileContacts/CreateNew'
+import UpdateContact from './Dialogs/MobileContacts/UpdateContact'
+import DeleteContact from './Dialogs/MobileContacts/DeleteContact'
 import Scrollbar from 'react-smooth-scrollbar'
 import FacebookSmall from '~/lib/icons/socialmedia/FacebookSmall'
 import InstagramSmall from '~/lib/icons/socialmedia/InstagramSmall'
@@ -37,16 +40,21 @@ export default function ContactsMobileView() {
                   <img className="w-24 h-24 object-cover rounded-full" src={avatar} />
                 </div>
                 <div className="flex flex-row items-end justify-start space-x-1">
-                  <button className="text-gray-500 hover:text-honey transition ease-in-out duration-200 rounded-full hover:scale-95 focus:outline-none">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                  </button>
-                  <button className="text-gray-500 hover:text-red-600 transition ease-in-out duration-200 rounded-full hover:scale-95 focus:outline-none">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                    </svg>
-                  </button>
+                  <UpdateContact
+                    avatar={avatar}
+                    name={name}
+                    phone={phone}
+                    email={email}
+                    address={address}
+                    facebook={facebook}
+                    instagram={instagram}
+                    twitter={twitter}
+                    tiktok={tiktok}
+                    youtube={youtube}
+                  />
+                  <DeleteContact
+                    name={name}
+                  />
                 </div>
               </div>
               <div className="flex flex-col items-center w-full">
@@ -86,15 +94,7 @@ export default function ContactsMobileView() {
           ))}
         </div>
       </Scrollbar>
-      <div className="relative">
-        <div className="fixed bottom-20 md:bottom-10 right-8 md:right-10 z-10">
-          <button className="px-4 py-4 bg-honey text-modern-dim rounded-full transition ease-in-out duration-300 transform hover:rotate-180 hover:scale-95 focus:outline-none">
-            <svg className="w-6 md:w-8 h-6 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
+      <CreateNew />
     </div>
   )
 }

@@ -25,16 +25,19 @@ export default function CreateNew() {
 
   return (
     <>
-      <button
-        className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-xs rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
-        type="button"
-        onClick={openModal}
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-        </svg>
-        <span>New Contact</span>
-      </button>
+      <div className="relative">
+        <div className="fixed bottom-20 md:bottom-10 right-8 md:right-10 z-10">
+          <button
+            className="px-4 py-4 bg-honey text-modern-dim rounded-full transition ease-in-out duration-300 transform hover:rotate-180 hover:scale-95 focus:outline-none"
+            type="button"
+            onClick={openModal}
+          >
+            <svg className="w-6 md:w-8 h-6 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
