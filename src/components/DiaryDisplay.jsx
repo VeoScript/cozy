@@ -1,3 +1,5 @@
+import CreateNew from './Dialogs/Diary/CreateNew'
+import UpdateDiary from './Dialogs/Diary/UpdateDiary'
 import Scrollbar from 'react-smooth-scrollbar'
 import { diary } from '~/static/faker'
 
@@ -12,12 +14,7 @@ export default function DiaryDisplay() {
           </svg>
           <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
         </div>
-        <button className="flex items-center justify-center w-full max-w-[6rem] md:max-w-[8rem] px-1 py-2 md:px-2 md:py-3 text-[10px] md:text-xs rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black">
-          <svg className="w-3 h-3 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          <span>Create New</span>
-        </button>
+        <CreateNew />
       </div>
       {/* for mobile view */}
       <div className="md:hidden flex flex-col md:flex-row items-center justify-between w-full px-10 py-5 border-b border-modern-white border-opacity-10 space-y-5 md:space-y-0">
@@ -40,7 +37,7 @@ export default function DiaryDisplay() {
             <span className="w-full max-w-[28rem] text-xs pl-5">Date</span>
             <span className="w-full max-w-[8rem] text-xs">Actions</span>
           </div>
-          {diary.map(({ photo, title, date }, i) => (
+          {diary.map(({ photo, title, date, content }, i) => (
             <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim" key={i}>
               <img src={photo} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
               <span className="w-full max-w-sm text-sm">{title}</span>
@@ -52,11 +49,11 @@ export default function DiaryDisplay() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                   </svg>
                 </button>
-                <button className="transition ease-in-out duration-200 bg-modern-black text-honey px-3 py-3 rounded-full hover:scale-95">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                </button>
+                <UpdateDiary
+                  photo={photo}
+                  title={title}
+                  content={content}
+                />
                 <button className="transition ease-in-out duration-200 bg-modern-black text-red-800 px-3 py-3 rounded-full hover:scale-95">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -87,11 +84,11 @@ export default function DiaryDisplay() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                   </svg>
                 </button>
-                <button className="transition ease-in-out duration-200 bg-modern-black text-honey px-3 py-3 rounded-full hover:scale-95">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                </button>
+                <UpdateDiary
+                  photo={photo}
+                  title={title}
+                  content={content}
+                />
                 <button className="transition ease-in-out duration-200 bg-modern-black text-red-800 px-3 py-3 rounded-full hover:scale-95">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -103,13 +100,7 @@ export default function DiaryDisplay() {
         </div>
       </Scrollbar>
       <div className="md:hidden relative">
-        <div className="fixed bottom-20 md:bottom-10 right-8 md:right-10 z-10">
-          <button className="px-4 py-4 bg-honey text-modern-dim rounded-full transition ease-in-out duration-300 transform hover:rotate-180 hover:scale-95 focus:outline-none">
-            <svg className="w-6 md:w-8 h-6 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-          </button>
-        </div>
+        <CreateNew />
       </div>
     </div>
   )
