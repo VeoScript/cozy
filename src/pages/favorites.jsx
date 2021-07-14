@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Favorites({ online_user }) {
+export default function Favorites({ online_user, favorite_contacts }) {
   return (
     <>
       <Head>
@@ -14,7 +14,10 @@ export default function Favorites({ online_user }) {
       </Head>
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full pb-[60px] md:pb-0 rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
-          <FavoriteDisplay />
+          <FavoriteDisplay
+            online_user={online_user}
+            favorite_contacts={favorite_contacts}
+          />
         </div>
       </Layout>
     </>
@@ -41,9 +44,22 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  const favorite_contacts = await prisma.contacts.findMany({
+    where: {
+      userId: user.id,
+      favorite: true
+    },
+    orderBy: [
+      {
+        name: 'asc'
+      }
+    ]
+  })
+
   return {
     props: {
-      online_user
+      online_user,
+      favorite_contacts
     }
   }
 })
