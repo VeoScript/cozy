@@ -27,8 +27,8 @@ model Contacts {
   id            Int           @id     @default(autoincrement())
   profile       String
   name          String
-  phone         String        @unique
-  email         String        @unique
+  phone         String
+  email         String
   address       String?
   facebook      String?
   instagram     String?
@@ -43,8 +43,8 @@ model Favorites {
   id            Int           @id     @default(autoincrement())
   profile       String
   name          String
-  phone         String        @unique
-  email         String        @unique
+  phone         String
+  email         String
   address       String?
   facebook      String?
   instagram     String?
