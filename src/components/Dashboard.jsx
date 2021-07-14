@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function Dashboard() {
+export default function Dashboard({ online_user }) {
   return (
     <div className="flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 space-y-10 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
@@ -10,8 +10,11 @@ export default function Dashboard() {
         <div className="flex md:hidden">
           <Link href="/profile">
             <a className="flex items-center space-x-3">
-              <img className="w-8 h-8 object-cover rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95" src="https://64.media.tumblr.com/777b82fbdc6768d1b2e5f02957ff9e51/acfd59a2153ef06e-4f/s1280x1920/46e004f9c43a907c532da035b6831f3797373b4d.jpg" />
-              <span className="text-xs">Jennie Kim</span>
+              <img
+                className="w-8 h-8 object-cover rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95"
+                src={ online_user.avatar }
+              />
+              <span className="text-xs">{ online_user.name }</span>
             </a>
           </Link>
         </div>
@@ -19,7 +22,7 @@ export default function Dashboard() {
           <span className="text-[#58F547] text-3xl">&bull;</span>
           <div className="flex flex-col">
             <span className="text-xs text-gray-400">Welcome to <span className="text-honey">COZY</span></span>
-            <span className="text-sm">Jennie Kim</span>
+            <span className="text-sm">{ online_user.name }</span>
           </div>
         </div>
       </div>
@@ -35,7 +38,7 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your beloved contacts</span>
-            <span className="font-bold text-3xl text-honey">100</span>
+            <span className="font-bold text-3xl text-honey">0</span>
           </div>
         </div>
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
@@ -49,7 +52,7 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your favorite contacts</span>
-            <span className="font-bold text-3xl text-honey">33</span>
+            <span className="font-bold text-3xl text-honey">0</span>
           </div>
         </div>
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
@@ -63,7 +66,7 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your daily diaries</span>
-            <span className="font-bold text-3xl text-honey">89</span>
+            <span className="font-bold text-3xl text-honey">0</span>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { navigations, mobile_navigations } from '~/static/links'
 
-export default function SideBar() {
+export default function SideBar({ online_user }) {
 
   const router = useRouter()
 
@@ -22,7 +22,10 @@ export default function SideBar() {
         <div className="flex">
           <Link href="/profile">
             <a>
-              <img className="w-10 h-10 object-cover rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95" src="https://64.media.tumblr.com/777b82fbdc6768d1b2e5f02957ff9e51/acfd59a2153ef06e-4f/s1280x1920/46e004f9c43a907c532da035b6831f3797373b4d.jpg" />
+              <img
+                className="w-10 h-10 object-cover rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95"
+                src={ online_user.avatar }
+              />
             </a>
           </Link>
         </div>

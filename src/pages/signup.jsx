@@ -61,7 +61,7 @@ export default function SignUp({ all_users }) {
       </Head>
       <Guard>
         <Toaster
-          position="bottom-left"
+          position="top-left"
           reverseOrder={true}
         />
         <div className="flex flex-col md:flex-row items-center justify-start md:justify-center w-full max-w-screen-2xl h-screen overflow-y-auto md:overflow-hidden bg-[#222]">
