@@ -19,6 +19,7 @@ model User {
   password       String
   contacts       Contacts[]
   favorites      Favorites[]
+  diary          Diary[]
   messages       Messages[]
 }
 
@@ -54,10 +55,21 @@ model Favorites {
   userId        Int
 }
 
+model Diary {
+  id            Int           @id      @default(autoincrement())
+  photo         String
+  title         String        @unique
+  content       String
+  date          String
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int
+}
+
 model Messages {
   id            Int           @id      @default(autoincrement())
   message       String?
   sender        String?
+  date          String
   user          User          @relation(fields: [userId], references: [id])
   userId        Int
 }
