@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Diary({ online_user }) {
+export default function Diary({ online_user, count_contacts }) {
   return (
     <>
       <Head>
@@ -16,7 +16,10 @@ export default function Diary({ online_user }) {
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full pb-[60px] md:pb-0 rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
           <div className="hidden md:block w-full max-w-sm">
-            <Dashboard online_user={online_user} />
+            <Dashboard
+              online_user={online_user}
+              count_contacts={count_contacts}
+            />
           </div>
           <DiaryDisplay />
         </div>
@@ -45,9 +48,20 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //count all contacts from the specific user
+  const count_contacts = await prisma.contacts.count({
+    where: {
+      userId: user.id
+    },
+    select: {
+      _all: true
+    }
+  })
+
   return {
     props: {
-      online_user
+      online_user,
+      count_contacts
     }
   }
 })
