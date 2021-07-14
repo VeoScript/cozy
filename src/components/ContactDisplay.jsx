@@ -3,9 +3,8 @@ import ViewContact from './Dialogs/Contacts/ViewContact'
 import UpdateContact from './Dialogs/Contacts/UpdateContact'
 import DeleteContact from './Dialogs/Contacts/DeleteContact'
 import Scrollbar from 'react-smooth-scrollbar'
-import { people } from '~/static/faker'
 
-export default function ContactDisplay() {
+export default function ContactDisplay({ online_user, contacts }) {
   return (
     <div className="font-poppins hidden md:flex flex-col w-full">
       <div className="flex flex-row items-center justify-between w-full px-5 py-5 border-b border-modern-white border-opacity-10">
@@ -15,7 +14,10 @@ export default function ContactDisplay() {
           </svg>
           <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
         </div>
-        <CreateNew />
+        <CreateNew
+          online_user={online_user}
+          contacts={contacts}
+        />
       </div>
       <Scrollbar>
         <div className="contact-list flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden">
@@ -25,9 +27,9 @@ export default function ContactDisplay() {
             <span className="w-full max-w-[28rem] text-xs pl-5">Phone</span>
             <span className="w-full max-w-[10rem] text-xs">Actions</span>
           </div>
-          {people.map(({ avatar, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }, i) => (
+          {contacts.map(({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }, i) => (
             <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim" key={i}>
-              <img src={avatar} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
+              <img src={profile} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
               <span className="w-full max-w-sm text-sm">{name}</span>
               <span className="w-full max-w-sm text-sm">{phone}</span>
               <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
@@ -37,7 +39,7 @@ export default function ContactDisplay() {
                   </svg>
                 </button>
                 <ViewContact
-                  avatar={avatar}
+                  profile={profile}
                   name={name}
                   phone={phone}
                   email={email}
@@ -49,7 +51,8 @@ export default function ContactDisplay() {
                   youtube={youtube}
                 />
                 <UpdateContact
-                  avatar={avatar}
+                  id={id}
+                  profile={profile}
                   name={name}
                   phone={phone}
                   email={email}
@@ -61,6 +64,7 @@ export default function ContactDisplay() {
                   youtube={youtube}
                 />
                 <DeleteContact
+                  id={id}
                   name={name}
                 />
               </span>

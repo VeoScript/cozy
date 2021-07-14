@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Home({ online_user }) {
+export default function Home({ online_user, contacts }) {
   return (
     <>
       <Head>
@@ -16,7 +16,10 @@ export default function Home({ online_user }) {
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
           <Dashboard online_user={online_user} />
-          <ContactDisplay />
+          <ContactDisplay
+            online_user={online_user}
+            contacts={contacts}
+          />
         </div>
       </Layout>
     </>
@@ -43,9 +46,17 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //get all contacts from the specific user
+  const contacts = await prisma.contacts.findMany({
+    where: {
+      userId: user.id
+    }
+  })
+
   return {
     props: {
-      online_user
+      online_user,
+      contacts
     }
   }
 })

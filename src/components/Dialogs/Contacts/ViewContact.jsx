@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-export default function ViewContact({ avatar, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }) {
+export default function ViewContact({ profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }) {
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -66,23 +66,23 @@ export default function ViewContact({ avatar, name, phone, email, address, faceb
                 <div className="relative">
                   <div className="fixed z-10 top-5 right-5">
                     <button
-                        className="transition ease-in-out duration-200 hover:scale-90 focus:outline-none"
-                        type="button"
-                        onClick={closeModal}
-                      >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                        </svg>
-                      </button>
+                      className="transition ease-in-out duration-200 hover:scale-90 focus:outline-none"
+                      type="button"
+                      onClick={closeModal}
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
                 <div className="my-5">
                   <div className="flex flex-col items-center w-full space-y-5">
                     <div className="flex">
-                      <img className="w-32 h-32 object-cover rounded-full bg-modern-dim" src={avatar} alt="profile" />
+                      <img className="w-32 h-32 object-cover rounded-full bg-modern-dim" src={profile} alt="profile" />
                     </div>
                     <div className="flex flex-col items-center w-full">
-                      <div className="flex flex-row items-center justify-center w-full mb-3 space-x-2">
+                      <div className="flex flex-row items-center justify-center w-full mb-1 space-x-2">
                         <Link href={facebook}>
                           <a className={`${!facebook ? 'hidden' : 'block'} transition ease-in-out duration-300 hover:scale-95`} target="_blank">
                             <FacebookIcon />

@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-export default function DeleteContact({ name }) {
+export default function DeleteContact({ id, name }) {
 
   let [isOpen, setIsOpen] = useState(false)
 
