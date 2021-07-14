@@ -116,22 +116,19 @@ export default function Dashboard({ online_user, count_contacts }) {
                 </div>
                 <div className="flex flex-col items-center mt-5">
                   <Link href="/profile">
-                    <a className="flex items-center justify-center w-full border-t border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3">
-                      
+                    <a className="flex items-center justify-center w-full border-t border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3 focus:outline-none">
                       <span>Profile</span>
                     </a>
                   </Link>
                   <Link href="/settings">
-                    <a className="flex items-center justify-center w-full border-t border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3">
-                      
+                    <a className="flex items-center justify-center w-full border-t border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3 focus:outline-none">
                       <span>Settings</span>
                     </a>
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center justify-center w-full border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3"
+                    className="flex items-center justify-center w-full border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3 focus:outline-none"
                   >
-                    
                     <span>Logout</span>
                   </button>
                 </div>
