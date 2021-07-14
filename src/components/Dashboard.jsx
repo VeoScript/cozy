@@ -1,6 +1,23 @@
-import Link from "next/link"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 export default function Dashboard({ online_user, count_contacts }) {
+
+  const router = useRouter()
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  async function handleLogout() {
+    await fetch('/api/auth/signout', {
+      method: 'POST',
+      headers : { 
+        'Content-Type': 'application/json',
+      }
+    })
+    router.push('/login')
+  }
+
   return (
     <div className="flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 space-y-10 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
@@ -8,15 +25,17 @@ export default function Dashboard({ online_user, count_contacts }) {
           <a className="block md:hidden font-black font-raleway text-xl text-honey">COZY</a>
         </Link>
         <div className="flex md:hidden">
-          <Link href="/profile">
-            <a className="flex items-center space-x-3">
-              <img
-                className="w-8 h-8 object-cover rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95"
-                src={ online_user.avatar }
-              />
-              <span className="text-xs">{ online_user.name }</span>
-            </a>
-          </Link>
+          <button
+            className="flex items-center space-x-3 focus:outline-none"
+            type="button"
+            onClick={() => { setIsOpen(true) }}
+          >
+            <img
+              className="w-8 h-8 object-cover bg-modern-dim rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95"
+              src={ online_user.avatar }
+            />
+            <span className="text-xs">{ online_user.name }</span>
+          </button>
         </div>
         <div className="hidden md:flex flex-row items-center w-full space-x-3">
           <span className="text-[#58F547] text-3xl">&bull;</span>
@@ -70,6 +89,57 @@ export default function Dashboard({ online_user, count_contacts }) {
           </div>
         </div>
       </div>
+      {setIsOpen && (
+        <>
+          <button onClick={() => {setIsOpen(false)}} type="button" className={`${isOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
+          <div className={`md:hidden z-40 w-full ${isOpen ? 'fixed' : 'hidden'}`}>
+            <div className="fixed inset-x-0 bottom-0 w-full h-full max-h-[23rem] overflow-hidden mt-2 border-t-2 border-opacity-50 border-honey rounded-t-3xl shadow-2xl bg-modern-black text-white">
+              <div className="flex flex-col w-full h-full pt-5 overflow-y-auto bg-opacity-75">
+                <button
+                  className="absolute top-5 right-5 z-50 transition ease-in-out duration-200 hover:scale-90 focus:outline-none"
+                  type="button"
+                  onClick={() => {setIsOpen(false)}}
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                  </svg>
+                </button>
+                <div className="relative flex flex-col items-center space-y-3">
+                  <img
+                    className="w-16 h-16 object-cover bg-modern-dim rounded-full ring-2 ring-[#B38E00] transition ease-in-out duration-300 transform hover:scale-95"
+                    src={ online_user.avatar }
+                  />
+                  <div className="flex flex-col items-center">
+                    <h1 className="font-bold text-sm">{ online_user.name }</h1>
+                    <h3 className="font-light text-xs text-gray-300">{ online_user.username }</h3>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center mt-5">
+                  <Link href="/profile">
+                    <a className="flex items-center justify-center w-full border-t border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3">
+                      
+                      <span>Profile</span>
+                    </a>
+                  </Link>
+                  <Link href="/settings">
+                    <a className="flex items-center justify-center w-full border-t border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3">
+                      
+                      <span>Settings</span>
+                    </a>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center justify-center w-full border-b border-modern-dim text-sm text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-3"
+                  >
+                    
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
