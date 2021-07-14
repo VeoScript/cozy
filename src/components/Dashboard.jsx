@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function Dashboard({ online_user }) {
+export default function Dashboard({ online_user, count_contacts }) {
   return (
     <div className="flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 space-y-10 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
@@ -38,7 +38,7 @@ export default function Dashboard({ online_user }) {
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your beloved contacts</span>
-            <span className="font-bold text-3xl text-honey">0</span>
+            <span className="font-bold text-3xl text-honey">{ count_contacts._all }</span>
           </div>
         </div>
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
