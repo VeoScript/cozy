@@ -8,7 +8,6 @@ import InstagramSmall from '~/lib/icons/socialmedia/InstagramSmall'
 import TwitterSmall from '~/lib/icons/socialmedia/TwitterSmall'
 import TikTokSmall from '~/lib/icons/socialmedia/TikTokSmall'
 import YouTubeSmall from '~/lib/icons/socialmedia/YouTubeSmall'
-import { people } from '~/static/faker'
 
 export default function ContactsMobileView({ online_user, contacts }) {
   return (
@@ -41,6 +40,7 @@ export default function ContactsMobileView({ online_user, contacts }) {
                 </div>
                 <div className="flex flex-row items-end justify-start space-x-1">
                   <UpdateContact
+                    online_user={online_user}
                     id={id}
                     profile={profile}
                     name={name}
@@ -54,6 +54,7 @@ export default function ContactsMobileView({ online_user, contacts }) {
                     youtube={youtube}
                   />
                   <DeleteContact
+                    online_user={online_user}
                     id={id}
                     name={name}
                   />

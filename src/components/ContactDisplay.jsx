@@ -51,6 +51,7 @@ export default function ContactDisplay({ online_user, contacts }) {
                   youtube={youtube}
                 />
                 <UpdateContact
+                  online_user={online_user}
                   id={id}
                   profile={profile}
                   name={name}
@@ -64,6 +65,7 @@ export default function ContactDisplay({ online_user, contacts }) {
                   youtube={youtube}
                 />
                 <DeleteContact
+                  online_user={online_user}
                   id={id}
                   name={name}
                 />
