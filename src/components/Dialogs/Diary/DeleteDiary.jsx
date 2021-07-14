@@ -16,7 +16,7 @@ export default function DeleteDiary({ title }) {
   return (
     <>
       <button
-        className="transition ease-in-out duration-200 bg-modern-black text-red-800 px-3 py-3 rounded-full hover:scale-95"
+        className="transition ease-in-out duration-200 bg-modern-black text-red-800 px-3 py-3 rounded-full hover:scale-95 focus:outline-none"
         type="button"
         onClick={openModal}
       >
@@ -65,7 +65,7 @@ export default function DeleteDiary({ title }) {
                   as="h1"
                   className="flex flex-row items-center justify-between w-full text-lg font-medium leading-6 text-modern-white"
                 >
-                  <span>Delete Contact</span>
+                  <span>Delete Diary</span>
                   <button
                     className="transition ease-in-out duration-200 hover:scale-90 focus:outline-none"
                     type="button"
@@ -77,7 +77,7 @@ export default function DeleteDiary({ title }) {
                   </button>
                 </Dialog.Title>
                 <div className="flex flex-col space-y-5 mt-5">
-                  <div>Are you sure you want to delete this diary <strong>{ title }</strong>?</div>
+                  <div>Are you sure you want to delete this diary titled <strong>{ title }</strong>?</div>
                   <div className="flex flex-row justify-end">
                     <button
                       className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-red-600 text-modern-white focus:outline-none"
