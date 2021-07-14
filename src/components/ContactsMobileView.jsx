@@ -10,7 +10,7 @@ import TikTokSmall from '~/lib/icons/socialmedia/TikTokSmall'
 import YouTubeSmall from '~/lib/icons/socialmedia/YouTubeSmall'
 import { people } from '~/static/faker'
 
-export default function ContactsMobileView() {
+export default function ContactsMobileView({ online_user, contacts }) {
   return (
     <div className="font-poppins flex flex-col w-full h-full">
       <div className="flex flex-col md:flex-row items-center justify-between w-full px-10 py-5 border-b border-modern-white border-opacity-10 space-y-5 md:space-y-0">
@@ -26,7 +26,7 @@ export default function ContactsMobileView() {
       </div>
       <Scrollbar>
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-full h-full overflow-y-auto pt-16 pb-5 px-5">
-          {people.map(({ avatar, name, phone, email, address, facebook, twitter, instagram, tiktok, youtube }, i) => (
+          {contacts.map(({ id, profile, name, phone, email, address, facebook, twitter, instagram, tiktok, youtube }, i) => (
             <div className="flex flex-col w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
               <div className="flex flex-row justify-between items-center w-full">
                 <div className="flex flex-row justify-end">
@@ -37,11 +37,12 @@ export default function ContactsMobileView() {
                   </button>
                 </div>
                 <div className="flex justify-center -mt-16 ml-5">
-                  <img className="w-24 h-24 object-cover rounded-full" src={avatar} />
+                  <img className="w-24 h-24 object-cover rounded-full" src={profile} />
                 </div>
                 <div className="flex flex-row items-end justify-start space-x-1">
                   <UpdateContact
-                    avatar={avatar}
+                    id={id}
+                    profile={profile}
                     name={name}
                     phone={phone}
                     email={email}
@@ -53,12 +54,13 @@ export default function ContactsMobileView() {
                     youtube={youtube}
                   />
                   <DeleteContact
+                    id={id}
                     name={name}
                   />
                 </div>
               </div>
               <div className="flex flex-col items-center w-full">
-                <div className="flex flex-row items-center justify-center w-full mb-3 space-x-2">
+                <div className="flex flex-row items-center justify-center w-full mb-1 space-x-2">
                   <Link href={facebook}>
                     <a className={`${!facebook ? 'hidden' : 'block'}`} target="_blank">
                       <FacebookSmall />
@@ -94,7 +96,10 @@ export default function ContactsMobileView() {
           ))}
         </div>
       </Scrollbar>
-      <CreateNew />
+      <CreateNew
+        online_user={online_user}
+        contacts={contacts}
+      />
     </div>
   )
 }

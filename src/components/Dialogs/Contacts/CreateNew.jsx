@@ -1,8 +1,12 @@
+import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast, { Toaster } from 'react-hot-toast'
 
-export default function CreateNew() {
+export default function CreateNew({ online_user, contacts }) {
+
+  const router = useRouter()
   
   let [isOpen, setIsOpen] = useState(false)
 
@@ -19,12 +23,63 @@ export default function CreateNew() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm()
 
   async function onCreate(formData) {
-    console.log(formData)
+    const userId = online_user.id
+    const profile = formData.avatar
+    const name = formData.name
+    const phone = formData.phone
+    const email = formData.email
+    const address = formData.address
+    const facebook = formData.facebook
+    const instagram = formData.instagram
+    const twitter = formData.twitter
+    const tiktok = formData.tiktok
+    const youtube = formData.youtube
+
+    const phoneExist = contacts.some(contact => contact.phone === phone)
+    const emailExist = contacts.some(contact => contact.email === email)
+
+    if (phoneExist || emailExist) {
+      toast.error('Cannot perform, the email or phone number are already exists.', {
+        style: {
+          borderRadius: '10px',
+          background: '#333333',
+          color: '#fff',
+          fontSize: '12px'
+        }
+      })
+      return
+    }
+
+    await fetch('/api/contacts/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId,
+        profile,
+        name,
+        phone,
+        email,
+        address,
+        facebook,
+        instagram,
+        twitter,
+        tiktok,
+        youtube
+      })
+    })
     reset()
+    closeModal()
+    router.replace(router.asPath)
   }
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={true}
+      />
       <button
         className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-xs rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
         type="button"
@@ -109,7 +164,7 @@ export default function CreateNew() {
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                           </svg>
-                          <input type="text" name="phone" placeholder="Phone" {...register("phone", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" />
+                          <input type="text" name="phone" placeholder="Phone" {...register("phone", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                           {errors.phone && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
@@ -130,37 +185,33 @@ export default function CreateNew() {
                       <div className="flex flex-col w-full space-y-3">
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <FacebookIcon />
-                          <input type="text" name="facebook" placeholder="Facebook URL" {...register("facebook", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                          {errors.facebook && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="facebook" placeholder="Facebook URL" {...register("facebook")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <InstagramIcon />
-                          <input type="text" name="instagram" placeholder="Instagram URL" {...register("instagram", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                          {errors.instagram && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="instagram" placeholder="Instagram URL" {...register("instagram")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <TwitterIcon />
-                          <input type="text" name="twitter" placeholder="Twitter URL" {...register("twitter", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                          {errors.twitter && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="twitter" placeholder="Twitter URL" {...register("twitter")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <TiktokIcon />
-                          <input type="text" name="tiktok" placeholder="TikTok URL" {...register("tiktok", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                          {errors.tiktok && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="tiktok" placeholder="TikTok URL" {...register("tiktok")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <YoutubeIcon />
-                          <input type="text" name="youtube" placeholder="YouTube URL" {...register("youtube", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                          {errors.youtube && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="youtube" placeholder="YouTube URL" {...register("youtube")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-row justify-end mt-4">
+                    <div className="flex flex-row justify-end mt-3">
                       <button
-                        className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
+                        className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         type="submit"
+                        disabled={isSubmitting}
                       >
-                        <span>Create</span>
+                        Create
                       </button>
                     </div>
                   </form>

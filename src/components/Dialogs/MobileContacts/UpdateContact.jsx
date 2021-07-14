@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function UpdateContact({ avatar, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }) {
+export default function UpdateContact({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube }) {
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -17,7 +17,7 @@ export default function UpdateContact({ avatar, name, phone, email, address, fac
   }
 
   const defaultValues = {
-    avatar: avatar,
+    profile: profile,
     name: name,
     phone: phone,
     email: email,
@@ -107,8 +107,8 @@ export default function UpdateContact({ avatar, name, phone, email, address, fac
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                           </svg>
-                          <input type="text" name="avatar" placeholder="Profile URL" {...register("avatar", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none" />
-                          {errors.avatar && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                          <input type="text" name="profile" placeholder="Profile URL" {...register("profile", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none" />
+                          {errors.profile && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
