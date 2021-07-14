@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-export default function DeleteContact({ id, name }) {
+export default function DeleteContact({ online_user, id, name }) {
+
+  const router = useRouter()
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -11,6 +14,24 @@ export default function DeleteContact({ id, name }) {
 
   function openModal() {
     setIsOpen(true)
+  }
+
+  async function onDelete() {
+    const userId = online_user.id
+    const contactId = id
+
+    await fetch('/api/contacts/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId,
+        contactId
+      })
+    })
+    closeModal()
+    router.replace(router.asPath)
   }
 
   return (
@@ -81,9 +102,10 @@ export default function DeleteContact({ id, name }) {
                   <div className="flex flex-row justify-end">
                     <button
                       className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-red-600 text-modern-white focus:outline-none"
-                      type="submit"
+                      type="button"
+                      onClick={onDelete}
                     >
-                      <span>Delete</span>
+                      Delete
                     </button>
                   </div>
                 </div>
