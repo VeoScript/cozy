@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Diary({ online_user, count_contacts }) {
+export default function Diary({ online_user, count_contacts, count_favorites }) {
   return (
     <>
       <Head>
@@ -19,6 +19,7 @@ export default function Diary({ online_user, count_contacts }) {
             <Dashboard
               online_user={online_user}
               count_contacts={count_contacts}
+              count_favorites={count_favorites}
             />
           </div>
           <DiaryDisplay />
@@ -58,10 +59,22 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //count all favorites from the specific user
+  const count_favorites = await prisma.contacts.count({
+    where: {
+      userId: user.id,
+      favorite: true
+    },
+    select: {
+      _all: true
+    }
+  })
+
   return {
     props: {
       online_user,
-      count_contacts
+      count_contacts,
+      count_favorites
     }
   }
 })

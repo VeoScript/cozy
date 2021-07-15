@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-export default function Dashboard({ online_user, count_contacts }) {
+export default function Dashboard({ online_user, count_contacts, count_favorites }) {
 
   const router = useRouter()
 
@@ -71,7 +71,7 @@ export default function Dashboard({ online_user, count_contacts }) {
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your favorite contacts</span>
-            <span className="font-bold text-3xl text-honey">0</span>
+            <span className="font-bold text-3xl text-honey">{ count_favorites._all }</span>
           </div>
         </div>
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
