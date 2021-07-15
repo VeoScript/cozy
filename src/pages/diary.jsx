@@ -57,7 +57,12 @@ export const getServerSideProps = withSession(async function ({ req }) {
   const diaries = await prisma.diary.findMany({
     where: {
       userId: user.id
-    }
+    },
+    orderBy: [
+      {
+        date: 'desc'
+      }
+    ]
   })
 
   //count all contacts from the specific user

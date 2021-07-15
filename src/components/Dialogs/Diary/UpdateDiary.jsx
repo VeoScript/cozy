@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function UpdateDiary({ photo, title, content }) {
+export default function UpdateDiary({ id, online_user, photo, title, content }) {
+  
+  const router = useRouter()
   
   let [isOpen, setIsOpen] = useState(false)
 
@@ -29,6 +32,10 @@ export default function UpdateDiary({ photo, title, content }) {
   }, [register])
 
   async function onCreate(formData) {
+    const userId = online_user.id
+    const diaryId = id
+    const photo = formData.photo
+    const title = formData.title
     const create_story = formData.create_story
 
     if (create_story === '') {
@@ -36,8 +43,23 @@ export default function UpdateDiary({ photo, title, content }) {
       return
     }
 
-    console.log(formData)
-    reset(defaultValues)
+    await fetch('/api/diary/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId,
+        diaryId,
+        photo,
+        title,
+        create_story
+      })
+    })
+    reset()
+    storycontent.innerText = ''
+    closeModal()
+    router.replace(router.asPath)
   }
 
   return (
