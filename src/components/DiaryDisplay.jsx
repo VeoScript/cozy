@@ -6,6 +6,13 @@ import Scrollbar from 'react-smooth-scrollbar'
 import Moment from 'react-moment'
 
 export default function DiaryDisplay({ online_user, diaries }) {
+
+  const check = diaries.map((id) => {
+    return {
+      id
+    }
+  })
+
   return (
     <div className="font-poppins flex flex-col w-full h-full">
       {/* for desktop view */}
@@ -32,6 +39,9 @@ export default function DiaryDisplay({ online_user, diaries }) {
           </svg>
           <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
         </div>
+      </div>
+      <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
+        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first diary.</h1>
       </div>
       <Scrollbar>
         {/* for desktop view */}
