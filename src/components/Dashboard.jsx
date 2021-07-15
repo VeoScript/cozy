@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-export default function Dashboard({ online_user, count_contacts, count_favorites }) {
+export default function Dashboard({ online_user, count_contacts, count_favorites, count_diaries }) {
 
   const router = useRouter()
 
@@ -85,7 +85,7 @@ export default function Dashboard({ online_user, count_contacts, count_favorites
           </div>
           <div className="flex flex-row items-start justify-between w-full">
             <span className="font-light text-xs text-gray-400">Your daily diaries</span>
-            <span className="font-bold text-3xl text-honey">0</span>
+            <span className="font-bold text-3xl text-honey">{ count_diaries._all }</span>
           </div>
         </div>
       </div>

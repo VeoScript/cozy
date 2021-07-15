@@ -1,7 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import Moment from 'react-moment'
 
-export default function ViewDiary({ photo, title, content, date }) {
+export default function ViewDiary({ online_user, photo, title, content, date }) {
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -43,7 +44,7 @@ export default function ViewDiary({ photo, title, content, date }) {
           className="fixed inset-0 z-10 overflow-y-auto"
           onClose={closeModal}
         >
-          <div className="min-h-screen px-4 md:pb-0 text-center bg-modern-black bg-opacity-60">
+          <div className="min-h-screen text-center bg-modern-black bg-opacity-60">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -72,7 +73,7 @@ export default function ViewDiary({ photo, title, content, date }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block h-screen md:h-auto w-full max-w-full md:max-w-xl overflow-y-auto text-left align-middle transition-all transform border-0 md:border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-none md:rounded-2xl">
                 <div className="relative">
                   <div className="fixed z-10 top-5 right-5">
                     <button
@@ -86,15 +87,18 @@ export default function ViewDiary({ photo, title, content, date }) {
                     </button>
                   </div>
                 </div>
-                <div className="my-8">
+                <div className="flex w-full h-full overflow-y-auto my-0 md:my-8">
                   <div className="flex flex-col items-center w-full space-y-5">
                     <div className="flex">
-                      <img className="w-[30rem] h-52 object-cover rounded-xl bg-modern-dim" src={photo} alt="profile" />
+                      <img className="w-full md:w-[30rem] h-60 md:h-52 object-cover rounded-none md:rounded-xl bg-modern-dim" src={photo} alt="profile" />
                     </div>
-                    <div className="flex flex-col items-center w-full space-y-3">
-                      <span className="text-lg md:text-xl">{title}</span>
-                      <span className="text-xs md:text-base whitespace-pre-wrap text-gray-400 ml-2">{content}</span>
-                      <span className="text-[10px] md:text-base text-gray-400">{date}</span>
+                    <div className="flex flex-col items-center w-full pb-24 space-y-5">
+                      <div className="flex flex-col items-center w-full">
+                        <span className="text-lg md:text-xl">{title}</span>
+                        <span className="text-xs md:text-sm text-gray-300 mt-2">{online_user.name}</span>
+                        <span className="text-[10px] md:text-xs text-gray-400"><Moment date={ date } format='LL' /></span>
+                      </div>
+                      <span className="text-xs md:text-base text-justify whitespace-pre-wrap text-gray-400 mx-5 md:mx-10">{content}</span>
                     </div>
                   </div>
                 </div>
