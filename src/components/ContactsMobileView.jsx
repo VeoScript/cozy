@@ -12,6 +12,13 @@ import TikTokSmall from '~/lib/icons/socialmedia/TikTokSmall'
 import YouTubeSmall from '~/lib/icons/socialmedia/YouTubeSmall'
 
 export default function ContactsMobileView({ online_user, contacts }) {
+
+  const check = contacts.map((id) => {
+    return {
+      id
+    }
+  })
+
   return (
     <div className="font-poppins flex flex-col w-full h-full">
       <div className="flex flex-col md:flex-row items-center justify-between w-full px-10 py-5 border-b border-modern-white border-opacity-10 space-y-5 md:space-y-0">
@@ -24,6 +31,9 @@ export default function ContactsMobileView({ online_user, contacts }) {
           </svg>
           <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
         </div>
+      </div>
+      <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
+        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Add your first contact here.</h1>
       </div>
       <Scrollbar>
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-full h-full overflow-y-auto pt-16 pb-5 px-5">
