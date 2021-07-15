@@ -113,7 +113,7 @@ export default function SignUp({ all_users }) {
                   <input type="text" name="username" placeholder="Username" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("username", { required: true })} disabled={isSubmitting} />
                   {errors.username && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
                 </div>
-                <div className="flex flex-row items-center w-full space-x-2">
+                <div className="flex flex-col md:flex-row items-center w-full space-x-0 space-y-3 md:space-x-2 md:space-y-0">
                   <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                     <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
