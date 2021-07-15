@@ -32,7 +32,7 @@ export default function ContactDisplay({ online_user, contacts }) {
         <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
       </div>
       <Scrollbar>
-        <div className="contact-list flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden">
+        <div className={`${check[0] ? 'flex' : 'hidden'} contact-list flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden`}>
           <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10 border-b border-modern-white border-opacity-10">
             <span className="w-full max-w-[40px] text-xs">Profile</span>
             <span className="w-full max-w-[14rem] text-xs pl-3">Name</span>

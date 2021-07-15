@@ -45,7 +45,7 @@ export default function DiaryDisplay({ online_user, diaries }) {
       </div>
       <Scrollbar>
         {/* for desktop view */}
-        <div className="contact-list hidden md:flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden">
+        <div className={`${check[0] ? 'flex' : 'hidden'} diary-list flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden`}>
           <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10 border-b border-modern-white border-opacity-10">
             <span className="w-full max-w-[40px] text-xs">Photo</span>
             <span className="w-full max-w-[14rem] text-xs pl-3">Title</span>
