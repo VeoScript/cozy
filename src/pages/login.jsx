@@ -113,7 +113,7 @@ export default function Login({ all_users }) {
                   {errors.password && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-end w-full space-y-3">
-                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none">
+                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
                     Login
                   </button>
                   <Link href="/signup">
