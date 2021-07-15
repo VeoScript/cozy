@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function CreateNew() {
+export default function CreateNew({ online_user, diaries }) {
+
+  const router = useRouter()
   
   let [isOpen, setIsOpen] = useState(false)
 
@@ -27,6 +30,9 @@ export default function CreateNew() {
   }, [register])
 
   async function onCreate(formData) {
+    const userId = online_user.id
+    const photo = formData.photo
+    const title = formData.title
     const create_story = formData.create_story
 
     if (create_story === '') {
@@ -34,9 +40,36 @@ export default function CreateNew() {
       return
     }
 
-    console.log(formData)
+    const titleExist = diaries.some(contact => contact.title === title)
+
+    if (titleExist) {
+      toast.error('Cannot perform, the title is already exist.', {
+        style: {
+          borderRadius: '10px',
+          background: '#333333',
+          color: '#fff',
+          fontSize: '12px'
+        }
+      })
+      return
+    }
+
+    await fetch('/api/diary/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId,
+        photo,
+        title,
+        create_story
+      })
+    })
     reset()
     storycontent.innerText = ''
+    closeModal()
+    router.replace(router.asPath)
   }
 
   return (
