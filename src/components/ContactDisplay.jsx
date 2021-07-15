@@ -8,6 +8,45 @@ import Scrollbar from 'react-smooth-scrollbar'
 
 export default function ContactDisplay({ online_user, contacts }) {
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
+
+  // code for the search function
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if(!event.target.value){
+      setIsOpen(false)
+    }
+    else{
+      setIsOpen(true)
+    }
+  }
+
+  // get all contacts from the api
+  const get_contacts = contacts.map(({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube, favorite }, couter) => {
+    return [
+      id,
+      profile,
+      name,
+      phone,
+      email,
+      address,
+      facebook,
+      instagram,
+      twitter,
+      tiktok,
+      youtube,
+      favorite,
+      couter
+    ]
+  })
+
+  // search input filter for searching the contact name
+  const results = !searchTerm ? get_contacts : get_contacts.filter(contact =>
+    contact[2].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
+
+  // check if there is a contact on the list
   const check = contacts.map((id) => {
     return {
       id
@@ -21,7 +60,14 @@ export default function ContactDisplay({ online_user, contacts }) {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
+          <input
+            className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none"
+            type="text"
+            name="search"
+            value={searchTerm}
+            onChange={handleChange}
+            placeholder="Search"
+          />
         </div>
         <CreateNew
           online_user={online_user}
@@ -32,6 +78,7 @@ export default function ContactDisplay({ online_user, contacts }) {
         <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
       </div>
       <Scrollbar>
+        {/* it will display if there is no contact detected */}
         <div className={`${check[0] ? 'flex' : 'hidden'} contact-list flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden`}>
           <div className="flex flex-row items-center justify-between w-full text-gray-400 px-5 py-3 space-x-10 border-b border-modern-white border-opacity-10">
             <span className="w-full max-w-[40px] text-xs">Profile</span>
@@ -39,8 +86,59 @@ export default function ContactDisplay({ online_user, contacts }) {
             <span className="w-full max-w-[28rem] text-xs pl-5">Phone</span>
             <span className="w-full max-w-[10rem] text-xs">Actions</span>
           </div>
+          {/* it will display if you search the name of the contact on the list */}
+          {setIsOpen && (
+            <>
+              {results.map(contact => (
+                <div className={`${isOpen ? 'flex' : 'hidden'} flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim`} key={contact[12]}>
+                  <img src={contact[1]} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
+                  <span className="w-full max-w-sm text-sm">{contact[2]}</span>
+                  <span className="w-full max-w-sm text-sm">{contact[3]}</span>
+                  <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
+                    <AddFavorite
+                      online_user={online_user}
+                      id={contact[0]}
+                      favorite={contact[11]}
+                    />
+                    <ViewContact
+                      profile={contact[1]}
+                      name={contact[2]}
+                      phone={contact[3]}
+                      email={contact[4]}
+                      address={contact[5]}
+                      facebook={contact[6]}
+                      instagram={contact[7]}
+                      twitter={contact[8]}
+                      tiktok={contact[9]}
+                      youtube={contact[10]}
+                    />
+                    <UpdateContact
+                      online_user={online_user}
+                      id={contact[0]}
+                      profile={contact[1]}
+                      name={contact[2]}
+                      phone={contact[3]}
+                      email={contact[4]}
+                      address={contact[5]}
+                      facebook={contact[6]}
+                      instagram={contact[7]}
+                      twitter={contact[8]}
+                      tiktok={contact[9]}
+                      youtube={contact[10]}
+                    />
+                    <DeleteContact
+                      online_user={online_user}
+                      id={contact[0]}
+                      name={contact[2]}
+                    />
+                  </span>
+                </div>
+              ))}
+            </>
+          )}
+          {/* it will display the list of your contacts getting from the database and it will disappear if you search the name of the contact */}
           {contacts.map(({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube, favorite }, i) => (
-            <div className="flex flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim" key={i}>
+            <div className={`${!isOpen ? 'flex' : 'hidden'} flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim`} key={i}>
               <img src={profile} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
               <span className="w-full max-w-sm text-sm">{name}</span>
               <span className="w-full max-w-sm text-sm">{phone}</span>
