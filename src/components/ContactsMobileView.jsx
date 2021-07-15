@@ -13,6 +13,45 @@ import YouTubeSmall from '~/lib/icons/socialmedia/YouTubeSmall'
 
 export default function ContactsMobileView({ online_user, contacts }) {
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
+
+  // code for the search function
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if(!event.target.value){
+      setIsOpen(false)
+    }
+    else{
+      setIsOpen(true)
+    }
+  }
+
+  // get all contacts from the api
+  const get_contacts = contacts.map(({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube, favorite }, couter) => {
+    return [
+      id,
+      profile,
+      name,
+      phone,
+      email,
+      address,
+      facebook,
+      instagram,
+      twitter,
+      tiktok,
+      youtube,
+      favorite,
+      couter
+    ]
+  })
+
+  // search input filter for searching the contact name
+  const results = !searchTerm ? get_contacts : get_contacts.filter(contact =>
+    contact[2].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
+
+  // check if there is a contact on the list
   const check = contacts.map((id) => {
     return {
       id
@@ -29,16 +68,101 @@ export default function ContactsMobileView({ online_user, contacts }) {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          <input className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none" type="text" name="search" placeholder="Search" />
+          <input
+            className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none"
+            type="text"
+            name="search"
+            value={searchTerm}
+            onChange={handleChange}
+            placeholder="Search"            
+          />
         </div>
       </div>
+      {/* it will display if there is no contact detected */}
       <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
         <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
       </div>
       <Scrollbar>
+        {/* it will display if you search the name of the contact on the list */}
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-full h-full overflow-y-auto pt-16 pb-5 px-5">
+          {/* it will display if you search the name of the contact on the list */}
+          {setIsOpen && (
+            <>
+              {results.map(contact => (
+                <div className={`${isOpen ? 'flex' : 'hidden'} flex-col w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-5 bg-modern-dim`} key={contact[12]}>
+                  <div className="flex flex-row justify-between items-center w-full">
+                    <div className="flex flex-row justify-end">
+                      <AddFavorite
+                        online_user={online_user}
+                        id={contact[0]}
+                        favorite={contact[11]}
+                      />
+                    </div>
+                    <div className="flex justify-center -mt-16 ml-5">
+                      <img className="w-24 h-24 object-cover rounded-full" src={contact[1]} />
+                    </div>
+                    <div className="flex flex-row items-end justify-start space-x-1">
+                      <UpdateContact
+                        online_user={online_user}
+                        id={contact[0]}
+                        profile={contact[1]}
+                        name={contact[2]}
+                        phone={contact[3]}
+                        email={contact[4]}
+                        address={contact[5]}
+                        facebook={contact[6]}
+                        instagram={contact[7]}
+                        twitter={contact[8]}
+                        tiktok={contact[9]}
+                        youtube={contact[10]}
+                      />
+                      <DeleteContact
+                        online_user={online_user}
+                        id={contact[0]}
+                        name={contact[2]}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center w-full">
+                    <div className="flex flex-row items-center justify-center w-full mb-1 space-x-2">
+                      <Link href={contact[6]}>
+                        <a className={`${!contact[6] ? 'hidden' : 'block'}`} target="_blank">
+                          <FacebookSmall />
+                        </a>
+                      </Link>
+                      <Link href={contact[8]}>
+                        <a className={`${!contact[8] ? 'hidden' : 'block'}`} target="_blank">
+                          <TwitterSmall />
+                        </a>
+                      </Link>
+                      <Link href={contact[7]}>
+                        <a className={`${!contact[7] ? 'hidden' : 'block'}`} target="_blank">
+                          <InstagramSmall />
+                        </a>
+                      </Link>
+                      <Link href={contact[9]}>
+                        <a className={`${!contact[9] ? 'hidden' : 'block'}`} target="_blank">
+                          <TikTokSmall />
+                        </a>
+                      </Link>
+                      <Link href={contact[10]}>
+                        <a className={`${!contact[10] ? 'hidden' : 'block'}`} target="_blank">
+                          <YouTubeSmall />
+                        </a>
+                      </Link>
+                    </div>
+                    <span className="text-lg md:text-lg">{contact[2]}</span>
+                    <span className="text-xs md:text-base text-gray-400">{contact[3]}</span>
+                    <span className="text-xs md:text-sm text-gray-400 mt-1">{contact[4]}</span>
+                    <span className="text-[10px] md:text-xs text-gray-400 mt-1">{contact[5]}</span>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          {/* it will display the list of your contacts getting from the database and it will disappear if you search the name of the contact */}
           {contacts.map(({ id, profile, name, phone, email, address, facebook, twitter, instagram, tiktok, youtube, favorite }, i) => (
-            <div className="flex flex-col w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-5 bg-modern-dim" key={i}>
+            <div className={`${!isOpen ? 'flex' : 'hidden'} flex-col w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-5 bg-modern-dim`} key={i}>
               <div className="flex flex-row justify-between items-center w-full">
                 <div className="flex flex-row justify-end">
                   <AddFavorite
