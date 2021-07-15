@@ -7,6 +7,13 @@ import DeleteContact from './Dialogs/Contacts/DeleteContact'
 import Scrollbar from 'react-smooth-scrollbar'
 
 export default function ContactDisplay({ online_user, contacts }) {
+
+  const check = contacts.map((id) => {
+    return {
+      id
+    }
+  })
+
   return (
     <div className="font-poppins hidden md:flex flex-col w-full">
       <div className="flex flex-row items-center justify-between w-full px-5 py-5 border-b border-modern-white border-opacity-10">
@@ -20,6 +27,9 @@ export default function ContactDisplay({ online_user, contacts }) {
           online_user={online_user}
           contacts={contacts}
         />
+      </div>
+      <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
+        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
       </div>
       <Scrollbar>
         <div className="contact-list flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden">

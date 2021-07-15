@@ -33,7 +33,7 @@ export default function ContactsMobileView({ online_user, contacts }) {
         </div>
       </div>
       <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
-        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Add your first contact here.</h1>
+        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
       </div>
       <Scrollbar>
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-full h-full overflow-y-auto pt-16 pb-5 px-5">
