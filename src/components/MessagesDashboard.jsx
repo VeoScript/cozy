@@ -3,16 +3,19 @@ import Scrollbar from 'react-smooth-scrollbar'
 
 export default function MessagesDashboard({ online_user }) {
   return (
-    <div className="flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 rounded-none md:rounded-l-2xl space-y-10 bg-modern-dim border-r border-modern-white border-opacity-10">
+    <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 rounded-none md:rounded-l-2xl space-y-10 bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-row items-center w-full space-x-3">
-          <div className="font-bold text-xl text-honey ml-3">Messages</div>
+          <div className="flex flex-col w-full">
+            <div className="font-bold text-xl text-honey ml-3">Messages</div>
+            <div className="font-light text-[11px] text-gray-400 ml-3">Create room server to start a private conversation.</div>
+          </div>
         </div>
       </div>
       <div className="flex flex-col w-full space-y-3">
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
           <div className="flex flex-row items-center justify-between w-full">
-            <span className="font-normal text-sm">Active Rooms</span>
+            <span className="font-normal text-sm">Join Rooms</span>
             <span className="text-gray-400 text-3xl">
               <RoomIcon />
             </span>
@@ -20,8 +23,8 @@ export default function MessagesDashboard({ online_user }) {
           <div className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col space-y-2">
               <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
-              <button className="py-1 w-full max-w-[6rem] rounded-sm font-normal text-[10px] text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95">
-                Find Rooms
+              <button className="py-1 w-full max-w-[5rem] rounded-sm font-normal text-[10px] text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95">
+                Discover
               </button>
             </div>
             <span className="font-bold text-3xl text-honey">0</span>
@@ -29,7 +32,7 @@ export default function MessagesDashboard({ online_user }) {
         </div>
         <div className="flex flex-col w-full h-full max-h-[23rem] pt-5 pb-2 space-y-3 rounded-xl bg-modern-black">
           <div className="flex flex-row items-center justify-between w-full px-5">
-            <span className="font-normal text-sm">Joined Rooms</span>
+            <span className="font-normal text-sm">My Rooms</span>
             <span className="text-gray-400 text-3xl">
               <LightningIcon />
             </span>
