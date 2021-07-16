@@ -58,7 +58,7 @@ export default function SideBar({ online_user }) {
         <>
           <button onClick={() => {setIsOpen(false)}} type="button" className={`${isOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
           <div className={`z-40 w-full ${isOpen ? 'fixed' : 'hidden'}`}>
-            <div className="fixed left-16 bottom-5 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl bg-modern-black text-white z-10">
+            <div className="fixed left-16 bottom-5 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl bg-modern-black text-white z-10 border border-modern-white border-opacity-10">
               <div className="hidden md:flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
                 <div className="flex flex-col w-full">
                   <Link href="/profile">
