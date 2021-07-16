@@ -2,37 +2,75 @@ import { useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
 
 export default function MessagesDisplay() {
-
-  const [isOpen, setIsOpen] = useState(false)
+  const [dashboardOpen, setDashboardOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="flex flex-row w-full">
+    <div className="flex flex-col md:flex-row w-full h-screen">
       {/* chat display... */}
-      <div className="flex flex-col justify-between w-full max-w-full border-r border-modern-white border-opacity-10">
+      <div className="flex flex-col justify-between w-full max-w-full h-full border-r border-modern-white border-opacity-10">
         <div className="flex flex-row items-center justify-between w-full px-3 py-2 border-b border-modern-white border-opacity-10">
           <div className="flex flex-row items-center space-x-3">
             <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src="https://images.unsplash.com/photo-1565231776967-95aee5973585?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVkcm9vbSUyMGFlc3RoZXRpY3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="room_avatar" />
             <div className="flex flex-col">
               <span className="font-normal text-sm">Room Name</span>
-              <span className="font-normal text-[10px] text-gray-400">Created by: Jerome Villaruel</span>
+              <span className="font-normal text-[10px] text-gray-400">Created by Jerome Villaruel</span>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex space-x-2">
             <button
               className="text-gray-400 transition ease-in-out duration-200 hover:scale-90"
               type="button"
-              onClick={() => { setIsOpen(true) }}
+              onClick={() => { setDashboardOpen(true) }}
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
+              </svg>
+            </button>
+            <button
+              className="text-gray-400 transition ease-in-out duration-200 hover:scale-90"
+              type="button"
+              onClick={() => { setMenuOpen(true) }}
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
               </svg>
             </button>
-            {setIsOpen && (
+            {/* find rooms and participants menu open dropdown */}
+            {setDashboardOpen && (
               <>
-                <button onClick={() => {setIsOpen(false)}} type="button" className={`${isOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
-                <div className={`z-40 w-full ${isOpen ? 'fixed' : 'hidden'}`}>
-                  <div className="fixed right-[20rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
-                    <div className="hidden md:flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
+                <button onClick={() => {setDashboardOpen(false)}} type="button" className={`${dashboardOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
+                <div className={`z-40 w-full ${dashboardOpen ? 'fixed' : 'hidden'}`}>
+                  <div className="fixed right-[2rem] md:right-[22rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
+                    <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
+                      <div className="flex flex-col w-full">
+                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
+                          <LightningIcon />
+                          <span>My Rooms</span>
+                        </button>
+                        <hr className="w-full border-t border-modern-dim" />
+                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
+                          <RoomIcon />
+                          <span>Discover</span>
+                        </button>
+                        <hr className="w-full border-t border-modern-dim" />
+                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
+                          <ParticipantsIcon />
+                          <span>Participants</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {/* chat menu open dropdown */}
+            {setMenuOpen && (
+              <>
+                <button onClick={() => {setMenuOpen(false)}} type="button" className={`${menuOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
+                <div className={`z-40 w-full ${menuOpen ? 'fixed' : 'hidden'}`}>
+                  <div className="fixed right-0 md:right-[20rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
+                    <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
                       <div className="flex flex-col w-full">
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +124,7 @@ export default function MessagesDisplay() {
           </Scrollbar>
         </div>
         {/* message chat forms */}
-        <div className="flex flex-row w-full h-auto px-3 py-3 border-t border-modern-white border-opacity-10">
+        <div className="flex flex-row items-end w-full px-3 py-3 pb-20 md:pb-3 border-t border-modern-white border-opacity-10">
           <form className="flex flex-row items-center w-full max-w-xl space-x-3">
             <div
               contentEditable
@@ -103,7 +141,7 @@ export default function MessagesDisplay() {
         </div>
       </div>
       {/* participants display... */}
-      <div className="flex flex-col w-full max-w-xs h-full overflow-y-auto bg-modern-dim border-r border-modern-white border-opacity-10">
+      <div className="hidden md:flex flex-col w-full max-w-xs h-full overflow-y-auto bg-modern-dim border-r border-modern-white border-opacity-10">
         <Scrollbar>
           <div className="flex w-full font-normal text-sm text-modern-white py-5 px-8">
             Room Participants
@@ -120,5 +158,29 @@ export default function MessagesDisplay() {
         </Scrollbar>
       </div>
     </div>
+  )
+}
+
+function RoomIcon() {
+  return (
+    <svg className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
+      <path d="M9 20h-3v3h-4v-8.766l5.698-4.921 1.711 1.384 6.591-5.697 6 5.236v12.764h-5v-4h-3v4h-5v-3zm-2-5h-2v2h2v-2zm3 0h-2v2h2v-2zm5-1h-2v2h2v-2zm3 0h-2v2h2v-2zm-8.642-7.253l6.642-5.747 8 7-1.329 1.495-6.671-5.819-6.624 5.738-1.678-1.414-6.369 5.495-1.329-1.495 7.698-6.676 1.66 1.423zm5.642 4.253h-2v2h2v-2zm3 0h-2v2h2v-2z"/>
+    </svg>
+  )
+}
+
+function LightningIcon() {
+  return (
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"></path>
+    </svg>
+  )
+}
+
+function ParticipantsIcon() {
+  return (
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+    </svg>
   )
 }
