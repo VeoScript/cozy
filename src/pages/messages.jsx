@@ -57,6 +57,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
       }
     ],
     select: {
+      id: true,
       image: true,
       name: true,
       status: true,
@@ -64,6 +65,12 @@ export const getServerSideProps = withSession(async function ({ req }) {
       author: {
         select: {
           name: true
+        }
+      },
+      joined_rooms: {
+        select: {
+          indicator: true,
+          userId: true
         }
       }
     }

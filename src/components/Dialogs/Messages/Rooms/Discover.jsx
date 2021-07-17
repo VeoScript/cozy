@@ -1,8 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
+import JoinRoomPrivate from './JoinRoomPrivate'
+import JoinRoomPublic from './JoinRoomPublic'
 
-export default function Discover({ rooms }) {
+export default function Discover({ online_user, rooms }) {
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -99,8 +101,8 @@ export default function Discover({ rooms }) {
                   </button>
                 </Dialog.Title>
                 <Scrollbar className="flex flex-row w-full h-full max-h-[28rem] overflow-y-auto px-3 py-5">
-                  {rooms.map(({ image, name, status, author }, i) => (
-                    <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full px-3 py-2 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
+                  {rooms.map(({ id, image, name, status, author, joined_rooms }, i) => (
+                    <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
                       <div className="flex flex-row items-center w-full space-x-3">
                         <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ image } alt="room_avatar" />
                         <div className="flex flex-col items-start">
@@ -118,12 +120,24 @@ export default function Discover({ rooms }) {
                       </div>
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-end w-full ml-[7.5rem] md:ml-0 space-y-1 md:space-0 space-x-0 md:space-x-3">
                         <span className="text-[10px] md:text-xs">10 Participants</span>
-                        <button
-                          className="py-1 w-full max-w-[5rem] rounded-sm font-normal text-[10px] md:text-sm text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95 focus:outline-none"
-                          type="button"
-                        >
-                          Join
-                        </button>
+                        <JoinRoomPublic
+                          online_user={online_user}
+                          id={id}
+                          image={image}
+                          name={name}
+                          status={status}
+                          author={author}
+                          joined_rooms={joined_rooms}
+                        />
+                        <JoinRoomPrivate
+                          online_user={online_user}
+                          id={id}
+                          image={image}
+                          name={name}
+                          status={status}
+                          author={author}
+                          joined_rooms={joined_rooms}
+                        />
                       </div>
                     </div>
                   ))}

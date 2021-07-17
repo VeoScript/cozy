@@ -28,7 +28,10 @@ export default function MessagesDashboard({ online_user, rooms }) {
           <div className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col space-y-2">
               <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
-              <Discover rooms={rooms} />
+              <Discover
+                online_user={online_user}
+                rooms={rooms}
+              />
             </div>
             <span className="font-bold text-3xl text-honey">0</span>
           </div>

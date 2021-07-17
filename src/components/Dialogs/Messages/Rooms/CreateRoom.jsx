@@ -28,7 +28,7 @@ export default function CreateRoom({ online_user }) {
     const name = formData.name
     const status = formData.status
 
-    await fetch('/api/messages/create', {
+    await fetch('/api/messages/room/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
