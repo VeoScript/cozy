@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
+import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
+import Discover from './Dialogs/Messages/Rooms/Discover'
 
 export default function MessagesDisplay() {
   const [dashboardOpen, setDashboardOpen] = useState(false)
@@ -19,7 +21,7 @@ export default function MessagesDisplay() {
           </div>
           <div className="flex space-x-2">
             <button
-              className="text-gray-400 transition ease-in-out duration-200 hover:scale-90"
+              className="md:hidden block text-gray-400 transition ease-in-out duration-200 hover:scale-90"
               type="button"
               onClick={() => { setDashboardOpen(true) }}
             >
@@ -40,19 +42,18 @@ export default function MessagesDisplay() {
             {setDashboardOpen && (
               <>
                 <button onClick={() => {setDashboardOpen(false)}} type="button" className={`${dashboardOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
-                <div className={`z-40 w-full ${dashboardOpen ? 'fixed' : 'hidden'}`}>
-                  <div className="fixed right-[2rem] md:right-[22rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
+                <div className={`z-20 w-full ${dashboardOpen ? 'fixed' : 'hidden'}`}>
+                  <div className="md:hidden fixed right-[2rem] md:right-[22rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
                     <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
                       <div className="flex flex-col w-full">
+                        <CreateRoom />
+                        <hr className="w-full border-t border-modern-dim" />
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <LightningIcon />
                           <span>My Rooms</span>
                         </button>
                         <hr className="w-full border-t border-modern-dim" />
-                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
-                          <RoomIcon />
-                          <span>Discover</span>
-                        </button>
+                        <Discover />
                         <hr className="w-full border-t border-modern-dim" />
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <ParticipantsIcon />
@@ -68,7 +69,7 @@ export default function MessagesDisplay() {
             {setMenuOpen && (
               <>
                 <button onClick={() => {setMenuOpen(false)}} type="button" className={`${menuOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
-                <div className={`z-40 w-full ${menuOpen ? 'fixed' : 'hidden'}`}>
+                <div className={`z-20 w-full ${menuOpen ? 'fixed' : 'hidden'}`}>
                   <div className="fixed right-0 md:right-[20rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
                     <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
                       <div className="flex flex-col w-full">
@@ -158,14 +159,6 @@ export default function MessagesDisplay() {
         </Scrollbar>
       </div>
     </div>
-  )
-}
-
-function RoomIcon() {
-  return (
-    <svg className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
-      <path d="M9 20h-3v3h-4v-8.766l5.698-4.921 1.711 1.384 6.591-5.697 6 5.236v12.764h-5v-4h-3v4h-5v-3zm-2-5h-2v2h2v-2zm3 0h-2v2h2v-2zm5-1h-2v2h2v-2zm3 0h-2v2h2v-2zm-8.642-7.253l6.642-5.747 8 7-1.329 1.495-6.671-5.819-6.624 5.738-1.678-1.414-6.369 5.495-1.329-1.495 7.698-6.676 1.66 1.423zm5.642 4.253h-2v2h2v-2zm3 0h-2v2h2v-2z"/>
-    </svg>
   )
 }
 
