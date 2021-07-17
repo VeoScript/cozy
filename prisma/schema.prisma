@@ -11,7 +11,7 @@ generator client {
 }
 
 model User {
-  id             Int          @id     @default(autoincrement())
+  id             Int          @id      @default(autoincrement())
   avatar         String
   name           String
   email          String       @unique
@@ -20,6 +20,7 @@ model User {
   contacts       Contacts[]
   diary          Diary[]
   rooms          Rooms[]
+  joined_rooms   JoinedRooms[]
 }
 
 model Contacts {
@@ -55,19 +56,20 @@ model Rooms {
   name            String        @unique
   status          String
   date            String
-  participants    Participants[]
-  messages        Messages[]
   author          User          @relation(fields: [authorId], references: [id])
   authorId        Int
 }
 
-model Participants {
+model JoinedRooms {
   id              Int           @id      @default(autoincrement())
-  name            String
-  username        String
-  designation     String
-  rooms           Rooms         @relation(fields: [roomId], references: [id])
-  roomId          Int
+  image           String
+  name            String        @unique
+  status          String
+  date            String
+  rooms           String
+  messages        Messages[]
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
 }
 
 model Messages {
@@ -76,6 +78,6 @@ model Messages {
   to              String
   from            String
   date            String
-  rooms           Rooms          @relation(fields: [roomId], references: [id])
-  roomId          Int
+  joined_rooms    JoinedRooms   @relation(fields: [joined_roomId], references: [id])
+  joined_roomId   Int
 }
