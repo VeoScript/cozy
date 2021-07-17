@@ -99,7 +99,7 @@ export default function Discover({ rooms }) {
                   </button>
                 </Dialog.Title>
                 <Scrollbar className="flex flex-row w-full h-full max-h-[28rem] overflow-y-auto px-3 py-5">
-                  {rooms.map(({ image, name, status }, i) => (
+                  {rooms.map(({ image, name, status, author }, i) => (
                     <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full px-3 py-2 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
                       <div className="flex flex-row items-center w-full space-x-3">
                         <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ image } alt="room_avatar" />
@@ -113,7 +113,7 @@ export default function Discover({ rooms }) {
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd"></path>
                             </svg>
                           </div>
-                          <span className="font-normal text-[10px] md:text-xs text-gray-400">Created by Jerome Villaruel</span>
+                          <span className="font-normal text-[10px] md:text-xs text-gray-400">Created by { author.name }</span>
                         </div>
                       </div>
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-end w-full ml-[7.5rem] md:ml-0 space-y-1 md:space-0 space-x-0 md:space-x-3">
