@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 
-export default function CreateRoom({ online_user }) {
+export default function CreateRoom({ online_user, rooms }) {
 
   const router = useRouter()
   
@@ -28,6 +28,7 @@ export default function CreateRoom({ online_user }) {
     const name = formData.name
     const status = formData.status
 
+    // create room function
     await fetch('/api/messages/room/create', {
       method: 'POST',
       headers: {
@@ -38,6 +39,18 @@ export default function CreateRoom({ online_user }) {
         image,
         name,
         status
+      })
+    })
+
+    // auto join the creator of the room function
+    await fetch('/api/messages/room/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: authorId,
+        roomName: name
       })
     })
 
@@ -109,7 +122,7 @@ export default function CreateRoom({ online_user }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-2xl py-6 px-3 md:px-5 my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-2xl py-6 px-3 md:px-5 my-8 overflow-hidden text-left align-top transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h1"
                   className="flex flex-row items-center justify-between w-full px-5 md:px-3 text-lg font-medium leading-6 text-modern-white"
@@ -127,7 +140,7 @@ export default function CreateRoom({ online_user }) {
                 </Dialog.Title>
                 <div className="mt-5">
                   <form onSubmit={handleSubmit(onCreate)}>
-                    <div className="flex flex-col w-full space-y-3">
+                    <div className="flex flex-col w-full space-y-2">
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>

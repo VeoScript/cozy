@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-export default function JoinRoomPublic({ online_user, id, status, joined_rooms }) {
+export default function JoinRoomPublic({ online_user, id, name, status, joined_rooms }) {
   
   // check if the user are already joined in this room
   const checkJoin = joined_rooms.some(joined => joined.indicator === true)
@@ -13,9 +13,7 @@ export default function JoinRoomPublic({ online_user, id, status, joined_rooms }
 
   async function onJoin() {
     const userId = online_user.id
-    const roomId = id
-
-    console.log('userID: ' + userId, 'roomID: ' + roomId)
+    const roomName = name
 
     await fetch('/api/messages/room/join', {
       method: 'POST',
@@ -24,7 +22,7 @@ export default function JoinRoomPublic({ online_user, id, status, joined_rooms }
       },
       body: JSON.stringify({
         userId,
-        roomId
+        roomName
       })
     })
     router.replace(router.asPath)
