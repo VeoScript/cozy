@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 
-export default function CreateRoom() {
+export default function CreateRoom({ online_user }) {
 
   const router = useRouter()
   
@@ -23,8 +23,24 @@ export default function CreateRoom() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm()
 
   async function onCreate(formData) {
-    // const userId = online_user.id
-    console.log(formData)
+    const authorId = online_user.id
+    const image = formData.image
+    const name = formData.name
+    const status = formData.status
+
+    await fetch('/api/messages/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        authorId,
+        image,
+        name,
+        status
+      })
+    })
+
     reset()
     closeModal()
     router.replace(router.asPath)
