@@ -14,7 +14,10 @@ export default function MessagesDashboard({ online_user, rooms }) {
           </div>
         </div>
         <div className="flex ml-3 mt-5">
-          <CreateRoom online_user={online_user} />
+          <CreateRoom
+            online_user={online_user}
+            rooms={rooms}
+          />
         </div>
       </div>
       <div className="flex flex-col w-full space-y-3">

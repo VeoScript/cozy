@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const joinRoom = await prisma.joinedRooms.create({
       data: {
         date: new Date(),
-        roomId: req.body.roomId,
+        roomName: req.body.roomName,
         userId: req.body.userId
       }
     })

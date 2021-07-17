@@ -70,7 +70,8 @@ export const getServerSideProps = withSession(async function ({ req }) {
       joined_rooms: {
         select: {
           indicator: true,
-          userId: true
+          userId: true,
+          roomName: true
         }
       }
     }

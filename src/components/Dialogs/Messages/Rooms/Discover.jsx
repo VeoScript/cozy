@@ -70,7 +70,7 @@ export default function Discover({ online_user, rooms }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-3xl my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-3xl my-8 overflow-hidden text-left align-top transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="flex flex-col md:flex-row items-center justify-center md:justify-between mx-6 mt-5 text-lg font-medium leading-6 space-y-3 md:space-y-0"
@@ -100,9 +100,9 @@ export default function Discover({ online_user, rooms }) {
                     </svg>
                   </button>
                 </Dialog.Title>
-                <Scrollbar className="flex flex-row w-full h-full max-h-[28rem] overflow-y-auto px-3 py-5">
+                <Scrollbar className="flex flex-row w-full h-full max-h-[28rem] overflow-y-auto overflow-x-hidden px-3 py-5">
                   {rooms.map(({ id, image, name, status, author, joined_rooms }, i) => (
-                    <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
+                    <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full overflow-x-hidden px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
                       <div className="flex flex-row items-center w-full space-x-3">
                         <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ image } alt="room_avatar" />
                         <div className="flex flex-col items-start">
