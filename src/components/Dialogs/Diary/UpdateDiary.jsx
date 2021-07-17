@@ -143,14 +143,14 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                           <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                         </svg>
                         <input type="text" name="photo" placeholder="Photo URL" {...register("photo", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                        {errors.photo && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                        {errors.photo && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                       </div>
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
                         </svg>
                         <input type="text" name="title" placeholder="Title" {...register("title", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                        {errors.title && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                        {errors.title && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                       </div>
                       <div className="flex items-start w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40 mt-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -166,7 +166,7 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                         >
                           { content }
                         </div>
-                        {errors.create_story && <span className="flex flex-row justify-end w-full text-[10px] text-honey mt-5">Required</span>}
+                        {errors.create_story && <span className="flex flex-row justify-end text-[10px] text-honey mt-5">Required</span>}
                       </div>
                     </div>
                     <div className="flex flex-row justify-end mt-4">

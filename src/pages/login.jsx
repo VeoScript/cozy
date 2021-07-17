@@ -20,8 +20,6 @@ export default function Login({ all_users }) {
     const username = formData.username
     const password = formData.password
 
-    console.log(username)
-
     const checkUser = all_users.find(user => user.username === username)
 
     if (!checkUser) {
@@ -103,14 +101,14 @@ export default function Login({ all_users }) {
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
                   </svg>
                   <input type="text" name="username" placeholder="Username" {...register("username", { required: true })} className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                  {errors.username && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                  {errors.username && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
                   </svg>
                   <input type="password" name="password" placeholder="Password" {...register("password", { required: true })} className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                  {errors.password && <span className="flex flex-row justify-end w-full text-[10px] text-honey">Required</span>}
+                  {errors.password && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-end w-full space-y-3">
                   <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
