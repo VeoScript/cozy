@@ -14,6 +14,16 @@ export default async function handler(req, res) {
           select: {
             name: true
           }
+        },
+        joined_rooms: {
+          select: {
+            indicator: true,
+            user: {
+              select: {
+                name: true
+              }
+            }
+          }
         }
       }
     })

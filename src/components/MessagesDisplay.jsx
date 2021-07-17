@@ -46,14 +46,17 @@ export default function MessagesDisplay({ online_user, rooms }) {
                   <div className="md:hidden fixed right-[2rem] md:right-[22rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
                     <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
                       <div className="flex flex-col w-full">
-                        <CreateRoom />
+                        <CreateRoom online_user={online_user} />
                         <hr className="w-full border-t border-modern-dim" />
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <LightningIcon />
                           <span>My Rooms</span>
                         </button>
                         <hr className="w-full border-t border-modern-dim" />
-                        <Discover rooms={rooms} />
+                        <Discover
+                          online_user={online_user}
+                          rooms={rooms}
+                        />
                         <hr className="w-full border-t border-modern-dim" />
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <ParticipantsIcon />
