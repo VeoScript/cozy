@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Scrollbar from 'react-smooth-scrollbar'
+import CreateRoom from './Dialogs/Messages/Rooms/Create'
 
 export default function MessagesDashboard({ online_user }) {
   return (
@@ -23,9 +24,7 @@ export default function MessagesDashboard({ online_user }) {
           <div className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col space-y-2">
               <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
-              <button className="py-1 w-full max-w-[5rem] rounded-sm font-normal text-[10px] text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95">
-                Discover
-              </button>
+              <CreateRoom />
             </div>
             <span className="font-bold text-3xl text-honey">0</span>
           </div>
