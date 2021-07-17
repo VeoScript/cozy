@@ -3,7 +3,7 @@ import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 
-export default function MessagesDashboard({ online_user }) {
+export default function MessagesDashboard({ online_user, rooms }) {
   return (
     <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 rounded-none md:rounded-l-2xl space-y-5 bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-col justify-between w-full">
@@ -28,7 +28,7 @@ export default function MessagesDashboard({ online_user }) {
           <div className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col space-y-2">
               <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
-              <Discover />
+              <Discover rooms={rooms} />
             </div>
             <span className="font-bold text-3xl text-honey">0</span>
           </div>

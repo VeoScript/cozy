@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Messages({ online_user }) {
+export default function Messages({ online_user, rooms }) {
   return (
     <>
       <Head>
@@ -17,9 +17,11 @@ export default function Messages({ online_user }) {
         <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
           <MessagesDashboard
             online_user={online_user}
+            rooms={rooms}
           />
           <MessagesDisplay
             online_user={online_user}
+            rooms={rooms}
           />
         </div>
       </Layout>
@@ -47,9 +49,19 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //get all rooms from the database
+  const rooms = await prisma.rooms.findMany({
+    orderBy: [
+      {
+        date: 'desc'
+      }
+    ]
+  })
+
   return {
     props: {
       online_user,
+      rooms
     }
   }
 })
