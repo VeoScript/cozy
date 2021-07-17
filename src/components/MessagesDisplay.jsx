@@ -3,7 +3,7 @@ import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 
-export default function MessagesDisplay() {
+export default function MessagesDisplay({ online_user, rooms }) {
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -53,7 +53,7 @@ export default function MessagesDisplay() {
                           <span>My Rooms</span>
                         </button>
                         <hr className="w-full border-t border-modern-dim" />
-                        <Discover />
+                        <Discover rooms={rooms} />
                         <hr className="w-full border-t border-modern-dim" />
                         <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
                           <ParticipantsIcon />
