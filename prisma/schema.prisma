@@ -66,8 +66,8 @@ model JoinedRooms {
   id              Int           @id      @default(autoincrement())
   date            String
   indicator       Boolean       @default(true)
-  room            Rooms         @relation(fields: [roomId], references: [id])
-  roomId          Int
+  room            Rooms         @relation(fields: [roomName], references: [name])
+  roomName        String
   messages        Messages[]
   user            User          @relation(fields: [userId], references: [id])
   userId          Int
