@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast, { Toaster } from 'react-hot-toast'
 
 export default function CreateRoom({ online_user, rooms }) {
 
@@ -20,13 +19,43 @@ export default function CreateRoom({ online_user, rooms }) {
     setIsOpen(true)
   }
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm()
+  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting }} = useForm()
+
+  function onPrivate(e) {
+    if (e.currentTarget.value === 'Private') {
+      document.getElementById("passcode").style.display = 'flex'
+      document.getElementById("repasscode").style.display = 'flex'
+    } else {
+      document.getElementById("passcode").style.display = 'none'
+      document.getElementById("repasscode").style.display = 'none'
+    }
+  }
 
   async function onCreate(formData) {
     const authorId = online_user.id
     const image = formData.image
     const name = formData.name
     const status = formData.status
+    const passcode = formData.passcode
+    const repasscode = formData.repasscode
+
+    if (status === 'Private') {
+      if (passcode === '') {
+        setError('passcode')
+        return
+      }
+      if (repasscode === '') {
+        setError('repasscode')
+        return
+      }
+    }
+
+    if (passcode !== repasscode) {
+      document.getElementById("custom_toast").innerText = 'Passcode did not match. Try again.'
+      return
+    } else {
+      document.getElementById("custom_toast").innerText = ''
+    }
 
     // create room function
     await fetch('/api/messages/room/create', {
@@ -38,7 +67,8 @@ export default function CreateRoom({ online_user, rooms }) {
         authorId,
         image,
         name,
-        status
+        status,
+        passcode
       })
     })
 
@@ -61,10 +91,6 @@ export default function CreateRoom({ online_user, rooms }) {
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        reverseOrder={true}
-      />
       <button
         className="hidden md:flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-xs rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
         type="button"
@@ -158,9 +184,11 @@ export default function CreateRoom({ online_user, rooms }) {
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd"></path>
                         </svg>
                         <select
+                          id="select_status"
                           className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-gray-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                           {...register("status", { required: true })}
                           disabled={isSubmitting}
+                          onChange={onPrivate}
                         >
                           <option value="" disabled selected>Status</option>
                           <option value="Private">Private</option>
@@ -168,8 +196,25 @@ export default function CreateRoom({ online_user, rooms }) {
                         </select>
                         {errors.status && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                       </div>
+                      <div className="flex flex-col md:flex-row items-center w-full space-x-0 md:space-x-2 space-y-2 md:space-y-0">
+                        <div id="passcode" className="hidden items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
+                          <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
+                          </svg>
+                          <input type="password" name="passcode" placeholder="Passcode" {...register("passcode")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
+                          {errors.passcode && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                        </div>
+                        <div id="repasscode" className="hidden items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
+                          <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                          </svg>
+                          <input type="password" name="repasscode" placeholder="Re-enter Passcode" {...register("repasscode")} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
+                          {errors.repasscode && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                        </div>
+                      </div>
+                      <span className="flex flex-row justify-left text-[12px] text-honey ml-2" id="custom_toast"></span>
                     </div>
-                    <div className="flex flex-row justify-end mt-3">
+                    <div className="flex flex-row justify-end mt-2">
                       <button
                         className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         type="submit"
