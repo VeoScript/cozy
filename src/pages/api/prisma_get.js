@@ -10,6 +10,7 @@ export default async function handler(req, res) {
         name: true,
         status: true,
         date: true,
+        passcode: true,
         author: {
           select: {
             name: true

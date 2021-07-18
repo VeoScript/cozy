@@ -148,7 +148,7 @@ export default function CreateRoom({ online_user, rooms }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-2xl py-6 px-3 md:px-5 my-8 overflow-hidden text-left align-top transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-xl py-6 px-3 md:px-5 my-8 overflow-hidden text-left align-top transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h1"
                   className="flex flex-row items-center justify-between w-full px-5 md:px-3 text-lg font-medium leading-6 text-modern-white"
@@ -214,7 +214,7 @@ export default function CreateRoom({ online_user, rooms }) {
                       </div>
                       <span className="flex flex-row justify-left text-[12px] text-honey ml-2" id="custom_toast"></span>
                     </div>
-                    <div className="flex flex-row justify-end mt-2">
+                    <div className="flex flex-row justify-end mt-1">
                       <button
                         className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         type="submit"
