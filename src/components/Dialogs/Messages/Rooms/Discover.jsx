@@ -6,7 +6,39 @@ import JoinRoomPublic from './JoinRoomPublic'
 
 export default function Discover({ online_user, rooms }) {
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isDisplay, setIsDisplay] = useState(false)
   let [isOpen, setIsOpen] = useState(false)
+
+  // code for the search function
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if(!event.target.value){
+      setIsDisplay(false)
+    }
+    else{
+      setIsDisplay(true)
+    }
+  }
+
+  // get all rooms from the api
+  const get_rooms = rooms.map(({ id, image, name, status, author, passcode, joined_rooms }, couter) => {
+    return [
+      id,
+      image,
+      name,
+      status,
+      author,
+      passcode,
+      joined_rooms,
+      couter
+    ]
+  })
+
+  // search input filter for searching the room name
+  const results = !searchTerm ? get_rooms : get_rooms.filter(room =>
+    room[2].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
 
   function closeModal() {
     setIsOpen(false)
@@ -87,6 +119,9 @@ export default function Discover({ online_user, rooms }) {
                       className="w-full bg-modern-black font-light text-xs text-gray-300 focus:outline-none"
                       type="text"
                       name="search"
+                      id="search"
+                      value={searchTerm}
+                      onChange={handleChange}
                       placeholder="Search Room"
                     />
                   </div>
@@ -102,8 +137,53 @@ export default function Discover({ online_user, rooms }) {
                 </Dialog.Title>
                 <Scrollbar className="flex flex-row w-full h-full max-h-[30rem] overflow-y-auto overflow-x-hidden px-3 py-5">
                   <div className="w-full pb-5">
+                    {setIsDisplay && (
+                      <>
+                        {results.map(room => (
+                          <div className={`${isDisplay ? 'flex' : 'hidden'} flex-col md:flex-row items-center justify-start md:justify-between w-full overflow-x-hidden px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default`} key={room[7]}>
+                            <div className="flex flex-row items-center w-full space-x-3">
+                              <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ room[1] } alt="room_avatar" />
+                              <div className="flex flex-col items-start">
+                                <div className="flex flex-row items-center space-x-1">
+                                  <span className="font-normal text-sm md:text-base">{ room[2] }</span>
+                                  <svg className={`${room[3] === 'Private' ? 'block' : 'hidden'} w-3 h-3 text-[#58F547]`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path>
+                                  </svg>
+                                  <svg className={`${room[3] === 'Public' ? 'block' : 'hidden'} w-3 h-3 text-gray-400`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd"></path>
+                                  </svg>
+                                </div>
+                                <span className="font-normal text-[10px] md:text-xs text-gray-400">Created by { room[4].name }</span>
+                              </div>
+                            </div>
+                            <div className="flex flex-col md:flex-row items-start md:items-center justify-end w-full ml-[7.5rem] md:ml-0 space-y-1 md:space-0 space-x-0 md:space-x-3">
+                              <span className="text-[10px] md:text-xs text-gray-400">{ room[6].length } Participants</span>
+                              <JoinRoomPublic
+                                online_user={online_user}
+                                id={room[0]}
+                                image={room[1]}
+                                name={room[2]}
+                                status={room[3]}
+                                author={room[4]}
+                                joined_rooms={room[6]}
+                              />
+                              <JoinRoomPrivate
+                                online_user={online_user}
+                                id={room[0]}
+                                image={room[1]}
+                                name={room[2]}
+                                status={room[3]}
+                                author={room[4]}
+                                passcode={room[5]}
+                                joined_rooms={room[6]}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </>
+                    )}
                     {rooms.map(({ id, image, name, status, author, passcode, joined_rooms }, i) => (
-                      <div className="flex flex-col md:flex-row items-center justify-start md:justify-between w-full overflow-x-hidden px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default" key={i}>
+                      <div className={`${!isDisplay ? 'flex' : 'hidden'} flex-col md:flex-row items-center justify-start md:justify-between w-full overflow-x-hidden px-3 py-2 mb-0 md:mb-3 rounded-xl transition-all duration-300 hover:bg-modern-dim cursor-default`} key={i}>
                         <div className="flex flex-row items-center w-full space-x-3">
                           <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ image } alt="room_avatar" />
                           <div className="flex flex-col items-start">
