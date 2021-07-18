@@ -2,9 +2,8 @@ import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast, { Toaster } from 'react-hot-toast'
 
-export default function JoinRoomPrivate({ online_user, id, image, name, status, author }) {
+export default function JoinRoomPrivate({ online_user, image, name, status, author, passcode, joined_rooms }) {
 
   const router = useRouter()
   
@@ -22,9 +21,19 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm()
 
+  // check if the user are already joined in this room
+  const checkJoin = joined_rooms.some(joined => joined.indicator === true)
+  const checkJoinedUser = joined_rooms.some(joined => joined.userId === online_user.id)
+
   async function onJoin(formData) {
     const userId = online_user.id
-    const roomId = id
+    const roomName = name
+    const textpasscode = formData.passcode
+
+    if (textpasscode !== passcode) {
+      document.getElementById("custom_toast").innerText = 'Invalid room passcode.'
+      return
+    }
 
     await fetch('/api/messages/room/join', {
       method: 'POST',
@@ -33,10 +42,10 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
       },
       body: JSON.stringify({
         userId,
-        roomId
+        roomName
       })
     })
-
+    
     reset()
     closeModal()
     router.replace(router.asPath)
@@ -44,17 +53,20 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
 
   return (
     <>
-      <Toaster
-        position="top-center"
-        reverseOrder={true}
-      />
-      <button
-        className={`${status === "Private" ? 'block' : 'hidden'} py-1 w-full max-w-[5rem] rounded-sm font-normal text-[10px] md:text-sm text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95 focus:outline-none`}
-        type="button"
-        onClick={openModal}
-      >
-        Join
-      </button>
+      <div className={`${status === "Private" ? 'block' : 'hidden'} w-full max-w-[5rem]`}>
+        <button
+          className={`${checkJoin === true && checkJoinedUser === true ? 'hidden' : 'block'} py-1 w-full rounded-sm font-normal text-[10px] md:text-sm text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95 focus:outline-none`}
+          type="button"
+          onClick={openModal}
+        >
+          Join
+        </button>
+        <div
+          className={`${checkJoin === true && checkJoinedUser === true ? 'block' : 'hidden'} py-1 w-full text-center rounded-sm font-normal text-[10px] md:text-sm text-modern-white bg-[#333]`}
+        >
+          Joined
+        </div>
+      </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -91,7 +103,7 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-sm py-6 px-3 md:px-5 my-8 overflow-hidden text-left align-middle transition-all transform border border-modern-white border-opacity-10 bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-sm py-6 px-3 md:px-5 my-8 md:my-20 overflow-hidden text-left align-center md:align-top transition-all transform border border-modern-white border-opacity-10 bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <button
                   className="fixed top-3 right-3 transition ease-in-out duration-200 hover:scale-90 focus:outline-none"
                   type="button"
@@ -118,6 +130,7 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
                       <input type="password" name="passcode" placeholder="Passcode" {...register("passcode", { required: true })} className="w-full h-full px-3 py-3 text-xs md:text-sm bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                       {errors.passcode && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                     </form>
+                    <span className="flex flex-row justify-left text-[12px] text-honey ml-2" id="custom_toast"></span>
                   </div>
                 </div>
               </div>
@@ -126,13 +139,5 @@ export default function JoinRoomPrivate({ online_user, id, image, name, status, 
         </Dialog>
       </Transition>
     </>
-  )
-}
-
-function RoomIcon() {
-  return (
-    <svg className="w-8 h-8 fill-current opacity-40" width='24' height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
-      <path d="M9 20h-3v3h-4v-8.766l5.698-4.921 1.711 1.384 6.591-5.697 6 5.236v12.764h-5v-4h-3v4h-5v-3zm-2-5h-2v2h2v-2zm3 0h-2v2h2v-2zm5-1h-2v2h2v-2zm3 0h-2v2h2v-2zm-8.642-7.253l6.642-5.747 8 7-1.329 1.495-6.671-5.819-6.624 5.738-1.678-1.414-6.369 5.495-1.329-1.495 7.698-6.676 1.66 1.423zm5.642 4.253h-2v2h2v-2zm3 0h-2v2h2v-2z"/>
-    </svg>
   )
 }

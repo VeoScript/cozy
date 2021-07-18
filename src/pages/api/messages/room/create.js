@@ -10,7 +10,8 @@ export default async function handler(req, res) {
         name: req.body.name,
         status: req.body.status,
         date: new Date(),
-        authorId: req.body.authorId
+        authorId: req.body.authorId,
+        passcode: req.body.passcode
       }
     })
     res.json(create)
