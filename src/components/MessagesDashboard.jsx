@@ -3,9 +3,9 @@ import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 
-export default function MessagesDashboard({ online_user, rooms }) {
+export default function MessagesDashboard({ online_user, rooms, user_joined_rooms }) {
   return (
-    <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 rounded-none md:rounded-l-2xl space-y-5 bg-modern-dim border-r border-modern-white border-opacity-10">
+    <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-5 py-6 rounded-none md:rounded-l-2xl space-y-5 bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-col justify-between w-full">
         <div className="flex flex-row items-center w-full space-x-3">
           <div className="flex flex-col w-full">
@@ -41,22 +41,22 @@ export default function MessagesDashboard({ online_user, rooms }) {
         </div>
         <div className="flex flex-col w-full h-full max-h-[23rem] pt-5 pb-2 space-y-3 rounded-xl bg-modern-black">
           <div className="flex flex-row items-center justify-between w-full px-5">
-            <span className="font-normal text-sm">My Rooms</span>
+            <span className="font-normal text-sm">Rooms</span>
             <span className="text-gray-400 text-3xl">
               <LightningIcon />
             </span>
           </div>
           <div className="flex flex-col w-full h-full overflow-y-auto px-2">
             <Scrollbar>
-              <Link href="/messages">
-                <a className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim">
-                  <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src="https://images.unsplash.com/photo-1565231776967-95aee5973585?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVkcm9vbSUyMGFlc3RoZXRpY3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="room_avatar" />
-                  <div className="flex flex-col">
-                    <span className="font-normal text-[12px]">Room Name</span>
-                    <span className="font-normal text-[10px]">10 Participants</span>
+              {user_joined_rooms.map(({ roomName, room }, i) => (
+                <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
+                  <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={room.image} alt="room_avatar" />
+                  <div className="flex flex-col items-start">
+                    <span className="font-normal text-[12px]">{ roomName }</span>
+                    <span className="font-normal text-[10px] text-gray-400">{ Object.keys(room.joined_rooms).length } Participants</span>
                   </div>
-                </a>
-              </Link>
+                </button>
+              ))}
             </Scrollbar>
           </div>
         </div>

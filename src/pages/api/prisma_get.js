@@ -4,26 +4,56 @@ const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const rooms = await prisma.rooms.findMany({
+    // const rooms = await prisma.rooms.findMany({
+    //   select: {
+    //     image: true,
+    //     name: true,
+    //     status: true,
+    //     date: true,
+    //     passcode: true,
+    //     author: {
+    //       select: {
+    //         name: true
+    //       }
+    //     },
+    //     joined_rooms: {
+    //       select: {
+    //         indicator: true,
+    //         user: {
+    //           select: {
+    //             name: true
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // })
+    // const rooms = await prisma.user.findMany({
+    //   select: {
+    //     id: true,
+    //     username: true,
+    //     joined_rooms: {
+    //       select: {
+    //         id: true,
+    //         roomName: true,
+    //         userId: true
+    //       }
+    //     }
+    //   }
+    // })
+    const rooms = await prisma.joinedRooms.findMany({
+      where: {
+        userId: 1
+      },
       select: {
-        image: true,
-        name: true,
-        status: true,
-        date: true,
-        passcode: true,
-        author: {
+        id: true,
+        userId: true,
+        user: true,
+        roomName:true,
+        room: {
           select: {
-            name: true
-          }
-        },
-        joined_rooms: {
-          select: {
-            indicator: true,
-            user: {
-              select: {
-                name: true
-              }
-            }
+            image: true,
+            joined_rooms: true
           }
         }
       }

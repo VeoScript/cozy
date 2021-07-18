@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Messages({ online_user, rooms }) {
+export default function Messages({ online_user, rooms, user_joined_rooms }) {
   return (
     <>
       <Head>
@@ -18,10 +18,12 @@ export default function Messages({ online_user, rooms }) {
           <MessagesDashboard
             online_user={online_user}
             rooms={rooms}
+            user_joined_rooms={user_joined_rooms}
           />
           <MessagesDisplay
             online_user={online_user}
             rooms={rooms}
+            user_joined_rooms={user_joined_rooms}
           />
         </div>
       </Layout>
@@ -78,10 +80,35 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //get all joined rooms of the user
+  const user_joined_rooms = await prisma.joinedRooms.findMany({
+    orderBy: [
+      {
+        id: 'desc'
+      }
+    ],
+    where: {
+      userId: 1
+    },
+    select: {
+      id: true,
+      userId: true, 
+      user: true,
+      roomName:true,
+      room: {
+        select: {
+          image: true,
+          joined_rooms: true
+        }
+      }
+    }
+  })
+
   return {
     props: {
       online_user,
-      rooms
+      rooms,
+      user_joined_rooms
     }
   }
 })
