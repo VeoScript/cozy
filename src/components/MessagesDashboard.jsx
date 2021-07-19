@@ -1,66 +1,82 @@
-import Link from 'next/link'
+import { useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
+import MessagesDisplay from '~/components/MessagesDisplay'
 
 export default function MessagesDashboard({ online_user, rooms, user_joined_rooms }) {
+
+  // to identify the joined room selected by the user
+  const [joinedRoom, setJoinedRoom] = useState({})
+
   return (
-    <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-5 py-6 rounded-none md:rounded-l-2xl space-y-5 bg-modern-dim border-r border-modern-white border-opacity-10">
-      <div className="flex flex-col justify-between w-full">
-        <div className="flex flex-row items-center w-full space-x-3">
-          <div className="flex flex-col w-full">
-            <div className="font-bold text-xl text-honey ml-3">Messages</div>
-            <div className="font-light text-[11px] text-gray-400 ml-3">Create room server to start a private conversation.</div>
-          </div>
-        </div>
-        <div className="flex ml-3 mt-5">
-          <CreateRoom
-            online_user={online_user}
-            rooms={rooms}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col w-full space-y-3">
-        <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
-          <div className="flex flex-row items-center justify-between w-full">
-            <span className="font-normal text-sm">Join Rooms</span>
-            <span className="text-gray-400 text-3xl">
-              <RoomIcon />
-            </span>
-          </div>
-          <div className="flex flex-row items-center justify-between w-full">
-            <div className="flex flex-col space-y-2">
-              <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
-              <Discover
-                online_user={online_user}
-                rooms={rooms}
-              />
+    <div className="flex flex-row w-full">
+      <div className="hidden md:flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-5 py-6 rounded-none md:rounded-l-2xl space-y-5 bg-modern-dim border-r border-modern-white border-opacity-10">
+        <div className="flex flex-col justify-between w-full">
+          <div className="flex flex-row items-center w-full space-x-3">
+            <div className="flex flex-col w-full">
+              <div className="font-bold text-xl text-honey ml-3">Messages</div>
+              <div className="font-light text-[11px] text-gray-400 ml-3">Create room server to start a private conversation.</div>
             </div>
-            <span className="font-bold text-3xl text-honey">0</span>
+          </div>
+          <div className="flex ml-3 mt-5">
+            <CreateRoom
+              online_user={online_user}
+              rooms={rooms}
+            />
           </div>
         </div>
-        <div className="flex flex-col w-full h-full max-h-[23rem] pt-5 pb-2 space-y-3 rounded-xl bg-modern-black">
-          <div className="flex flex-row items-center justify-between w-full px-5">
-            <span className="font-normal text-sm">Rooms</span>
-            <span className="text-gray-400 text-3xl">
-              <LightningIcon />
-            </span>
+        <div className="flex flex-col w-full space-y-3">
+          <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
+            <div className="flex flex-row items-center justify-between w-full">
+              <span className="font-normal text-sm">Join Rooms</span>
+              <span className="text-gray-400 text-3xl">
+                <RoomIcon />
+              </span>
+            </div>
+            <div className="flex flex-row items-center justify-between w-full">
+              <div className="flex flex-col space-y-2">
+                <span className="font-light text-xs text-gray-400">Wanna start a chat? Join here.</span>
+                <Discover
+                  online_user={online_user}
+                  rooms={rooms}
+                />
+              </div>
+              <span className="font-bold text-3xl text-honey">0</span>
+            </div>
           </div>
-          <div className="flex flex-col w-full h-full overflow-y-auto px-2">
-            <Scrollbar>
-              {user_joined_rooms.map(({ roomName, room }, i) => (
-                <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
-                  <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={room.image} alt="room_avatar" />
-                  <div className="flex flex-col items-start">
-                    <span className="font-normal text-[12px]">{ roomName }</span>
-                    <span className="font-normal text-[10px] text-gray-400">{ Object.keys(room.joined_rooms).length } Participants</span>
-                  </div>
-                </button>
-              ))}
-            </Scrollbar>
+          <div className="flex flex-col w-full h-full max-h-[23rem] pt-5 pb-2 space-y-3 rounded-xl bg-modern-black">
+            <div className="flex flex-row items-center justify-between w-full px-5">
+              <span className="font-normal text-sm">Rooms</span>
+              <span className="text-gray-400 text-3xl">
+                <LightningIcon />
+              </span>
+            </div>
+            <div className="flex flex-col w-full h-full overflow-y-auto px-2">
+              <Scrollbar>
+                {user_joined_rooms.map(({ id, roomName, room }, i) => (
+                  <>
+                    <button onClick={() => {setJoinedRoom([id, roomName, room.image, room.author.name, room.joined_rooms])}} type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
+                      <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={room.image} alt="room_avatar" />
+                      <div className="flex flex-col items-start">
+                        <span className="font-normal text-[12px]">{ roomName }</span>
+                        <span className="font-normal text-[10px] text-gray-400">{ Object.keys(room.joined_rooms).length } Participants</span>
+                      </div>
+                    </button>
+                  </>
+                ))}
+              </Scrollbar>
+            </div>
           </div>
         </div>
       </div>
+      {/* display the chatroom and participants */}
+      <MessagesDisplay
+        online_user={online_user}
+        rooms={rooms}
+        user_joined_rooms={user_joined_rooms}
+        joinedRoom={joinedRoom}
+      />
     </div>
   )
 }

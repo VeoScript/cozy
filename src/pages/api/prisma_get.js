@@ -47,13 +47,34 @@ export default async function handler(req, res) {
       },
       select: {
         id: true,
-        userId: true,
+        userId: true, 
         user: true,
         roomName:true,
         room: {
           select: {
             image: true,
-            joined_rooms: true
+            joined_rooms: {
+              select: {
+                id: true,
+                date: true,
+                indicator: true,
+                messages: true,
+                roomName: true,
+                userId: true,
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    avatar: true
+                  }
+                }
+              }
+            },
+            author: {
+              select: {
+                name: true
+              }
+            }
           }
         }
       }
