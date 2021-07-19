@@ -9,13 +9,18 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, user_j
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // if (typeof first_user_joined_rooms.room == 'null' && first_user_joined_rooms.room) {
+  //   console.log('WALA GAGO')
+  //   return
+  // }
+
   return (
     <div className="flex flex-col md:flex-row w-full h-screen">
       {/* chat display... */}
       <div className="flex flex-col justify-between w-full max-w-full h-full border-r border-modern-white border-opacity-10">
         <div className="flex flex-row items-center justify-between w-full px-3 py-2 border-b border-modern-white border-opacity-10">
           <div className="flex flex-row items-center space-x-3">
-            <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ !joinedRoom[2] ? first_user_joined_rooms.room.image : joinedRoom[2] } alt="room_avatar" />
+            <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ first_user_joined_rooms.room.image === null ? '' : !joinedRoom[2] ? first_user_joined_rooms.room.image : joinedRoom[2] } alt="room_avatar" />
             <div className="flex flex-col">
               <span className="font-normal text-sm">{ !joinedRoom[1] ? first_user_joined_rooms.roomName : joinedRoom[1] }</span>
               <span className="font-normal text-[10px] text-gray-400">Created by { !joinedRoom[3] ? first_user_joined_rooms.room.author.name : joinedRoom[3] }</span>

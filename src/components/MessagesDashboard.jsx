@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
+import CreateRoom2 from './Dialogs/Messages/Rooms/CreateRoom2'
 import Discover from './Dialogs/Messages/Rooms/Discover'
+import Discover2 from './Dialogs/Messages/Rooms/Discover2'
 import MessagesDisplay from '~/components/MessagesDisplay'
 
 export default function MessagesDashboard({ online_user, rooms, user_joined_rooms, first_user_joined_rooms }) {
@@ -73,15 +75,35 @@ export default function MessagesDashboard({ online_user, rooms, user_joined_room
           </div>
         </div>
       </div>
-      {/* display the chatroom and participants */}
-      <MessagesDisplay
-        online_user={online_user}
-        rooms={rooms}
-        user_joined_rooms={user_joined_rooms}
-        first_user_joined_rooms={first_user_joined_rooms}
-        joinedRoom={joinedRoom}
-        setJoinedRoom={setJoinedRoom}
-      />
+      {/* display the chatroom and participants / check if there is user joined room */}
+      {first_user_joined_rooms && (
+        <MessagesDisplay
+          online_user={online_user}
+          rooms={rooms}
+          user_joined_rooms={user_joined_rooms}
+          first_user_joined_rooms={first_user_joined_rooms}
+          joinedRoom={joinedRoom}
+          setJoinedRoom={setJoinedRoom}
+        />
+      )}
+      {!first_user_joined_rooms && (
+        <div className="flex flex-col items-center justify-center w-full h-screen space-y-5">
+          <div className="flex flex-col items-center w-full space-y-1">
+            <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
+            <span className="font-light text-xs text-center text-gray-400">Welcome to Messenger. Discover the world of cozy.</span>
+          </div>
+          <div className="flex flex-row justify-center items-center w-full space-x-3">
+            <CreateRoom2
+              online_user={online_user}
+              rooms={rooms}
+            />
+            <Discover2
+              online_user={online_user}
+              rooms={rooms}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
