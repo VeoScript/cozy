@@ -3,9 +3,14 @@ import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 
-export default function MessagesDisplay({ online_user, rooms }) {
+export default function MessagesDisplay({ online_user, rooms, joinedRoom }) {
+
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // console.log(joinedRoom.length === 0 ? 'wala' : joinedRoom[4].user)
+
+  // console.log(Object.keys(joinedRoom[4]).length)
 
   return (
     <div className="flex flex-col md:flex-row w-full h-screen">
@@ -13,10 +18,10 @@ export default function MessagesDisplay({ online_user, rooms }) {
       <div className="flex flex-col justify-between w-full max-w-full h-full border-r border-modern-white border-opacity-10">
         <div className="flex flex-row items-center justify-between w-full px-3 py-2 border-b border-modern-white border-opacity-10">
           <div className="flex flex-row items-center space-x-3">
-            <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src="https://images.unsplash.com/photo-1565231776967-95aee5973585?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVkcm9vbSUyMGFlc3RoZXRpY3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="room_avatar" />
+            <img className={`${!joinedRoom[2] ? 'hidden' : 'block'} w-12 h-12 rounded-full object-cover bg-modern-dim`} src={ joinedRoom[2] } alt="room_avatar" />
             <div className="flex flex-col">
-              <span className="font-normal text-sm">Room Name</span>
-              <span className="font-normal text-[10px] text-gray-400">Created by Jerome Villaruel</span>
+              <span className="font-normal text-sm">{ !joinedRoom[1] ? 'Choose Room' : joinedRoom[1] }</span>
+              <span className="font-normal text-[10px] text-gray-400">{ joinedRoom[3] }</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -153,15 +158,17 @@ export default function MessagesDisplay({ online_user, rooms }) {
           <div className="flex w-full font-normal text-sm text-modern-white py-5 px-8">
             Room Participants
           </div>
-          <div className="flex flex-col w-full px-3 pb-5 space-y-3">
-            <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-black">
-              <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src="https://cf.shopee.ph/file/46f7ebaa7dbac43476f3c328935d79c0" alt="participant_avatar" />
-              <div className="flex flex-col items-start">
-                <span className="font-normal text-[12px]">Participant Name</span>
-                <span className="font-normal text-[10px]">Designation</span>
-              </div>
-            </button>
-          </div>
+          {/* {joinedRoom[4].map(({ user }, i) => (
+            <div className="flex flex-col w-full px-3 pb-5 space-y-3" key={i}>
+              <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-black">
+                <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src="" alt="participant_avatar" />
+                <div className="flex flex-col items-start">
+                  <span className="font-normal text-[12px]">{ user.name }</span>
+                  <span className="font-normal text-[10px]">Designation</span>
+                </div>
+              </button>
+            </div>
+          ))} */}
         </Scrollbar>
       </div>
     </div>

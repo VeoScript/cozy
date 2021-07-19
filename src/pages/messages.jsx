@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Layout from '~/layouts/default'
 import MessagesDashboard from '~/components/MessagesDashboard'
-import MessagesDisplay from '~/components/MessagesDisplay'
 import withSession from '~/lib/Session'
 import { PrismaClient } from '@prisma/client'
 
@@ -16,11 +15,6 @@ export default function Messages({ online_user, rooms, user_joined_rooms }) {
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
           <MessagesDashboard
-            online_user={online_user}
-            rooms={rooms}
-            user_joined_rooms={user_joined_rooms}
-          />
-          <MessagesDisplay
             online_user={online_user}
             rooms={rooms}
             user_joined_rooms={user_joined_rooms}
@@ -88,7 +82,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
       }
     ],
     where: {
-      userId: 1
+      userId: user.id
     },
     select: {
       id: true,
@@ -98,7 +92,28 @@ export const getServerSideProps = withSession(async function ({ req }) {
       room: {
         select: {
           image: true,
-          joined_rooms: true
+          joined_rooms: {
+            select: {
+              id: true,
+              date: true,
+              indicator: true,
+              messages: true,
+              roomName: true,
+              userId: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  avatar: true
+                }
+              }
+            }
+          },
+          author: {
+            select: {
+              name: true
+            }
+          }
         }
       }
     }
