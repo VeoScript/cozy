@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
 
-export default function MyRooms({ online_user, rooms, user_joined_rooms, first_user_joined_rooms, setJoinedRoom }) {
+export default function MyRooms({ user_joined_rooms, setJoinedRoom }) {
+
+  const router = useRouter()
   
   let [isOpen, setIsOpen] = useState(false)
 
@@ -80,7 +83,7 @@ export default function MyRooms({ online_user, rooms, user_joined_rooms, first_u
                   <Scrollbar>
                     {user_joined_rooms.map(({ id, roomName, room }, i) => (
                       <>
-                        <button onClick={() => {setJoinedRoom([id, roomName, room.image, room.author.name, room.joined_rooms]); closeModal()}} type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
+                        <button onClick={() => {setJoinedRoom([id, roomName, room.image, room.author.name, room.joined_rooms]); router.replace(router.asPath); closeModal()}} type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
                           <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={room.image} alt="room_avatar" />
                           <div className="flex flex-col items-start">
                             <span className="font-normal text-[12px]">{ roomName }</span>
