@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
 
-export default function Participants({ joinedRoom, user_joined_rooms, setJoinedRoom }) {
-
-  const router = useRouter()
+export default function Participants({ joinedRoom, first_user_joined_rooms }) {
   
   let [isOpen, setIsOpen] = useState(false)
 

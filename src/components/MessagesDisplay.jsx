@@ -55,8 +55,6 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, user_j
                         />
                         <hr className="w-full border-t border-modern-dim" />
                         <MyRooms
-                          online_user={online_user}
-                          rooms={rooms}
                           user_joined_rooms={user_joined_rooms}
                           first_user_joined_rooms={first_user_joined_rooms}
                           setJoinedRoom={setJoinedRoom}
@@ -68,11 +66,7 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, user_j
                         />
                         <hr className="w-full border-t border-modern-dim" />
                         <Participants
-                          online_user={online_user}
-                          rooms={rooms}
-                          user_joined_rooms={user_joined_rooms}
                           first_user_joined_rooms={first_user_joined_rooms}
-                          setJoinedRoom={setJoinedRoom}
                           joinedRoom={joinedRoom}
                         />
                       </div>
