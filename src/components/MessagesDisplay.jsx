@@ -2,8 +2,9 @@ import { useState } from 'react'
 import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
+import MyRooms from './Dialogs/Messages/Rooms/MyRooms'
 
-export default function MessagesDisplay({ online_user, rooms, joinedRoom, first_user_joined_rooms }) {
+export default function MessagesDisplay({ online_user, rooms, joinedRoom, user_joined_rooms, first_user_joined_rooms, setJoinedRoom }) {
 
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -52,10 +53,13 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, first_
                           rooms={rooms}
                         />
                         <hr className="w-full border-t border-modern-dim" />
-                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
-                          <LightningIcon />
-                          <span>My Rooms</span>
-                        </button>
+                        <MyRooms
+                          online_user={online_user}
+                          rooms={rooms}
+                          user_joined_rooms={user_joined_rooms}
+                          first_user_joined_rooms={first_user_joined_rooms}
+                          setJoinedRoom={setJoinedRoom}
+                        />
                         <hr className="w-full border-t border-modern-dim" />
                         <Discover
                           online_user={online_user}
@@ -181,14 +185,6 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, first_
         </Scrollbar>
       </div>
     </div>
-  )
-}
-
-function LightningIcon() {
-  return (
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"></path>
-    </svg>
   )
 }
 

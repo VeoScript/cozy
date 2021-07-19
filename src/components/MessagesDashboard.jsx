@@ -77,6 +77,7 @@ export default function MessagesDashboard({ online_user, rooms, user_joined_room
         user_joined_rooms={user_joined_rooms}
         first_user_joined_rooms={first_user_joined_rooms}
         joinedRoom={joinedRoom}
+        setJoinedRoom={setJoinedRoom}
       />
     </div>
   )
