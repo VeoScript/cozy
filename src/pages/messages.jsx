@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Messages({ online_user, rooms, user_joined_rooms }) {
+export default function Messages({ online_user, rooms, user_joined_rooms, first_user_joined_rooms }) {
   return (
     <>
       <Head>
@@ -18,6 +18,7 @@ export default function Messages({ online_user, rooms, user_joined_rooms }) {
             online_user={online_user}
             rooms={rooms}
             user_joined_rooms={user_joined_rooms}
+            first_user_joined_rooms={first_user_joined_rooms}
           />
         </div>
       </Layout>
@@ -119,11 +120,57 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   })
 
+  //get all joined rooms of the user FIRST ROOM DISPLAY
+  const first_user_joined_rooms = await prisma.joinedRooms.findFirst({
+    orderBy: [
+      {
+        id: 'desc'
+      }
+    ],
+    where: {
+      userId: user.id
+    },
+    select: {
+      id: true,
+      userId: true, 
+      user: true,
+      roomName:true,
+      room: {
+        select: {
+          image: true,
+          joined_rooms: {
+            select: {
+              id: true,
+              date: true,
+              indicator: true,
+              messages: true,
+              roomName: true,
+              userId: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  avatar: true
+                }
+              }
+            }
+          },
+          author: {
+            select: {
+              name: true
+            }
+          }
+        }
+      }
+    }
+  })
+
   return {
     props: {
       online_user,
       rooms,
-      user_joined_rooms
+      user_joined_rooms,
+      first_user_joined_rooms
     }
   }
 })

@@ -4,7 +4,7 @@ import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 import MessagesDisplay from '~/components/MessagesDisplay'
 
-export default function MessagesDashboard({ online_user, rooms, user_joined_rooms }) {
+export default function MessagesDashboard({ online_user, rooms, user_joined_rooms, first_user_joined_rooms }) {
 
   // to identify the joined room selected by the user
   const [joinedRoom, setJoinedRoom] = useState({})
@@ -75,6 +75,7 @@ export default function MessagesDashboard({ online_user, rooms, user_joined_room
         online_user={online_user}
         rooms={rooms}
         user_joined_rooms={user_joined_rooms}
+        first_user_joined_rooms={first_user_joined_rooms}
         joinedRoom={joinedRoom}
       />
     </div>

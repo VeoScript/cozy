@@ -41,7 +41,46 @@ export default async function handler(req, res) {
     //     }
     //   }
     // })
-    const rooms = await prisma.joinedRooms.findMany({
+    // const rooms = await prisma.joinedRooms.findMany({
+    //   where: {
+    //     userId: 1
+    //   },
+    //   select: {
+    //     id: true,
+    //     userId: true, 
+    //     user: true,
+    //     roomName:true,
+    //     room: {
+    //       select: {
+    //         image: true,
+    //         joined_rooms: {
+    //           select: {
+    //             id: true,
+    //             date: true,
+    //             indicator: true,
+    //             messages: true,
+    //             roomName: true,
+    //             userId: true,
+    //             user: {
+    //               select: {
+    //                 id: true,
+    //                 name: true,
+    //                 avatar: true
+    //               }
+    //             }
+    //           }
+    //         },
+    //         author: {
+    //           select: {
+    //             name: true
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // })
+
+    const rooms = await prisma.joinedRooms.findFirst({
       where: {
         userId: 1
       },
