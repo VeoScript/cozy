@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 import MessagesDisplay from '~/components/MessagesDisplay'
 
 export default function MessagesDashboard({ online_user, rooms, user_joined_rooms, first_user_joined_rooms }) {
+
+  const router = useRouter()
 
   // to identify the joined room selected by the user
   const [joinedRoom, setJoinedRoom] = useState({})
@@ -56,7 +59,7 @@ export default function MessagesDashboard({ online_user, rooms, user_joined_room
               <Scrollbar>
                 {user_joined_rooms.map(({ id, roomName, room }, i) => (
                   <>
-                    <button onClick={() => {setJoinedRoom([id, roomName, room.image, room.author.name, room.joined_rooms])}} type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
+                    <button onClick={() => {setJoinedRoom([id, roomName, room.image, room.author.name, room.joined_rooms]); router.replace(router.asPath)}} type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-dim" key={i}>
                       <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={room.image} alt="room_avatar" />
                       <div className="flex flex-col items-start">
                         <span className="font-normal text-[12px]">{ roomName }</span>
