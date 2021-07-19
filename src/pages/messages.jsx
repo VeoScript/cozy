@@ -105,7 +105,8 @@ export const getServerSideProps = withSession(async function ({ req }) {
                 select: {
                   id: true,
                   name: true,
-                  avatar: true
+                  avatar: true,
+                  username: true
                 }
               }
             }
@@ -150,7 +151,8 @@ export const getServerSideProps = withSession(async function ({ req }) {
                 select: {
                   id: true,
                   name: true,
-                  avatar: true
+                  avatar: true,
+                  username: true
                 }
               }
             }

@@ -17,7 +17,7 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, first_
             <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ !joinedRoom[2] ? first_user_joined_rooms.room.image : joinedRoom[2] } alt="room_avatar" />
             <div className="flex flex-col">
               <span className="font-normal text-sm">{ !joinedRoom[1] ? first_user_joined_rooms.roomName : joinedRoom[1] }</span>
-              <span className="font-normal text-[10px] text-gray-400">{ !joinedRoom[3] ? first_user_joined_rooms.room.author.name : joinedRoom[3] }</span>
+              <span className="font-normal text-[10px] text-gray-400">Created by { !joinedRoom[3] ? first_user_joined_rooms.room.author.name : joinedRoom[3] }</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -156,24 +156,24 @@ export default function MessagesDisplay({ online_user, rooms, joinedRoom, first_
           </div>
           {/* useState setJoined room will reset to 0 array length if the page is reload  */}
           {!joinedRoom[4] ? '' : joinedRoom[4].map(({ user }, i) => (
-            <div className="flex flex-col w-full px-3 pb-5 space-y-3" key={i}>
+            <div className="flex flex-col w-full px-3 pb-3" key={i}>
               <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-black">
                 <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ user.avatar} alt="participant_avatar" />
                 <div className="flex flex-col items-start">
                   <span className="font-normal text-[12px]">{ user.name }</span>
-                  <span className="font-normal text-[10px]">Designation</span>
+                  <span className="font-normal text-[10px] text-gray-400">@{ user.username }</span>
                 </div>
               </button>
             </div>
           ))}
           {/* useState setJoined room will reset to 0 array length if the page is reload (THIS IS THE SOLUTION OF THAT PROBLEM) */}
           {joinedRoom[4] ? '' : first_user_joined_rooms.room.joined_rooms.map(({ user }, i) => (
-            <div className="flex flex-col w-full px-3 pb-5 space-y-3" key={i}>
+            <div className="flex flex-col w-full px-3 pb-3" key={i}>
               <button type="button" className="flex flex-row items-center w-full px-3 py-2 rounded-xl space-x-3 transition-all duration-300 hover:bg-modern-black">
                 <img className="w-12 h-12 rounded-full object-cover bg-modern-dim" src={ user.avatar} alt="participant_avatar" />
                 <div className="flex flex-col items-start">
                   <span className="font-normal text-[12px]">{ user.name }</span>
-                  <span className="font-normal text-[10px]">Designation</span>
+                  <span className="font-normal text-[10px] text-gray-400">@{ user.username }</span>
                 </div>
               </button>
             </div>
