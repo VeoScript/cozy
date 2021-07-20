@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function CreateRoom({ online_user, rooms }) {
+export default function CreateRoom({ online_user }) {
 
   const router = useRouter()
   
@@ -79,7 +79,7 @@ export default function CreateRoom({ online_user, rooms }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userId: authorId,
+        userId: authorId, 
         roomName: name
       })
     })
@@ -91,26 +91,14 @@ export default function CreateRoom({ online_user, rooms }) {
 
   return (
     <>
-      <button
-        className="hidden md:flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-xs rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
+       <button
+        className="transition ease-in-out duration-200 hover:scale-95 focus:outline-none"
         type="button"
         onClick={openModal}
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
         </svg>
-        <span className="text-xs">Create Room</span>
-      </button>
-
-      <button
-        className="md:hidden flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none"
-        type="button" 
-        onClick={openModal}
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-        </svg>
-        <span>Create Room</span>
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
