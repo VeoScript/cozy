@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import Scrollbar from 'react-smooth-scrollbar'
 
 export default function ChatRoom({ online_user, messages, roominfo }) {
-  
+
   const [menuOpen, setMenuOpen] = useState(false)
   
   const router = useRouter()
@@ -111,7 +111,7 @@ export default function ChatRoom({ online_user, messages, roominfo }) {
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-end w-full h-full pb-5 overflow-y-auto">
+      <div className="flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
         <Scrollbar>
           {messages.map(({ user, userId, message }, i) => (
             <>
