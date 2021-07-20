@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Layout from '~/layouts/default'
-import MessagesDashboard from '~/components/MessagesDashboard'
+import Rooms from '~/components/Rooms'
 import withSession from '~/lib/Session'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default function Messages({ online_user, rooms, user_joined_rooms, first_user_joined_rooms }) {
+export default function Messages({ online_user, rooms, user_joined_rooms }) {
   return (
     <>
       <Head>
@@ -14,11 +14,10 @@ export default function Messages({ online_user, rooms, user_joined_rooms, first_
       </Head>
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
-          <MessagesDashboard
+          <Rooms
             online_user={online_user}
             rooms={rooms}
             user_joined_rooms={user_joined_rooms}
-            first_user_joined_rooms={first_user_joined_rooms}
           />
         </div>
       </Layout>
@@ -68,8 +67,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
       joined_rooms: {
         select: {
           indicator: true,
-          userId: true,
-          roomName: true
+          userId: true
         }
       }
     }
@@ -87,76 +85,12 @@ export const getServerSideProps = withSession(async function ({ req }) {
     },
     select: {
       id: true,
-      userId: true, 
-      user: true,
-      roomName:true,
+      userId: true,
+      roomName: true,
       room: {
         select: {
           image: true,
-          joined_rooms: {
-            select: {
-              id: true,
-              date: true,
-              indicator: true,
-              messages: true,
-              roomName: true,
-              userId: true,
-              user: {
-                select: {
-                  id: true,
-                  name: true,
-                  avatar: true,
-                  username: true
-                }
-              }
-            }
-          },
-          author: {
-            select: {
-              name: true
-            }
-          }
-        }
-      }
-    }
-  })
-
-  //get all joined rooms of the user FIRST ROOM DISPLAY
-  const first_user_joined_rooms = await prisma.joinedRooms.findFirst({
-    orderBy: [
-      {
-        id: 'desc'
-      }
-    ],
-    where: {
-      userId: user.id
-    },
-    select: {
-      id: true,
-      userId: true, 
-      user: true,
-      roomName:true,
-      room: {
-        select: {
-          image: true,
-          joined_rooms: {
-            select: {
-              id: true,
-              date: true,
-              indicator: true,
-              messages: true,
-              roomName: true,
-              userId: true,
-              user: {
-                select: {
-                  id: true,
-                  name: true,
-                  avatar: true,
-                  username: true
-                }
-              }
-            }
-          },
+          name: true,
           author: {
             select: {
               name: true
@@ -171,8 +105,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
     props: {
       online_user,
       rooms,
-      user_joined_rooms,
-      first_user_joined_rooms
+      user_joined_rooms
     }
   }
 })

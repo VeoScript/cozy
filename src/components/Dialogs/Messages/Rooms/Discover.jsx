@@ -51,20 +51,13 @@ export default function Discover({ online_user, rooms }) {
   return (
     <>
       <button
-        className="hidden md:block py-1 w-full max-w-[5rem] rounded-sm font-normal text-[10px] text-modern-black bg-honey transition ease-in-out duration-200 hover:scale-95 focus:outline-none"
+        className="transition ease-in-out duration-200 hover:scale-95 focus:outline-none"
         type="button"
         onClick={openModal}
       >
-        Discover
-      </button>
-
-      <button 
-        className="md:hidden flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none"
-        type="button"
-        onClick={openModal}  
-      >
-        <RoomIcon />
-        <span>Discover</span>
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -105,7 +98,7 @@ export default function Discover({ online_user, rooms }) {
               <div className="inline-block w-full max-w-3xl my-8 overflow-hidden text-left align-top transition-all transform border-2 border-honey bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="flex flex-col md:flex-row items-center justify-center md:justify-between mx-6 mt-5 text-lg font-medium leading-6 space-y-3 md:space-y-0"
+                  className="flex flex-col md:flex-row items-center justify-center md:justify-between mx-6 mt-5 pb-5 text-lg font-medium leading-6 space-y-3 md:space-y-0"
                 >
                   <div className="flex flex-col items-center md:items-start w-full">
                     <span className="font-bold text-xl">Discover Rooms</span>
@@ -135,7 +128,7 @@ export default function Discover({ online_user, rooms }) {
                     </svg>
                   </button>
                 </Dialog.Title>
-                <Scrollbar className="flex flex-row w-full h-full max-h-[30rem] overflow-y-auto overflow-x-hidden px-3 py-5">
+                <Scrollbar className="flex flex-row w-full h-full max-h-[30rem] overflow-y-auto overflow-x-hidden px-3">
                   <div className="w-full pb-5">
                     {setIsDisplay && (
                       <>
