@@ -21,6 +21,7 @@ model User {
   diary          Diary[]
   rooms          Rooms[]
   joined_rooms   JoinedRooms[]
+  messages       Messages[]
 }
 
 model Contacts {
@@ -58,6 +59,7 @@ model Rooms {
   passcode        String?
   date            String
   joined_rooms    JoinedRooms[]
+  messages        Messages[]
   author          User          @relation(fields: [authorId], references: [id])
   authorId        Int
 }
@@ -68,7 +70,6 @@ model JoinedRooms {
   indicator       Boolean       @default(true)
   room            Rooms         @relation(fields: [roomName], references: [name])
   roomName        String
-  messages        Messages[]
   user            User          @relation(fields: [userId], references: [id])
   userId          Int
 }
@@ -76,9 +77,9 @@ model JoinedRooms {
 model Messages {
   id              Int           @id      @default(autoincrement())
   message         String
-  to              String
-  from            String
   date            String
-  joined_rooms    JoinedRooms   @relation(fields: [joined_roomId], references: [id])
-  joined_roomId   Int
+  room            Rooms         @relation(fields: [roomName], references: [name])
+  roomName        String
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
 }
