@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Scrollbar from 'react-smooth-scrollbar'
+import Menu from './Dialogs/Messages/Rooms/Menu'
 
-export default function ChatRoom({ online_user, messages, roominfo }) {
+export default function ChatRoom({ online_user, messages, roominfo, rooms, user_joined_rooms }) {
 
+  const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   
   const router = useRouter()
@@ -61,8 +63,8 @@ export default function ChatRoom({ online_user, messages, roominfo }) {
             type="button"
             onClick={() => { setDashboardOpen(true) }}
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
             </svg>
           </button>
           <button
@@ -74,10 +76,36 @@ export default function ChatRoom({ online_user, messages, roominfo }) {
               <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
             </svg>
           </button>
+          {setDashboardOpen && (
+              <>
+                <button onClick={() => { setDashboardOpen(false) }} type="button" className={`${dashboardOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
+                <div className={`z-20 w-full ${dashboardOpen ? 'fixed' : 'hidden'}`}>
+                  <div className="md:hidden fixed right-[2rem] md:right-[22rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
+                    <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">
+                      <div className="flex flex-col w-full">
+                        <Menu
+                          online_user={online_user}
+                          rooms={rooms}
+                          user_joined_rooms={user_joined_rooms}
+                          setDashboardOpen={setDashboardOpen}
+                        />
+                        <hr className="w-full border-t border-modern-dim" />
+                        <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                          </svg>
+                          <span>Participants</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           {/* chat menu open dropdown */}
           {setMenuOpen && (
             <>
-              <button onClick={() => {setMenuOpen(false)}} type="button" className={`${menuOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
+              <button onClick={() => { setMenuOpen(false) }} type="button" className={`${menuOpen ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}></button>
               <div className={`z-20 w-full ${menuOpen ? 'fixed' : 'hidden'}`}>
                 <div className="fixed right-0 md:right-[20rem] top-10 mr-3 w-full max-w-[10rem] h-auto overflow-hidden mt-2 rounded-md shadow-xl border border-modern-white border-opacity-10 bg-modern-black text-white z-10">
                   <div className="flex flex-row w-full h-auto max-h-[15rem] overflow-y-auto bg-opacity-75">

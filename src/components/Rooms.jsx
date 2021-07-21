@@ -5,20 +5,20 @@ import Discover from './Dialogs/Messages/Rooms/Discover'
 
 export default function Rooms({ online_user, rooms, user_joined_rooms }) {
   return (
-    <div className="flex flex-col w-full max-w-sm h-full py-5 space-y-5 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
+    <div className="hidden md:flex flex-col w-full max-w-sm h-full py-5 space-y-5 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-col px-6">
           <div className="font-bold text-xl text-honey">Messages</div>
           <div className="font-normal text-[12px] text-gray-400">Start conversations to everyone</div>
         </div>
         <div className="flex flex-row items-center space-x-2 px-3">
-         <CreateRoom
+        <CreateRoom
             online_user={online_user}
-         />
-         <Discover
+        />
+        <Discover
             online_user={online_user}
             rooms={rooms}
-         />
+        />
         </div>
       </div>
       <div className="flex flex-col items-center w-full px-5">
