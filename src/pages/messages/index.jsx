@@ -13,12 +13,18 @@ export default function Messages({ online_user, rooms, user_joined_rooms }) {
         <title>Cozy | Messages</title>
       </Head>
       <Layout online_user={online_user}>
-        <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
+        <div className="font-poppins flex flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
           <Rooms
             online_user={online_user}
             rooms={rooms}
             user_joined_rooms={user_joined_rooms}
           />
+          <div className="flex flex-col items-center justify-center w-full h-screen space-y-5">
+            <div className="flex flex-col items-center w-full space-y-1">
+              <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
+              <span className="font-light text-xs text-center text-gray-400">Welcome to Messenger. Discover the world of cozy.</span>
+            </div>
+          </div>
         </div>
       </Layout>
     </>

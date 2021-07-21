@@ -76,7 +76,10 @@ export default function FavoriteDisplay({ online_user, favorite_contacts }) {
       </div>
       {/* it will display if there is no favorite contact detected */}
       <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
-        <h1 className="font-bold text-xl md:text-3xl text-[#333]">No favorite contacts at all.</h1>
+        <div className="flex flex-col items-center w-full space-y-1">
+          <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
+          <span className="font-light text-xs text-center text-gray-400">Add your favorite contacts here. Discover the world of cozy.</span>
+        </div>
       </div>
       <Scrollbar>
         <div className="grid grid-rows md:grid-cols-3 grid-flow-row gap-x-4 gap-y-16 w-full max-w-fll h-full overflow-y-auto pt-16 pb-5 px-5">

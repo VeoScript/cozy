@@ -89,7 +89,10 @@ export default function DiaryDisplay({ online_user, diaries }) {
       </div>
       {/* it will display if there is no contact detected */}
       <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
-        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first diary.</h1>
+        <div className="flex flex-col items-center w-full space-y-1">
+          <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
+          <span className="font-light text-xs text-center text-gray-400">Create your first diary. Discover the world of cozy.</span>
+        </div>
       </div>
       <Scrollbar>
         {/* DESKTOP SEARCH it will display if you search the name of the contact on the list */}

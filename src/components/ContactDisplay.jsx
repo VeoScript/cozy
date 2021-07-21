@@ -75,7 +75,10 @@ export default function ContactDisplay({ online_user, contacts }) {
         />
       </div>
       <div className={`${check[0] ? 'hidden' : 'flex'} flex-row items-center justify-center w-full h-full`}>
-        <h1 className="font-bold text-xl md:text-3xl text-[#333]">Create your first contact.</h1>
+        <div className="flex flex-col items-center w-full space-y-1">
+          <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
+          <span className="font-light text-xs text-center text-gray-400">Create your first contact. Discover the world of cozy.</span>
+        </div>
       </div>
       <Scrollbar>
         {/* it will display if there is no contact detected */}
