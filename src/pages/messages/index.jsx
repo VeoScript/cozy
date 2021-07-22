@@ -2,11 +2,15 @@ import Head from 'next/head'
 import Layout from '~/layouts/default'
 import Rooms from '~/components/Rooms'
 import withSession from '~/lib/Session'
+import { useRouter } from 'next/router'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 export default function Messages({ online_user, rooms, user_joined_rooms }) {
+
+  const router = useRouter()
+
   return (
     <>
       <Head>
@@ -19,7 +23,7 @@ export default function Messages({ online_user, rooms, user_joined_rooms }) {
             rooms={rooms}
             user_joined_rooms={user_joined_rooms}
           />
-          <div className="flex flex-col items-center justify-center w-full h-screen space-y-5">
+          <div className={`${router.pathname === '/messages' ? 'hidden md:flex' : 'flex'} flex-col items-center justify-center w-full h-screen space-y-5`}>
             <div className="flex flex-col items-center w-full space-y-1">
               <h1 className="font-black font-raleway text-xl text-honey">COZY</h1>
               <span className="font-light text-xs text-center text-gray-400">Welcome to Messenger. Discover the world of cozy.</span>

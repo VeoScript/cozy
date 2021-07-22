@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Scrollbar from 'react-smooth-scrollbar'
 import CreateRoom from './Dialogs/Messages/Rooms/CreateRoom'
 import Discover from './Dialogs/Messages/Rooms/Discover'
 
 export default function Rooms({ online_user, rooms, user_joined_rooms }) {
+
+  const router = useRouter()
+
   return (
-    <div className="hidden md:flex flex-col w-full max-w-sm h-full py-5 space-y-5 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
+    <div className={`${router.pathname !== '/messages' ? 'hidden md:flex' : 'flex'} flex-col w-full max-w-full md:max-w-sm h-full py-5 space-y-5 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10`}>
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-col px-6">
           <div className="font-bold text-xl text-honey">Messages</div>

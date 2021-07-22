@@ -1,8 +1,12 @@
+import { useRouter } from 'next/router'
 import Scrollbar from 'react-smooth-scrollbar'
 
 export default function Participants({ participants }) {
+
+  const router = useRouter()
+
   return (
-    <div className="hidden md:flex flex-col w-full max-w-xs h-full overflow-y-auto bg-modern-dim border-l border-modern-white border-opacity-10">
+    <div className={`${router.pathname !== '/messages' ? 'hidden md:flex' : 'flex'} flex-col w-full max-w-xs h-full overflow-y-auto bg-modern-dim border-l border-modern-white border-opacity-10`}>
       <Scrollbar>
         <div className="flex w-full font-normal text-sm text-modern-white py-5 px-8">
           Room Participants
