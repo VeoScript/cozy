@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { navigations, mobile_navigations } from '~/static/links'
 
 export default function SideBar({ online_user }) {
 
@@ -27,11 +26,26 @@ export default function SideBar({ online_user }) {
           <a className="font-black font-raleway text-xl">COZY</a>
         </Link>
         <div className="flex flex-col space-y-5">
-          {navigations.map(({ icon, href }, i) => (
-            <Link href={href} key={i}>
-              <a className={`${router.pathname === href ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>{ icon }</a>
-            </Link>
-          ))}
+          <Link href="/">
+            <a className={`${router.pathname === '/' ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+              <HomeIcon />
+            </a>
+          </Link>
+          <Link href="/diary">
+            <a className={`${router.pathname === '/diary' ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+              <DiaryIcon />
+            </a>
+          </Link>
+          <Link href="/favorites">
+            <a className={`${router.pathname === '/favorites' ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+              <FavoritesIcon />
+            </a>
+          </Link>
+          <Link href="/messages">
+            <a className={`${router.pathname === '/messages' || router.pathname === '/messages/[roomName]' ? 'bg-modern-dim text-honey' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+              <MessageIcon />
+            </a>
+          </Link>
         </div>
         <div className="flex">
           <button
@@ -48,11 +62,26 @@ export default function SideBar({ online_user }) {
       </div>
       {/* mobile web app layout */}
       <div className="fixed md:hidden bottom-0 z-50 flex flex-row items-center justify-between w-full px-5 bg-honey">
-        {mobile_navigations.map(({ icon, href }, i) => (
-          <Link href={href} key={i}>
-            <a className={`${router.pathname === href ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>{ icon }</a>
-          </Link>
-        ))}
+        <Link href="/">
+          <a className={`${router.pathname === '/' ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+            <HomeIcon />
+          </a>
+        </Link>
+        <Link href="/diary">
+          <a className={`${router.pathname === '/diary' ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+            <DiaryIcon />
+          </a>
+        </Link>
+        <Link href="/favorites">
+          <a className={`${router.pathname === '/favorites' ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+            <FavoritesIcon />
+          </a>
+        </Link>
+        <Link href="/messages">
+          <a className={`${router.pathname === '/messages' || router.pathname === '/messages/[roomName]' ? 'bg-modern-dim text-honey border-4 border-honey -translate-y-3' : 'bg-none text-[#333]'} px-3 py-3 rounded-full transition ease-in-out duration-300 hover:bg-modern-black hover:text-honey`}>
+            <MessageIcon />
+          </a>
+        </Link>
       </div>
       {setIsOpen && (
         <>
@@ -96,5 +125,37 @@ export default function SideBar({ online_user }) {
         </>
       )}
     </>
+  )
+}
+
+function HomeIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+    </svg>
+  )
+}
+
+function DiaryIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+    </svg>
+  )
+}
+
+function FavoritesIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+    </svg>
+  )
+}
+
+function MessageIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+    </svg>
   )
 }
