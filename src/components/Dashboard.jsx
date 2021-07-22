@@ -19,7 +19,7 @@ export default function Dashboard({ online_user, count_contacts, count_favorites
   }
 
   return (
-    <div className="flex flex-col justify-center md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 space-y-10 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10">
+    <div className="flex flex-col justify-start md:justify-start w-full max-w-full md:max-w-sm h-full overflow-y-auto pb-20 md:pb-0 px-5 md:px-8 py-10 space-y-10 rounded-none md:rounded-l-2xl bg-modern-dim md:border-r border-modern-white border-opacity-10">
       <div className="flex flex-row items-center justify-between w-full">
         <Link href="/">
           <a className="block md:hidden font-black font-raleway text-xl text-honey">COZY</a>
@@ -45,7 +45,7 @@ export default function Dashboard({ online_user, count_contacts, count_favorites
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full space-y-3">
+      <div className="flex flex-col justify-center md:justify-start w-full h-full space-y-3">
         <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-black">
           <div className="flex flex-row items-center justify-between w-full">
             <span className="font-normal text-sm">Contacts</span>
