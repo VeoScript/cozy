@@ -8,6 +8,34 @@ export default function Menu({ online_user, rooms, user_joined_rooms, setDashboa
 
   const [isDisplay, setIsDisplay] = useState(false)
 
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isDisplaySearch, setIsDisplaySearch] = useState(false)
+
+  // code for the search function
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if(!event.target.value){
+      setIsDisplaySearch(false)
+    }
+    else{
+      setIsDisplaySearch(true)
+    }
+  }
+  
+  // get all joined rooms from the api
+  const get_joined_rooms = user_joined_rooms.map(({ roomName, room }, counter) => {
+    return [
+      roomName,
+      room,
+      counter
+    ]
+  })
+
+  // search input filter for searching the room name
+  const results = !searchTerm ? get_joined_rooms : get_joined_rooms.filter(room =>
+    room[0].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
+
   return (
     <>
       <button type="button" onClick={() => { setIsDisplay(true) }} className="md:hidden flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-honey space-x-2 focus:outline-none">
@@ -46,18 +74,35 @@ export default function Menu({ online_user, rooms, user_joined_rooms, setDashboa
                     className="w-full bg-modern-dim font-light text-xs text-gray-300 focus:outline-none"
                     type="text"
                     name="search"
+                    value={searchTerm}
+                    onChange={handleChange}
                     placeholder="Search"
                   />
                 </div>
               </div>
               <div className="flex flex-col w-full h-full overflow-y-auto">
                 <Scrollbar className="px-2 md:px-5">
+                  {setIsDisplaySearch && (
+                    <>
+                      {results.map(room => (
+                        <Link href={`/messages/${room[0]}`} key={room[3]}>
+                          <a onClick={() => { setIsDisplay(false); setIsDisplaySearch(false); setDashboardOpen(false) }} className={`${ isDisplaySearch ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
+                            <img className="w-12 h-12 rounded-full object-cover" src={ room[1].image } alt="room_image" />
+                            <div className="flex flex-col">
+                              <div className="font-normal text-base">{ room[1].name }</div>
+                              <div className="font-light text-[10px] text-gray-400">Created by { room[1].author.name }</div>
+                            </div>
+                          </a>
+                        </Link>
+                      ))}
+                    </>
+                  )}
                   {user_joined_rooms.map(({ roomName, room }, i) => (
                     <Link href={`/messages/${roomName}`} key={i}>
-                      <a onClick={() => { setIsDisplay(false); setDashboardOpen(false) }} className="flex flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black">
-                        <img className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover" src={ room.image } alt="room_image" />
+                      <a onClick={() => { setIsDisplay(false); setIsDisplaySearch(false); setDashboardOpen(false) }} className={`${ !isDisplaySearch ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
+                        <img className="w-12 h-12 rounded-full object-cover" src={ room.image } alt="room_image" />
                         <div className="flex flex-col">
-                          <div className="font-normal text-xs md:text-base">{ room.name }</div>
+                          <div className="font-normal text-base">{ room.name }</div>
                           <div className="font-light text-[10px] text-gray-400">Created by { room.author.name }</div>
                         </div>
                       </a>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Scrollbar from 'react-smooth-scrollbar'
@@ -7,6 +8,34 @@ import Discover from './Dialogs/Messages/Rooms/Discover'
 export default function Rooms({ online_user, rooms, user_joined_rooms }) {
 
   const router = useRouter()
+
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isDisplay, setIsDisplay] = useState(false)
+
+  // code for the search function
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if(!event.target.value){
+      setIsDisplay(false)
+    }
+    else{
+      setIsDisplay(true)
+    }
+  }
+  
+  // get all joined rooms from the api
+  const get_joined_rooms = user_joined_rooms.map(({ roomName, room }, counter) => {
+    return [
+      roomName,
+      room,
+      counter
+    ]
+  })
+
+  // search input filter for searching the room name
+  const results = !searchTerm ? get_joined_rooms : get_joined_rooms.filter(room =>
+    room[0].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
 
   return (
     <div className={`${router.pathname !== '/messages' ? 'hidden md:flex' : 'flex'} flex-col w-full max-w-full md:max-w-sm h-full py-5 space-y-5 rounded-none md:rounded-l-2xl bg-modern-dim border-r border-modern-white border-opacity-10`}>
@@ -34,15 +63,32 @@ export default function Rooms({ online_user, rooms, user_joined_rooms }) {
             className="w-full bg-modern-dim font-light text-xs text-gray-300 focus:outline-none"
             type="text"
             name="search"
+            value={searchTerm}
+            onChange={handleChange}
             placeholder="Search"
           />
         </div>
       </div>
       <div className="flex flex-col w-full h-full overflow-y-auto">
         <Scrollbar className="px-5">
+          {setIsDisplay && (
+            <>
+              {results.map(room => (
+                <Link href={`/messages/${room[0]}`} key={room[3]}>
+                  <a className={`${ isDisplay ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
+                    <img className="w-12 h-12 rounded-full object-cover" src={ room[1].image } alt="room_image" />
+                    <div className="flex flex-col">
+                      <div className="font-normal text-base">{ room[1].name }</div>
+                      <div className="font-light text-[10px] text-gray-400">Created by { room[1].author.name }</div>
+                    </div>
+                  </a>
+                </Link>
+              ))}
+            </>
+          )}
           {user_joined_rooms.map(({ roomName, room }, i) => (
             <Link href={`/messages/${roomName}`} key={i}>
-              <a className="flex flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black">
+              <a className={`${ !isDisplay ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
                 <img className="w-12 h-12 rounded-full object-cover" src={ room.image } alt="room_image" />
                 <div className="flex flex-col">
                   <div className="font-normal text-base">{ room.name }</div>
