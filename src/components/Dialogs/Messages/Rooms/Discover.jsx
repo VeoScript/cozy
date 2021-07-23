@@ -150,7 +150,7 @@ export default function Discover({ online_user, rooms }) {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-end w-full ml-[7.5rem] md:ml-0 space-y-1 md:space-0 space-x-0 md:space-x-3">
-                              <span className="text-[10px] md:text-xs text-gray-400">{ room[6].length } Participants</span>
+                              <span className="text-[10px] md:text-xs text-gray-400">{ room[6].length } {`${ room[6].length > 1 ? 'Participants' : 'Participant' }`}</span>
                               <JoinRoomPublic
                                 online_user={online_user}
                                 id={room[0]}
@@ -193,7 +193,7 @@ export default function Discover({ online_user, rooms }) {
                           </div>
                         </div>
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-end w-full ml-[7.5rem] md:ml-0 space-y-1 md:space-0 space-x-0 md:space-x-3">
-                          <span className="text-[10px] md:text-xs text-gray-400">{ joined_rooms.length } Participants</span>
+                          <span className="text-[10px] md:text-xs text-gray-400">{ joined_rooms.length } {`${ joined_rooms.length > 1 ? 'Participants' : 'Participant' }`}</span>
                           <JoinRoomPublic
                             online_user={online_user}
                             id={id}
