@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import ChangePasscode from './ChangePasscode'
 
 export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
 
@@ -21,14 +22,33 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
   }
 
   const defaultValues = {
-    image: roominfo.room.image,
+    room_image: roominfo.room.image,
     room_name: roominfo.roomName
   }
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm()
 
   async function onChangeRoom(formData) {
-    console.log(formData)
+    const room_id = roominfo.room.id
+    const room_author_id = online_user.id
+    const room_image = formData.room_image
+    const room_name = formData.room_name
+
+    await fetch('/api/messages/room/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        room_id,
+        room_author_id,
+        room_image,
+        room_name
+      })
+    })
+
+    closeModal()
+    router.push(`/messages/${ formData.room_name }`)
   }
 
   async function onDelete() {
@@ -84,7 +104,7 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-4 my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-red-600 bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-md p-4 my-8 overflow-hidden text-left align-top transition-all transform border-2 border-modern-white border-opacity-10 bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h1"
                   className="flex flex-row items-center justify-between w-full text-lg font-medium leading-6 text-modern-white"
@@ -106,8 +126,8 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
                       <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                       </svg>
-                      <input type="text" name="image" placeholder="Change the room image URL" {...register("image", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                      {errors.image && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                      <input type="text" name="room_image" placeholder="Change the room image URL" {...register("room_image", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
+                      {errors.room_image && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                     </div>
                     <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                       <RoomIcon />
@@ -121,13 +141,17 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
                     <span>or</span>
                     <hr className="w-full border-t border-modern-dim" />
                   </div>
+                  <ChangePasscode
+                    online_user={online_user}
+                    roominfo={roominfo}
+                  />
                   <button
-                      className="flex items-center justify-center w-full px-1 py-4 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-red-600 text-modern-white focus:outline-none"
-                      type="button"
-                      onClick={onDelete}
-                    >
-                      Delete this room?
-                    </button>
+                    className="flex items-center justify-center w-full px-1 py-4 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-red-600 text-modern-white focus:outline-none"
+                    type="button"
+                    onClick={onDelete}
+                  >
+                    Delete this room?
+                  </button>
                 </div>
               </div>
             </Transition.Child>

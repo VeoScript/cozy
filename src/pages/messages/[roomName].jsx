@@ -139,6 +139,7 @@ export const getServerSideProps = withSession(async function ({ req, query }) {
       roomName: true,
       room: {
         select: {
+          id: true,
           image: true,
           author: {
             select: {
