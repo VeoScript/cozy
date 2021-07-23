@@ -37,6 +37,7 @@ export default function JoinedRoomMessages({ online_user, rooms, user_joined_roo
             messages={messages}
             roominfo={roominfo}
             user_joined_rooms={user_joined_rooms}
+            participants={participants}
             rooms={rooms}
           />
           <Participants
