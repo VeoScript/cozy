@@ -142,6 +142,7 @@ export const getServerSideProps = withSession(async function ({ req, query }) {
           image: true,
           author: {
             select: {
+              id: true,
               name: true
             }
           }
