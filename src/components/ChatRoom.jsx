@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import AutoScroll from '@brianmcallister/react-auto-scroll'
 import Menu from './Dialogs/Messages/Rooms/Menu'
 import ParticipantsMenu from './Dialogs/Messages/Rooms/ParticipantsMenu'
+import LeaveRoom from './Dialogs/Messages/Settings/LeaveRoom'
 
 export default function ChatRoom({ online_user, messages, roominfo, rooms, user_joined_rooms, participants }) {
 
@@ -124,12 +125,11 @@ export default function ChatRoom({ online_user, messages, roominfo, rooms, user_
                         <span>Report</span>
                       </button>
                       <hr className="w-full border-t border-modern-dim" />
-                      <button type="button" className="flex items-center w-full text-xs text-gray-400 px-3 py-3 transition ease-in-out duration-300 hover:text-red-600 space-x-2 focus:outline-none">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                        </svg>
-                        <span>Leave Room</span>
-                      </button>
+                      <LeaveRoom
+                        online_user={online_user}
+                        roominfo={roominfo}
+                        setMenuOpen={setMenuOpen}
+                      />
                     </div>
                   </div>
                 </div>

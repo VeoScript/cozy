@@ -135,6 +135,7 @@ export const getServerSideProps = withSession(async function ({ req, query }) {
       userId: user.id
     },
     select: {
+      id: true,
       roomName: true,
       room: {
         select: {
