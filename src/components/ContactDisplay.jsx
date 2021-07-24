@@ -94,7 +94,7 @@ export default function ContactDisplay({ online_user, contacts }) {
             <>
               {results.map(contact => (
                 <div className={`${isOpen ? 'flex' : 'hidden'} flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim`} key={contact[12]}>
-                  <img src={contact[1]} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
+                  <img src={contact[1]} className="w-full max-w-[56px] h-14 object-cover rounded-full bg-modern-black" />
                   <span className="w-full max-w-sm text-sm">{contact[2]}</span>
                   <span className="w-full max-w-sm text-sm">{contact[3]}</span>
                   <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
@@ -142,7 +142,7 @@ export default function ContactDisplay({ online_user, contacts }) {
           {/* it will display the list of your contacts getting from the database and it will disappear if you search the name of the contact */}
           {contacts.map(({ id, profile, name, phone, email, address, facebook, instagram, twitter, tiktok, youtube, favorite }, i) => (
             <div className={`${!isOpen ? 'flex' : 'hidden'} flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim`} key={i}>
-              <img src={profile} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
+              <img src={profile} className="w-full max-w-[56px] h-14 object-cover rounded-full bg-modern-black" />
               <span className="w-full max-w-sm text-sm">{name}</span>
               <span className="w-full max-w-sm text-sm">{phone}</span>
               <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
