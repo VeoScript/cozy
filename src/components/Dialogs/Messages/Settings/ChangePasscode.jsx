@@ -52,7 +52,7 @@ export default function ChangePasscode({ online_user, roominfo }) {
   return (
     <>
       <button
-        className="flex items-center justify-center w-full px-1 py-4 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-modern-dim text-modern-white focus:outline-none"
+        className={`${ roominfo.room.status === 'Private' ? 'flex' : 'hidden' } items-center justify-center w-full px-1 py-4 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-modern-dim text-modern-white focus:outline-none`}
         type="button"
         onClick={openModal}
       >
