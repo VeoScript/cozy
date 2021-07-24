@@ -36,9 +36,8 @@ export default function CreateNew({ online_user, contacts }) {
     const youtube = formData.youtube
 
     const phoneExist = contacts.some(contact => contact.phone === phone)
-    const emailExist = contacts.some(contact => contact.email === email)
 
-    if (phoneExist || emailExist) {
+    if (phoneExist) {
       toast.error('Cannot perform, the email or phone number are already exists.', {
         style: {
           borderRadius: '10px',
