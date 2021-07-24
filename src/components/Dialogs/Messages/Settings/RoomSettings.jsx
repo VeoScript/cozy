@@ -8,10 +8,13 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
 
   const router = useRouter()
 
+  const [isDelete, setIsDelete] = useState(false)
+
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
     setMenuOpen(false)
+    setIsDelete(false)
     setIsOpen(false)
     reset(defaultValues)
   }
@@ -52,7 +55,24 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
   }
 
   async function onDelete() {
-    console.log('The room is deleted Successfully')
+    const joined_room_id = roominfo.id
+    const room_id = roominfo.room.id
+    const room_author_id = online_user.id
+
+    await fetch('/api/messages/room/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        room_id,
+        room_author_id,
+        joined_room_id
+      })
+    })
+
+    closeModal()
+    router.push(`/messages`)
   }
 
   return (
@@ -72,7 +92,7 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-40 overflow-y-auto"
+          className="fixed inset-0 z-20 overflow-y-auto"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 pb-10 md:pb-0 text-center bg-modern-black bg-opacity-60">
@@ -148,10 +168,38 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
                   <button
                     className="flex items-center justify-center w-full px-1 py-4 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-red-600 text-modern-white focus:outline-none"
                     type="button"
-                    onClick={onDelete}
+                    onClick={() => setIsDelete(true)}
                   >
                     Delete this room?
                   </button>
+                  {setIsDelete && (
+                    <>
+                      <button onClick={() => { setIsDelete(false)}} type="button" className={`${isDelete ? 'z-50 block fixed inset-0 w-full h-full cursor-default bg-modern-black bg-opacity-60 focus:outline-none' : 'hidden'}`}></button>
+                      <div className={`flex flex-row justify-center z-50 w-full ${isDelete ? 'fixed' : 'hidden'}`}>
+                        <div className="flex flex-col items-center w-full max-w-xs px-3 py-3 space-y-3 bg-modern-black rounded-md border-2 border-red-600">
+                          <div className="text-center text-sm">
+                            Are you sure you want to delete this room? All joined users and chats are also remove and it cannot be undone after deleted.
+                          </div>
+                          <div className="flex flex-col w-full space-y-2">
+                            <button
+                              className="flex items-center justify-center w-full max-w-full px-1 py-2 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-red-600 text-modern-white focus:outline-none"
+                              type="button"
+                              onClick={onDelete}
+                            >
+                              Continue
+                            </button>
+                            <button
+                              className="flex items-center justify-center w-full max-w-full px-1 py-2 text-sm rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-modern-dim text-modern-white focus:outline-none"
+                              type="button"
+                              onClick={() => setIsDelete(false)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </Transition.Child>
