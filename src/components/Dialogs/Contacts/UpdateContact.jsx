@@ -37,7 +37,7 @@ export default function UpdateContact({ online_user, id, profile, name, phone, e
   async function onUpdate(formData) {
     const userId = online_user.id
     const contactId = id
-    const profile = formData.avatar
+    const profile = formData.profile
     const name = formData.name
     const phone = formData.phone
     const email = formData.email
