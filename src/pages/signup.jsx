@@ -64,7 +64,7 @@ export default function SignUp({ all_users }) {
           position="top-left"
           reverseOrder={true}
         />
-        <div className="flex flex-col md:flex-row items-center justify-start md:justify-center w-full max-w-screen-2xl h-screen overflow-y-auto md:overflow-hidden bg-[#222]">
+        <div className="flex flex-col md:flex-row items-center justify-start md:justify-center w-full max-w-[2400px] h-screen overflow-y-auto md:overflow-hidden bg-[#222]">
           <div className="relative flex flex-col items-center justify-center w-full h-[30rem] md:h-full px-5 pt-5 pb-12 md:pt-0 md:pb-0 space-y-10 bg-honey">
             <div className="flex flex-col items-center md:items-start text-center md:text-left w-full max-w-xl">
               <h1 className="font-bold text-5xl md:text-7xl">COZY</h1>

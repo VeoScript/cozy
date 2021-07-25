@@ -2,7 +2,7 @@ import EditProfile from "./Dialogs/Profile/EditProfile"
 
 export default function ProfileDisplay({ online_user, count_contacts, count_favorites, count_diaries, count_rooms }) {
   return (
-    <div className="font-raleway flex justify-center w-full h-full overflow-y-auto px-3 md:px-10 py-3 md:py-20">
+    <div className="font-raleway flex flex-row justify-center items-center w-full h-full overflow-y-auto px-3 md:px-10 py-3 md:py-20">
       <div className="relative flex flex-col md:flex-row justify-start md:justify-center items-center md:items-start w-full max-w-[55rem] px-0 md:px-5 py-5 space-x-0 md:space-x-10 rounded-xl">
         <div className="flex flex-col items-center w-full max-w-full md:max-w-[15rem]">
           <img className="w-32 h-32 md:w-[15rem] md:h-[15rem] object-cover rounded-full border-2 border-modern-white border-opacity-10" src={ online_user.avatar } />
