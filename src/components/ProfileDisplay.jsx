@@ -1,20 +1,27 @@
+import EditProfile from "./Dialogs/Profile/EditProfile"
+
 export default function ProfileDisplay({ online_user, count_contacts, count_favorites, count_diaries, count_rooms }) {
   return (
-    <div className="font-raleway flex justify-center w-full px-10 py-20">
-      <div className="relative flex flex-row justify-center w-full max-w-[55rem] px-5 py-5 space-x-10 rounded-xl">
-        <div className="flex w-full max-w-[15rem]">
-          <img className="w-[15rem] h-[15rem] object-cover rounded-full border-2 border-modern-white border-opacity-10" src={ online_user.avatar } />
+    <div className="font-raleway flex justify-center w-full h-full overflow-y-auto px-3 md:px-10 py-3 md:py-20">
+      <div className="relative flex flex-col md:flex-row justify-start md:justify-center items-center md:items-start w-full max-w-[55rem] px-0 md:px-5 py-5 space-x-0 md:space-x-10 rounded-xl">
+        <div className="flex flex-col items-center w-full max-w-full md:max-w-[15rem]">
+          <img className="w-32 h-32 md:w-[15rem] md:h-[15rem] object-cover rounded-full border-2 border-modern-white border-opacity-10" src={ online_user.avatar } />
         </div>
-        <div className="flex flex-col items-start w-full mt-10">
-          <div className="flex flex-col w-full max-w-xl">
-            <div className="flex flex-row items-center w-full space-x-5">
-              <span className="font-bold text-4xl text-modern-white text-opacity-80">{ online_user.name }</span>
-              <button className="font-light text-xs text-white text-opacity-40 hover:underline">Edit profile</button>
+        <div className="flex flex-col items-start w-full mt-5 md:mt-10 pb-16">
+          <div className="flex flex-col items-center md:items-start w-full max-w-full md:max-w-xl">
+            <div className="flex flex-row items-center justify-center md:justify-start w-full space-x-5">
+              <span className="font-bold text-xl md:text-4xl text-modern-white text-opacity-80">{ online_user.name }</span>
+              <div className="hidden md:flex">
+                <EditProfile online_user={online_user} />
+              </div>
             </div>
-            <span className="font-light text-2xl text-modern-white text-opacity-40">{ online_user.username }</span>
-            <span className="font-light text-base text-modern-white text-opacity-80 mt-2">{ online_user.email }</span>
-            <div className="font-poppins flex flex-col items-center w-full mt-5">
-              <div className="flex flex-row w-full space-x-2">
+            <span className="font-light text-lg md:text-2xl text-modern-white text-opacity-40">{ online_user.username }</span>
+            <span className="font-light text-xs md:text-base text-modern-white text-opacity-80 mt-2">{ online_user.email }</span>
+            <div className="md:hidden flex justify-center w-full">
+              <EditProfile online_user={online_user} />
+            </div>
+            <div className="font-poppins flex flex-col items-center w-full mt-5 space-y-2">
+              <div className="flex flex-col md:flex-row w-full space-x-0 md:space-x-2 space-y-2 md:space-y-0">
                 <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-dim">
                   <div className="flex flex-row items-center justify-between w-full">
                     <span className="font-normal text-sm">Contacts</span>
@@ -44,7 +51,7 @@ export default function ProfileDisplay({ online_user, count_contacts, count_favo
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row w-full space-x-2 mt-2">
+              <div className="flex flex-col md:flex-row w-full space-x-0 md:space-x-2 space-y-2 md:space-y-0">
                 <div className="flex flex-col w-full px-5 py-5 space-y-3 rounded-xl bg-modern-dim">
                   <div className="flex flex-row items-center justify-between w-full">
                     <span className="font-normal text-sm">Diary</span>

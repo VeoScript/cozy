@@ -10,7 +10,7 @@ export default function Profile({ online_user, count_contacts, count_favorites, 
   return (
     <>
       <Head>
-        <title>Cozy { online_user.name }</title>
+        <title>Cozy | { online_user.name }</title>
       </Head>
       <Layout online_user={online_user}>
         <div className="font-poppins flex flex-col md:flex-row w-full h-full rounded-none md:rounded-l-2xl bg-modern-black text-modern-white">
