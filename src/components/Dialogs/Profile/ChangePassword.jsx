@@ -82,7 +82,7 @@ export default function ChangePassword({ online_user }) {
   return (
     <>
       <button
-        className="flex items-center justify-center w-full px-1 py-4 mt-3 text-base rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-honey text-modern-dim focus:outline-none"
+        className="flex items-center justify-center w-full px-1 py-4 mt-2 text-base rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 space-x-1 bg-modern-dim text-modern-white focus:outline-none"
         type="button"
         onClick={openModal}
       >
@@ -124,7 +124,7 @@ export default function ChangePassword({ online_user }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-sm py-6 px-3 md:px-5 my-8 md:my-20 overflow-hidden text-left align-center transition-all transform border border-modern-white border-opacity-10 bg-modern-black text-modern-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-sm py-6 px-3 md:px-5 my-8 md:my-20 overflow-hidden text-left align-middle transition-all transform border border-modern-white border-opacity-10 bg-modern-black text-modern-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h1"
                   className="flex flex-row items-center justify-between w-full text-lg font-medium leading-6 text-modern-white"

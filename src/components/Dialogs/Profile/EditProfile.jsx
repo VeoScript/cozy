@@ -147,11 +147,16 @@ export default function EditProfile({ online_user }) {
                       {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                     </div>
                     <div className="flex flex-col items-center justify-end w-full space-y-3">
-                      <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 bg-modern-dim text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
+                      <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 bg-honey text-modern-dim focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
                         Update Profile
                       </button>
                     </div>
                   </form>
+                  <div className="flex flex-row items-center w-full mt-2 space-x-2">
+                    <hr className="w-full border-t border-modern-dim" />
+                    <span className="text-sm">or</span>
+                    <hr className="w-full border-t border-modern-dim" />
+                  </div>
                   <ChangePassword
                     online_user={online_user}
                   />
