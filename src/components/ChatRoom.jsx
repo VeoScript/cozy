@@ -135,7 +135,10 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
           )}
         </div>
       </div>
-      <AutoScroll showOption={false} className="flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
+      <AutoScroll showOption={false} className="relative flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
+        <div className={`${ !data ? 'flex' : 'hidden'} absolute top-0 justify-center w-full py-1 font-bold text-xs text-modern-dim bg-honey`}>
+          Loading...
+        </div>
         {data && (
           <>
             {data.map(({ user, userId, message }, i) => (
@@ -171,13 +174,42 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
             onInput={(e) => setValue('message_box', e.currentTarget.textContent, { shouldValidate: true })}
           />
           {errors.message_box && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
-          <button type="submit" className="text-modern-white opacity-30 transition ease-in-out duration-300 hover:scale-95">
-            <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
-            </svg>
-          </button>
+          {isSubmitting
+            ?
+            <LoadingButton />
+            :
+            <button type="submit" className="text-modern-white opacity-30 transition ease-in-out duration-300 hover:scale-95 disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
+              <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
+              </svg>
+            </button>
+          }
         </form>
       </div>
+    </div>
+  )
+}
+
+function LoadingButton() {
+  return (
+    <div className="flex">
+      <svg width="32px" height="32px" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" color="#FFCE00">
+        <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
+          <circle cx="22" cy="22" r="6">
+            <animate attributeName="r" begin="1.5s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="stroke-opacity" begin="1.5s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="stroke-width" begin="1.5s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+          <circle cx="22" cy="22" r="6">
+            <animate attributeName="r" begin="3s" dur="3s" values="6;22" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="stroke-opacity" begin="3s" dur="3s" values="1;0" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="stroke-width" begin="3s" dur="3s" values="2;0" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+          <circle cx="22" cy="22" r="8">
+            <animate attributeName="r" begin="0s" dur="1.5s" values="6;1;2;3;4;5;6" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+        </g>
+      </svg>
     </div>
   )
 }
