@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import AutoScroll from '@brianmcallister/react-auto-scroll'
 import Menu from './Dialogs/Messages/Rooms/Menu'
 import ParticipantsMenu from './Dialogs/Messages/Rooms/ParticipantsMenu'
 import LeaveRoom from './Dialogs/Messages/Settings/LeaveRoom'
 import RoomSettings from './Dialogs/Messages/Settings/RoomSettings'
+import { mutate } from 'swr'
 
-export default function ChatRoom({ online_user, messages, roominfo, rooms, user_joined_rooms, participants }) {
+export default function ChatRoom({ online_user, data, messages, roominfo, rooms, user_joined_rooms, participants }) {
 
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  
-  const router = useRouter()
 
   const defaultValues = {
     message_box: ''
@@ -45,9 +43,9 @@ export default function ChatRoom({ online_user, messages, roominfo, rooms, user_
         message_box
       })
     })
+    mutate(`/api/messages/message/get_messages/${ roomName }`)
     reset()
     chatbox.innerText = ''
-    router.replace(router.asPath)
   }
 
   return (
@@ -138,25 +136,29 @@ export default function ChatRoom({ online_user, messages, roominfo, rooms, user_
         </div>
       </div>
       <AutoScroll showOption={false} className="flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
-        {messages.map(({ user, userId, message }, i) => (
+        {data && (
           <>
-            <div className={`${ userId === online_user.id ? 'hidden' : 'flex' } flex-row justify-start w-full px-3 py-1`} key={i}>
-              <div className="flex items-center space-x-2 w-full max-w-[17rem]">
-                <img className="w-full max-w-[2rem] h-8 rounded-full object-cover bg-modern-dim" src={ user.avatar } />
-                <div className="flex px-3 py-3 rounded-xl font-normal text-xs text-modern-white bg-modern-dim">
-                  { userId === online_user.id ? '' : message }
+            {data.map(({ user, userId, message }, i) => (
+              <>
+                <div className={`${ userId === online_user.id ? 'hidden' : 'flex' } flex-row justify-start w-full px-3 py-1`} key={i}>
+                  <div className="flex items-center space-x-2 w-full max-w-[17rem]">
+                    <img className="w-full max-w-[2rem] h-8 rounded-full object-cover bg-modern-dim" src={ user.avatar } />
+                    <div className="flex px-3 py-3 rounded-xl font-normal text-xs text-modern-white bg-modern-dim">
+                      { userId === online_user.id ? '' : message }
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1`}>
-              <div className="flex justify-end w-full max-w-[17rem]">
-                <div className="flex rounded-xl px-3 py-3 font-normal text-xs text-modern-dim bg-honey">
-                  { userId !== online_user.id ? '' : message }
+                <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1`}>
+                  <div className="flex justify-end w-full max-w-[17rem]">
+                    <div className="flex rounded-xl px-3 py-3 font-normal text-xs text-modern-dim bg-honey">
+                      { userId !== online_user.id ? '' : message }
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ))}
           </>
-        ))}
+        )}
       </AutoScroll>
       {/* message chat forms */}
       <div className="flex flex-row items-end w-full px-3 py-3 pb-20 md:pb-3 border-t border-modern-white border-opacity-10">
