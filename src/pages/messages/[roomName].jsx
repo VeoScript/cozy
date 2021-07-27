@@ -174,6 +174,7 @@ export const getServerSideProps = withSession(async function ({ req, query }) {
       id: true,
       message: true,
       userId: true,
+      date: true,
       user: {
         select: {
           avatar: true
