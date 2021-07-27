@@ -6,10 +6,13 @@ import ChatRoom from '~/components/ChatRoom'
 import Participants from '~/components/Participants'
 import withSession from '~/lib/Session'
 import { PrismaClient } from '@prisma/client'
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const prisma = new PrismaClient()
 
-export default function JoinedRoomMessages({ online_user, rooms, user_joined_rooms, roominfo, messages, participants }) {
+export default function JoinedRoomMessages({ online_user, rooms, roomName, user_joined_rooms, roominfo, messages, participants }) {
 
   if (!roominfo) {
     return <>
@@ -19,6 +22,9 @@ export default function JoinedRoomMessages({ online_user, rooms, user_joined_roo
       <DefaultErrorPage statusCode={404} />
     </>
   }
+
+  const initialData = messages
+  const { data } = useSWR(`/api/messages/message/get_messages/${ roomName }`, fetcher, { refreshInterval: 1000 }, { initialData })
 
   return (
     <>
@@ -39,6 +45,7 @@ export default function JoinedRoomMessages({ online_user, rooms, user_joined_roo
             user_joined_rooms={user_joined_rooms}
             participants={participants}
             rooms={rooms}
+            data={data}
           />
           <Participants
             participants={participants}
@@ -206,7 +213,8 @@ export const getServerSideProps = withSession(async function ({ req, query }) {
       user_joined_rooms,
       roominfo,
       messages,
-      participants
+      participants,
+      roomName
     }
   }
 })
