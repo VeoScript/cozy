@@ -82,7 +82,7 @@ export default function Login({ all_users }) {
             </div>
             <div className="absolute hidden md:block w-full max-w-xl px-3 bottom-3 space-x-3">
               <div className="flex flex-row items-center justify-between w-full">
-                <Link href="/login">
+                <Link href="/privacy_policy">
                   <a className="font-normal text-xs hover:underline">Privacy Policy</a>
                 </Link>
                 <span className="font-poppins text-xs opacity-80">&copy; Cozy { new Date().getFullYear() }, Veoscript</span>
@@ -121,7 +121,7 @@ export default function Login({ all_users }) {
               </form>
             </div>
             <div className="md:hidden flex flex-row items-center justify-between w-full">
-              <Link href="/login">
+              <Link href="/privacy_policy">
                 <a className="font-normal text-xs hover:underline">Privacy Policy</a>
               </Link>
               <span className="font-poppins text-xs opacity-80">&copy; Cozy { new Date().getFullYear() }, Veoscript</span>
