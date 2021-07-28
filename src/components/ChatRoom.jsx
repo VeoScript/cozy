@@ -156,7 +156,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
                 <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1`}>
                   <div className="flex justify-end w-full max-w-[17rem]">
                     <div className="flex flex-col rounded-xl px-3 py-3 space-y-1 font-normal text-xs text-modern-dim bg-honey">
-                      <span className="text-right">{ userId !== online_user.id ? '' : message }</span>
+                      <span className="text-left">{ userId !== online_user.id ? '' : message }</span>
                       <span className="font-normal text-[9px] text-right text-yellow-800"><Moment date={ date } fromNow /></span>
                     </div>
                   </div>
