@@ -12,8 +12,8 @@ export default function PrivacyPolicy() {
       <Head>
         <title>Cozy | Privacy Policy</title>
       </Head>
-      <div className="font-poppins flex flex-row justify-center w-full h-screen bg-honey text-modern-black">
-        <div className="flex flex-col items-center justify-center w-full max-w-[2400px] h-full px-5 md:px-0 space-y-5">
+      <div className="font-poppins flex flex-row justify-center w-full h-screen overflow-hidden bg-modern-dim text-modern-black">
+        <div className="flex flex-col items-center md:justify-center w-full max-w-[2400px] h-full overflow-y-auto px-5 md:px-0 py-10 space-y-5 bg-honey">
           <Link href="/">
             <a className="flex flex-row items-center justify-start w-full max-w-2xl space-x-2">
               <img className="w-14 h-14" src="./favicon.png" alt="Cozy" />
