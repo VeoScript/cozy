@@ -161,7 +161,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
                 <div className={`${ userId === online_user.id ? 'hidden' : 'flex' } flex-row justify-start w-full px-3 py-1`} key={i}>
                   <div className="flex items-center space-x-2 w-full max-w-[17rem]">
                     <img className="w-full max-w-[2rem] h-8 rounded-full object-cover bg-modern-dim" src={ user.avatar } />
-                    <div className="flex flex-col px-3 py-3 space-y-1 rounded-xl font-normal text-xs text-modern-white bg-modern-dim">
+                    <div className="flex flex-col whitespace-pre-line px-3 py-3 space-y-1 rounded-xl font-normal text-xs text-modern-white bg-modern-dim">
                       <span>{ userId === online_user.id ? '' : message }</span>
                       <span className="font-normal text-[9px] text-gray-500"><Moment date={ date } fromNow /></span>
                     </div>
@@ -169,7 +169,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
                 </div>
                 <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1`}>
                   <div className="flex justify-end w-full max-w-[17rem]">
-                    <div className="flex flex-col rounded-xl px-3 py-3 space-y-1 font-normal text-xs text-modern-dim bg-honey">
+                    <div className="flex flex-col whitespace-pre-line rounded-xl px-3 py-3 space-y-1 font-normal text-xs text-modern-dim bg-honey">
                       <span className="text-left">{ userId !== online_user.id ? '' : message }</span>
                       <span className="font-normal text-[9px] text-right text-yellow-800"><Moment date={ date } fromNow /></span>
                     </div>
