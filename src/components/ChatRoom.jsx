@@ -176,7 +176,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
       </AutoScroll>
       {/* message chat forms */}
       <div className="flex flex-row items-end w-full px-3 py-3 pb-20 md:pb-3 border-t border-modern-white border-opacity-10">
-        <form onSubmit={handleSubmit(sendMessage)} className="flex flex-row items-center w-full max-w-xl space-x-3">
+        <form onSubmit={handleSubmit(sendMessage)} className="flex flex-row items-center justify-between w-full space-x-3">
           <div
             contentEditable
             id="chatbox"
@@ -184,17 +184,19 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
             placeholder="Type here..."
             onInput={(e) => setValue('message_box', e.currentTarget.textContent, { shouldValidate: true })}
           />
-          {errors.message_box && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
-          {isSubmitting
-            ?
-            <LoadingButton />
-            :
-            <button type="submit" className="text-modern-white opacity-30 transition ease-in-out duration-300 hover:scale-95 disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
-              <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
-              </svg>
-            </button>
-          }
+          <div className="flex flex-row items-center justify-end space-x-3">
+            {errors.message_box && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+            {isSubmitting
+              ?
+              <LoadingButton />
+              :
+              <button type="submit" className="flex flex-row justify-end w-full text-modern-white opacity-30 transition ease-in-out duration-300 hover:scale-95 disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
+                <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
+                </svg>
+              </button>
+            }
+          </div>
         </form>
       </div>
     </div>
