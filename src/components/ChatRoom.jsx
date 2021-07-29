@@ -49,6 +49,12 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
     chatbox.innerText = ''
   }
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      handleSubmit(sendMessage)()
+    }
+  }
+
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex flex-row items-center justify-between w-full px-5 py-3 border-b border-modern-white border-opacity-10">
@@ -183,6 +189,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
             className="w-full whitespace-pre-wrap text-xs cursor-text focus:outline-none font-light py-2"
             placeholder="Type here..."
             onInput={(e) => setValue('message_box', e.currentTarget.textContent, { shouldValidate: true })}
+            onKeyPress={handleKeyPress}
           />
           <div className="flex flex-row items-center justify-end space-x-3">
             {errors.message_box && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
