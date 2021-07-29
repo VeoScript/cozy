@@ -58,6 +58,7 @@ export default function Menu({ online_user, rooms, user_joined_rooms, setDashboa
                 <div className="flex flex-row items-center space-x-2 px-3">
                 <CreateRoom
                     online_user={online_user}
+                    rooms={rooms}
                 />
                 <Discover
                     online_user={online_user}
