@@ -28,7 +28,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
     const roomName = roominfo.roomName
     const message_box = formData.message_box
 
-    if (message_box === '') {
+    if(document.getElementById('chatbox').innerText.trim().length == 0 || message_box === ''){
       setError('message_box')
       return
     }
@@ -186,7 +186,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
           <div
             contentEditable
             id="chatbox"
-            className="w-full whitespace-pre-wrap text-xs cursor-text focus:outline-none font-light py-2"
+            className="w-full h-full max-h-[5rem] overflow-y-auto whitespace-pre-wrap text-xs cursor-text focus:outline-none font-light py-2"
             placeholder="Type here..."
             onInput={(e) => setValue('message_box', e.currentTarget.textContent, { shouldValidate: true })}
             onKeyPress={handleKeyPress}
