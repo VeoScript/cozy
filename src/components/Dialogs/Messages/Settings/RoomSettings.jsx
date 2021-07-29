@@ -37,6 +37,11 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
     const room_image = formData.room_image
     const room_name = formData.room_name
 
+    if (!room_image.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+      document.getElementById('custom_toast').innerText = 'Invalid Image URL'
+      return
+    }
+
     await fetch('/api/messages/room/update', {
       method: 'PUT',
       headers: {
@@ -148,6 +153,7 @@ export default function RoomSettings({ online_user, roominfo, setMenuOpen }) {
                       </svg>
                       <input type="text" name="room_image" placeholder="Change the room image URL" {...register("room_image", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                       {errors.room_image && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                      <span id="custom_toast" className="flex flex-row justify-end text-[10px] text-honey"></span>
                     </div>
                     <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                       <RoomIcon />

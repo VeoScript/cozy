@@ -2,8 +2,9 @@ import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast, { Toaster } from 'react-hot-toast'
 
-export default function CreateRoom({ online_user }) {
+export default function CreateRoom({ online_user, rooms }) {
 
   const router = useRouter()
   
@@ -38,6 +39,24 @@ export default function CreateRoom({ online_user }) {
     const status = formData.status
     const passcode = formData.passcode
     const repasscode = formData.repasscode
+
+    const checkRoom = rooms.some(checkroom => checkroom.name === name)
+
+    if (checkRoom) {
+      toast.error('This room is already exist.', {
+        style: {
+          borderRadius: '10px',
+          background: '#222222',
+          color: '#fff',
+        }
+      })
+      return
+    }
+
+    if (!image.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+      document.getElementById('custom_toast').innerText = 'Invalid Image URL'
+      return
+    }
 
     if (status === 'Private') {
       if (passcode === '') {
@@ -153,6 +172,10 @@ export default function CreateRoom({ online_user }) {
                   </button>
                 </Dialog.Title>
                 <div className="mt-5">
+                  <Toaster
+                    position="top-center"
+                    reverseOrder={true}
+                  />
                   <form onSubmit={handleSubmit(onCreate)}>
                     <div className="flex flex-col w-full space-y-2">
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
@@ -161,6 +184,7 @@ export default function CreateRoom({ online_user }) {
                         </svg>
                         <input type="text" name="image" placeholder="Room Image URL" {...register("image", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         {errors.image && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                        <span id="custom_toast" className="flex flex-row justify-end text-[10px] text-honey"></span>
                       </div>
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <RoomIcon />
