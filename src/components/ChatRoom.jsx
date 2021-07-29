@@ -8,7 +8,7 @@ import LeaveRoom from './Dialogs/Messages/Settings/LeaveRoom'
 import RoomSettings from './Dialogs/Messages/Settings/RoomSettings'
 import { mutate } from 'swr'
 
-export default function ChatRoom({ online_user, data, messages, roominfo, rooms, user_joined_rooms, participants }) {
+export default function ChatRoom({ online_user, data, roominfo, rooms, user_joined_rooms, participants }) {
 
   const [dashboardOpen, setDashboardOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -47,6 +47,7 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
     mutate(`/api/messages/message/get_messages/${ roomName }`)
     reset()
     chatbox.innerText = ''
+    document.getElementById('chatbox').focus()
   }
 
   function handleKeyPress(e) {
@@ -186,11 +187,12 @@ export default function ChatRoom({ online_user, data, messages, roominfo, rooms,
           <div
             contentEditable
             id="chatbox"
-            className="w-full h-full max-h-[5rem] overflow-y-auto whitespace-pre-wrap text-xs cursor-text focus:outline-none font-light py-2"
+            className={`${ isSubmitting ? 'hidden' : 'block' } w-full h-full max-h-[5rem] overflow-y-auto whitespace-pre-wrap text-xs cursor-text focus:outline-none font-light py-2`}
             placeholder="Type here..."
             onInput={(e) => setValue('message_box', e.currentTarget.textContent, { shouldValidate: true })}
             onKeyPress={handleKeyPress}
           />
+          <span className={`${ isSubmitting ? 'block' : 'hidden' } w-full text-xs cursor-default text-gray-400`}>Sending...</span>
           <div className="flex flex-row items-center justify-end space-x-3">
             {errors.message_box && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
             {isSubmitting
