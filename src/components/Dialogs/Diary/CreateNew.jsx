@@ -72,6 +72,12 @@ export default function CreateNew({ online_user, diaries }) {
     router.replace(router.asPath)
   }
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      handleSubmit(onCreate)()
+    }
+  }
+
   return (
     <>
       <button
@@ -169,22 +175,32 @@ export default function CreateNew({ online_user, diaries }) {
                         <svg className="w-8 h-8 opacity-40 mt-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
                         </svg>
+                        <div className={`${ isSubmitting ? 'block' : 'hidden' } w-full px-3 py-4 text-modern-white text-opacity-50`}>
+                          <span>Posting...</span>
+                        </div>
                         <div
                           id="storycontent"
-                          className={`w-full h-full px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? 'disabled:bg-gray-500' : 'bg-[#1F1F1F]'}`}
+                          className={`${ isSubmitting ? 'hidden' : 'block' } w-full h-full max-h-[10rem] overflow-y-auto px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none`}
                           contentEditable
-                          placeholder="Share your story..."
+                          placeholder="Edit your story..."
                           onInput={(e) => setValue('create_story', e.currentTarget.textContent, { shouldValidate: true })}
+                          onKeyPress={handleKeyPress}
                         />
                         {errors.create_story && <span className="flex flex-row justify-end text-[10px] text-honey mt-5">Required</span>}
                       </div>
                     </div>
                     <div className="flex flex-row justify-end mt-4">
                       <button
-                        className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
+                        className={`${ isSubmitting ? 'bg-opacity-50 hover:scale-100 cursor-default' : 'block'} flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none`}
                         type="submit"
+                        disabled={isSubmitting}
                       >
-                        <span>Post</span>
+                        {!isSubmitting && (
+                          <span>Post</span>
+                        )}
+                        {isSubmitting && (
+                          <span>Posting...</span>
+                        )}
                       </button>
                     </div>
                   </form>

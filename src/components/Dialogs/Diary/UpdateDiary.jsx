@@ -31,7 +31,7 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
     register('create_story', { required: true })
   }, [register])
 
-  async function onCreate(formData) {
+  async function onUpdate(formData) {
     const userId = online_user.id
     const diaryId = id
     const photo = formData.photo
@@ -60,6 +60,12 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
     storycontent.innerText = ''
     closeModal()
     router.replace(router.asPath)
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      handleSubmit(onUpdate)()
+    }
   }
 
   return (
@@ -136,7 +142,7 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                   </button>
                 </Dialog.Title>
                 <div className="mt-5">
-                  <form onSubmit={handleSubmit(onCreate)}>
+                  <form onSubmit={handleSubmit(onUpdate)}>
                     <div className="flex flex-col w-full space-y-2">
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -152,17 +158,20 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                         <input type="text" name="title" placeholder="Title" {...register("title", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         {errors.title && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                       </div>
-                      <div className="flex items-start w-full px-3 rounded-lg bg-[#1F1F1F]">
+                      <div className="flex items-start w-full pl-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40 mt-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
                         </svg>
+                        <div className={`${ isSubmitting ? 'block' : 'hidden' } w-full px-3 py-4 text-modern-white text-opacity-50`}>
+                          <span>Updating...</span>
+                        </div>
                         <div
                           id="storycontent"
-                          className={`w-full h-full px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? 'disabled:bg-gray-500' : 'bg-[#1F1F1F]'}`}
+                          className={`${ isSubmitting ? 'hidden' : 'block' } w-full h-full max-h-[18rem] overflow-y-auto px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none`}
                           contentEditable
                           placeholder="Edit your story..."
                           onInput={(e) => setValue('create_story', e.currentTarget.textContent, { shouldValidate: true })}
-                          suppressContentEditableWarning={true}
+                          onKeyPress={handleKeyPress}
                         >
                           { content }
                         </div>
@@ -171,10 +180,16 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                     </div>
                     <div className="flex flex-row justify-end mt-4">
                       <button
-                        className="flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none"
+                        className={`${ isSubmitting ? 'bg-opacity-50 hover:scale-100 cursor-default' : 'block'} flex items-center justify-center w-full max-w-[8rem] px-2 py-3 text-sm rounded-lg transition ease-in-out duration-200 transform hover:scale-95 space-x-1 bg-honey text-modern-black focus:outline-none`}
                         type="submit"
+                        disabled={isSubmitting}
                       >
-                        <span>Update</span>
+                        {!isSubmitting && (
+                          <span>Update</span>
+                        )}
+                        {isSubmitting && (
+                          <span>Updating...</span>
+                        )}
                       </button>
                     </div>
                   </form>
