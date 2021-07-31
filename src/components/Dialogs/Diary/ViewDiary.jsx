@@ -92,13 +92,13 @@ export default function ViewDiary({ online_user, photo, title, content, date }) 
                     <div className="flex">
                       <img className="w-full md:w-[30rem] h-60 md:h-52 object-cover rounded-none md:rounded-xl bg-modern-dim" src={photo} alt="profile" />
                     </div>
-                    <div className="flex flex-col items-center w-full pb-24 space-y-5">
+                    <div className="flex flex-col items-center w-full h-full pb-24 space-y-5">
                       <div className="flex flex-col items-center w-full">
                         <span className="text-lg md:text-xl">{title}</span>
                         <span className="text-xs md:text-sm text-gray-300 mt-2">{online_user.name}</span>
                         <span className="text-[10px] md:text-xs text-gray-400"><Moment date={ date } format='LL' /></span>
                       </div>
-                      <span className="text-xs md:text-base text-justify whitespace-pre-wrap text-gray-400 mx-5 md:mx-10">{content}</span>
+                      <span className="whitespace-pre-wrap text-xs md:text-base text-justify text-gray-400 mx-5 md:mx-10">{content}</span>
                     </div>
                   </div>
                 </div>
