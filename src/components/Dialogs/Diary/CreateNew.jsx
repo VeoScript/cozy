@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Fragment, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { Editor, EditorState, convertToRaw } from 'draft-js'
 
 export default function CreateNew({ online_user, diaries }) {
 
@@ -20,27 +21,19 @@ export default function CreateNew({ online_user, diaries }) {
   }
   
   const defaultValues = {
-    create_story: ''
+    create_story: EditorState.createEmpty()
   }
 
-  const { register, handleSubmit, reset, setValue, setError, formState: { errors, isSubmitting } } = useForm({ defaultValues })
-
-  useEffect(() => {
-    register('create_story', { required: true })
-  }, [register])
+  const { register, control, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({ defaultValues })
 
   async function onCreate(formData) {
     const userId = online_user.id
     const photo = formData.photo
     const title = formData.title
-    const create_story = formData.create_story
-
-    if (create_story === '') {
-      setError('create_story')
-      return
-    }
-
-    const titleExist = diaries.some(contact => contact.title === title)
+    const raw_create_story = formData.create_story
+    const blocks = convertToRaw(raw_create_story.getCurrentContent()).blocks
+    const create_story = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n')
+    const titleExist = diaries.some(diary => diary.title === title)
 
     if (titleExist) {
       toast.error('Cannot perform, the title is already exist.', {
@@ -67,7 +60,6 @@ export default function CreateNew({ online_user, diaries }) {
       })
     })
     reset()
-    storycontent.innerText = ''
     closeModal()
     router.replace(router.asPath)
   }
@@ -165,17 +157,19 @@ export default function CreateNew({ online_user, diaries }) {
                         <input type="text" name="title" placeholder="Title" {...register("title", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                         {errors.title && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                       </div>
-                      <div className="flex items-start w-full px-3 rounded-lg bg-[#1F1F1F]">
+                      <div className="flex flex-row items-start w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <svg className="w-8 h-8 opacity-40 mt-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
                         </svg>
-                        <div
-                          id="storycontent"
-                          className={`w-full h-full px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? 'disabled:bg-gray-500' : 'bg-[#1F1F1F]'}`}
-                          contentEditable
-                          placeholder="Share your story..."
-                          onInput={(e) => setValue('create_story', e.currentTarget.textContent, { shouldValidate: true })}
-                        />
+                        <div className="w-full px-3 py-4">
+                          <Controller
+                            control={control}
+                            name="create_story"
+                            render={({ field: { value, onChange } }) => {
+                              return <Editor editorState={value} onChange={onChange} />
+                            }}
+                          />
+                        </div>
                         {errors.create_story && <span className="flex flex-row justify-end text-[10px] text-honey mt-5">Required</span>}
                       </div>
                     </div>

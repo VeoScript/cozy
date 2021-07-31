@@ -1,7 +1,20 @@
 import { useRouter } from 'next/router'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
+import { Editor, EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js'
+
+const emptyContentState = convertFromRaw({
+  entityMap: {},
+  blocks: [
+    {
+      text: '',
+      key: 'foo',
+      type: 'unstyled',
+      entityRanges: []
+    }
+  ]
+})
 
 export default function UpdateDiary({ id, online_user, photo, title, content }) {
   
@@ -19,29 +32,33 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
     setIsOpen(true)
   }
   
+  // trick the draft js richtext editor to set the state as EMPTY...
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(emptyContentState)
+  )
+
+  useEffect(() => {
+    setEditorState(
+      EditorState.createWithContent(ContentState.createFromText(content))
+    );
+  }, [])
+
   const defaultValues = {
     photo: photo,
     title: title,
-    create_story: content
+    create_story: editorState 
   }
 
-  const { register, handleSubmit, reset, setValue, setError, formState: { errors, isSubmitting } } = useForm({ defaultValues })
-
-  useEffect(() => {
-    register('create_story', { required: true })
-  }, [register])
+  const { register, control, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({ defaultValues })
 
   async function onCreate(formData) {
     const userId = online_user.id
     const diaryId = id
     const photo = formData.photo
     const title = formData.title
-    const create_story = formData.create_story
-
-    if (create_story === '') {
-      setError('create_story')
-      return
-    }
+    const raw_create_story = formData.create_story
+    const blocks = convertToRaw(raw_create_story.getCurrentContent()).blocks // convert the value of EditorState to single String to save a text value to the database.
+    const create_story = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n') // trim the text value of blocks for more presentable text display.
 
     await fetch('/api/diary/update', {
       method: 'PUT',
@@ -57,7 +74,6 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
       })
     })
     reset()
-    storycontent.innerText = ''
     closeModal()
     router.replace(router.asPath)
   }
@@ -156,15 +172,14 @@ export default function UpdateDiary({ id, online_user, photo, title, content }) 
                         <svg className="w-8 h-8 opacity-40 mt-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path>
                         </svg>
-                        <div
-                          id="storycontent"
-                          className={`w-full h-full px-3 py-4 text-modern-white whitespace-pre-wrap focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? 'disabled:bg-gray-500' : 'bg-[#1F1F1F]'}`}
-                          contentEditable
-                          placeholder="Edit your story..."
-                          onInput={(e) => setValue('create_story', e.currentTarget.textContent, { shouldValidate: true })}
-                          suppressContentEditableWarning={true}
-                        >
-                          { content }
+                        <div className="w-full px-3 py-4">
+                          <Controller
+                            control={control}
+                            name="create_story"
+                            render={({ field: { value, onChange } }) => {
+                              return <Editor editorState={value} onChange={onChange} />
+                            }}
+                          />
                         </div>
                         {errors.create_story && <span className="flex flex-row justify-end text-[10px] text-honey mt-5">Required</span>}
                       </div>
