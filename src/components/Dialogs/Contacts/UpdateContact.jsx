@@ -48,6 +48,11 @@ export default function UpdateContact({ online_user, id, profile, name, phone, e
     const tiktok = formData.tiktok
     const youtube = formData.youtube
 
+    if (!profile.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+      document.getElementById('custom_toast').innerText = 'Invalid Image URL'
+      return
+    }
+
     await fetch('/api/contacts/update', {
       method: 'PUT',
       headers: {
@@ -146,6 +151,7 @@ export default function UpdateContact({ online_user, id, profile, name, phone, e
                           </svg>
                           <input type="text" name="profile" placeholder="Profile URL" {...register("profile", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                           {errors.profile && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                          <span id="custom_toast" className="flex flex-row justify-end text-[10px] text-honey"></span>
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
