@@ -137,9 +137,16 @@ export default function SignUp({ all_users }) {
                   </div>
                 </div>
                 <div className="flex flex-col items-center justify-end w-full space-y-3">
-                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
-                    Sign Up
-                  </button>
+                  {!isSubmitting && (
+                    <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
+                      Sign Up
+                    </button>
+                  )}
+                  {isSubmitting && (
+                    <div className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg bg-[#1F1F1F] text-modern-white opacity-50 cursor-default">
+                      Signing up...
+                    </div>
+                  )}
                   <Link href="/login">
                     <a className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-honey text-modern-black">Back to Login</a>
                   </Link>
