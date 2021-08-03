@@ -111,9 +111,16 @@ export default function Login({ all_users }) {
                   {errors.password && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-end w-full space-y-3">
-                  <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
-                    Login
-                  </button>
+                  {!isSubmitting && (
+                    <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
+                      Login
+                    </button>
+                  )}
+                  {isSubmitting && (
+                    <div className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg bg-[#1F1F1F] text-modern-white opacity-50 cursor-default">
+                      Login...
+                    </div>
+                  )}
                   <Link href="/signup">
                     <a className="md:hidden flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-honey text-modern-black">Create Account</a>
                   </Link>
