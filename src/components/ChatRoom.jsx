@@ -151,7 +151,7 @@ export default function ChatRoom({ online_user, data, roominfo, rooms, user_join
           )}
         </div>
       </div>
-      <AutoScroll showOption={false} className="relative flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
+      <AutoScroll showOption={false} scrollBehavior="auto" className="relative flex flex-col justify-end w-full h-full pb-1 overflow-y-auto">
         <div className={`${ !data ? 'flex' : 'hidden'} absolute top-0 justify-center w-full py-1 font-bold text-xs text-modern-dim bg-honey`}>
           Loading...
         </div>
