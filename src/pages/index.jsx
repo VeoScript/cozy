@@ -3,9 +3,7 @@ import Layout from '~/layouts/default'
 import Dashboard from '~/components/Dashboard'
 import ContactDisplay from '~/components/ContactDisplay'
 import withSession from '~/lib/Session'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 export default function Home({ online_user, count_contacts, count_favorites, count_diaries, contacts }) {
   return (

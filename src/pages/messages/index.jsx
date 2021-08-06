@@ -3,9 +3,7 @@ import Layout from '~/layouts/default'
 import Rooms from '~/components/Rooms'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 export default function Messages({ online_user, rooms, user_joined_rooms }) {
 

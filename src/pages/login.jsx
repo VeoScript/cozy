@@ -6,9 +6,7 @@ import bcrypt from 'bcryptjs'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 export default function Login({ all_users }) {
 

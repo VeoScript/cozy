@@ -2,9 +2,7 @@ import Head from 'next/head'
 import Layout from '~/layouts/default'
 import ContactsMobileView from '~/components/ContactsMobileView'
 import withSession from '~/lib/Session'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 export default function Contacts({ online_user, contacts }) {
   return (

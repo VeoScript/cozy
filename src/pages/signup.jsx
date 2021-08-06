@@ -5,9 +5,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 export default function SignUp({ all_users }) {
   

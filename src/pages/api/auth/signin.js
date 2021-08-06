@@ -1,7 +1,5 @@
 import { withIronSession } from 'next-iron-session'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/Prisma'
 
 async function handler(req, res) {
 
