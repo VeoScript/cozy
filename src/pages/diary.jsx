@@ -3,9 +3,7 @@ import Layout from '~/layouts/default'
 import Dashboard from '~/components/Dashboard'
 import DiaryDisplay from '~/components/DiaryDisplay'
 import withSession from '~/lib/Session'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/prisma'
 
 export default function Diary({ online_user, count_contacts, count_favorites, count_diaries, diaries }) {
   return (

@@ -2,9 +2,7 @@ import Head from 'next/head'
 import Layout from '~/layouts/default'
 import FavoriteDisplay from '~/components/FavoriteDisplay'
 import withSession from '~/lib/Session'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/prisma'
 
 export default function Favorites({ online_user, favorite_contacts }) {
   return (

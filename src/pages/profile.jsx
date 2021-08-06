@@ -2,9 +2,7 @@ import Head from 'next/head'
 import withSession from '~/lib/Session'
 import Layout from '~/layouts/default'
 import ProfileDisplay from '~/components/ProfileDisplay'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/prisma'
 
 export default function Profile({ online_user, count_contacts, count_favorites, count_diaries, count_rooms }) {
   return (

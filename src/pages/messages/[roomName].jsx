@@ -5,12 +5,10 @@ import Rooms from '~/components/Rooms'
 import ChatRoom from '~/components/ChatRoom'
 import Participants from '~/components/Participants'
 import withSession from '~/lib/Session'
-import { PrismaClient } from '@prisma/client'
+import prisma from '~/lib/prisma'
 import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-
-const prisma = new PrismaClient()
 
 export default function JoinedRoomMessages({ online_user, rooms, roomName, user_joined_rooms, roominfo, messages, participants }) {
 

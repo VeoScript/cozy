@@ -1,7 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import prisma from '~/lib/prisma'
 
 export default async (req, res) => {
   const { avatar, name, email, username, password: rawPassword } = JSON.parse(req.body)
