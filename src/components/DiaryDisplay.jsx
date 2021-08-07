@@ -141,7 +141,7 @@ export default function DiaryDisplay({ online_user, diaries }) {
               <div className="flex flex-col items-center w-full max-w-full md:max-w-md h-full rounded-3xl px-5 py-5 space-y-3 bg-modern-dim" key={diary[5]}>
                 <div className="flex flex-row justify-center items-center w-full">
                   <div className="flex justify-center w-full -mt-16">
-                    <img className="w-[23rem] h-32 object-cover rounded-xl" src={diary[1]} />
+                    <img className="w-[23rem] h-32 object-cover bg-modern-black rounded-xl" src={diary[1]} />
                   </div>
                 </div>
                 <div className="flex flex-col items-center w-full max-w-xs space-y-3">
@@ -181,7 +181,7 @@ export default function DiaryDisplay({ online_user, diaries }) {
         <div className={`${check[0] ? 'hidden md:flex' : 'hidden'} diary-list flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden`}>
           {diaries.map(({ id, photo, title, date, content }, i) => (
             <div className={`${!isOpen ? 'flex' : 'hidden'} flex-row items-center justify-between w-full px-5 py-5 space-x-10 border-b border-modern-white border-opacity-10 bg-modern-dim`} key={i}>
-              <img src={photo} className="w-full max-w-[56px] h-14 object-cover rounded-full" />
+              <img src={photo} className="w-full max-w-[56px] h-14 object-cover bg-modern-black rounded-full" />
               <span className="w-full max-w-sm text-sm">{title}</span>
               <span className="w-full max-w-sm text-xs"><Moment date={ date } format='LL' /></span>
               <span className="flex items-center justify-end w-full max-w-sm text-xs space-x-1">
