@@ -5,9 +5,15 @@ import toast, { Toaster } from 'react-hot-toast'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import prisma from '~/lib/Prisma'
+import useSWR from 'swr'
 
-export default function SignUp({ all_users }) {
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+export default function SignUp() {
+
+  const { data: all_users } = useSWR('/api/auth/users', fetcher, {
+    refreshInterval: 1000
+  })
   
   const router = useRouter()
 
@@ -177,12 +183,7 @@ export const getServerSideProps = withSession(async function ({ req }) {
     }
   }
 
-  //find all users from the database
-  const all_users = await prisma.user.findMany()
-
   return {
-    props: {
-      all_users
-    }
+    props: {}
   }
 })
