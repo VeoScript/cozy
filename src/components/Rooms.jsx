@@ -77,7 +77,7 @@ export default function Rooms({ online_user, rooms, user_joined_rooms }) {
               {results.map(room => (
                 <Link href={`/messages/${room[0]}`} key={room[3]}>
                   <a className={`${ isDisplay ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
-                    <img className="w-12 h-12 rounded-full object-cover" src={ room[1].image } alt="room_image" />
+                    <img className="w-12 h-12 rounded-full object-cover bg-modern-black" src={ room[1].image } alt="room_image" />
                     <div className="flex flex-col">
                       <div className="flex flex-row items-center space-x-2">
                         <div className="font-normal text-base">{ room[1].name }</div>
@@ -98,7 +98,7 @@ export default function Rooms({ online_user, rooms, user_joined_rooms }) {
           {user_joined_rooms.map(({ roomName, room }, i) => (
             <Link href={`/messages/${roomName}`} key={i}>
               <a className={`${ !isDisplay ? 'flex' : 'hidden' } flex-row items-center w-full px-3 py-3 mb-2 space-x-3 transition-all duration-300 rounded-xl border-b border-[#333] hover:bg-modern-black`}>
-                <img className="w-12 h-12 rounded-full object-cover" src={ room.image } alt="room_image" />
+                <img className="w-12 h-12 rounded-full object-cover bg-modern-black" src={ room.image } alt="room_image" />
                 <div className="flex flex-col">
                   <div className="flex flex-row items-center space-x-2">
                     <div className="font-normal text-base">{ room.name }</div>
