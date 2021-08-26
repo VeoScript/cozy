@@ -114,7 +114,10 @@ export default function Login() {
                   <input type="password" name="password" placeholder="Password" {...register("password", { required: true })} className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
                   {errors.password && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
-                <div className="flex flex-col md:flex-row items-center justify-end w-full space-y-3">
+                <div className="flex flex-col md:flex-row items-center justify-between w-full">
+                  <Link href="/">
+                    <a className="ml-3 font-light text-xs text-modern-white hover:underline">Forgot Password?</a>
+                  </Link>
                   {!isSubmitting && (
                     <button type="submit" className="flex justify-center w-full max-w-full md:max-w-[10rem] px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:scale-95 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
                       Login
