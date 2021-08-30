@@ -39,6 +39,7 @@ export default function DeleteMessage({ id, roominfo }) {
     <>      
       <button
         type="button"
+        className="focus:outline-none"
         onClick={openModal}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-modern-white text-opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
