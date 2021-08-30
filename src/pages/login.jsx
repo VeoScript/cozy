@@ -115,7 +115,7 @@ export default function Login() {
                   {errors.password && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-between w-full space-y-2 md:space-y-0">
-                  <Link href="/">
+                  <Link href="/forgot-password">
                     <a className="ml-3 font-light text-xs text-modern-white hover:underline">Forgot Password?</a>
                   </Link>
                   {!isSubmitting && (
