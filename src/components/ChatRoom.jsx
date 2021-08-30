@@ -6,6 +6,7 @@ import Menu from './Dialogs/Messages/Rooms/Menu'
 import ParticipantsMenu from './Dialogs/Messages/Rooms/ParticipantsMenu'
 import LeaveRoom from './Dialogs/Messages/Settings/LeaveRoom'
 import RoomSettings from './Dialogs/Messages/Settings/RoomSettings'
+import DeleteMessage from './Dialogs/Messages/DeleteMessage'
 import { mutate } from 'swr'
 
 export default function ChatRoom({ online_user, data, roominfo, rooms, user_joined_rooms, participants }) {
@@ -23,6 +24,7 @@ export default function ChatRoom({ online_user, data, roominfo, rooms, user_join
     register('message_box', { required: true })
   }, [register])
 
+  // function for send a message
   async function sendMessage(formData) {
     const userId = online_user.id
     const roomName = roominfo.roomName
@@ -50,6 +52,7 @@ export default function ChatRoom({ online_user, data, roominfo, rooms, user_join
     document.getElementById('chatbox').focus()
   }
 
+  // function for sending a message using ENTER KEY
   function handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       handleSubmit(sendMessage)()
@@ -157,7 +160,7 @@ export default function ChatRoom({ online_user, data, roominfo, rooms, user_join
         </div>
         {data && (
           <>
-            {data.map(({ user, userId, message, date }, i) => (
+            {data.map(({ user, userId, id, message, date }, i) => (
               <>
                 <div className={`${ userId === online_user.id ? 'hidden' : 'flex' } flex-row justify-start w-full px-3 py-1`} key={i}>
                   <div className="flex items-center space-x-2 w-full max-w-[17rem]">
@@ -168,13 +171,17 @@ export default function ChatRoom({ online_user, data, roominfo, rooms, user_join
                     </div>
                   </div>
                 </div>
-                <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1`}>
+                <div className={`${ userId !== online_user.id ? 'hidden' : 'flex' } flex-row justify-end w-full px-3 py-1 space-x-2`}>
                   <div className="flex justify-end w-full max-w-[17rem]">
                     <div className="flex flex-col whitespace-pre-line rounded-xl px-3 py-3 space-y-1 font-normal text-xs text-modern-dim bg-honey">
                       <span className="text-left">{ userId !== online_user.id ? '' : message }</span>
                       <span className="font-normal text-[9px] text-right text-yellow-800"><Moment date={ date } fromNow /></span>
                     </div>
                   </div>
+                  <DeleteMessage
+                    id={id}
+                    roominfo={roominfo}
+                  />
                 </div>
               </>
             ))}
