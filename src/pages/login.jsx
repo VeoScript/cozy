@@ -96,7 +96,7 @@ export default function Login() {
           <div className="flex flex-col items-center justify-start md:justify-center w-full max-w-[22rem] md:max-w-xl h-[35rem] md:h-full rounded-xl md:rounded-none z-50 -mt-8 md:mt-0 mb-5 md:mb-0 px-5 py-5 md:py-0 space-y-5 bg-modern-black text-modern-white">
             <div className="flex flex-col w-full max-w-md space-y-3">
               <h1 className="font-poppins text-sm md:text-xl text-modern-white">It was used by over 25 Million people around the globe.</h1>
-              <h1 className="font-poppins text-xs md:text-sm text-modern-white text-opacity-60">If ever you decided to delete your contacts on your phone, don't forget to backup all of your contacts here. You might remember to use them for the future.</h1>
+              <h1 className="font-poppins text-xs md:text-sm text-modern-white text-opacity-60">If ever you decided to delete your contacts on your phone, don't forget to backup all of your contacts here. You might remember to use them in the future.</h1>
             </div>
             <div className="flex flex-col w-full max-w-md">
               <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col w-full space-y-3">
