@@ -24,8 +24,19 @@ export default function ForgotPassword() {
   async function forgotPassword(formData) {
     try {
       const email = formData.email
-
       const checkUser = all_users.find(user => user.email === email)
+
+      if (!checkUser) {
+        toast.error('Email not found, try another shot!', {
+          style: {
+            borderRadius: '10px',
+            background: '#222222',
+            color: '#fff',
+          }
+        })
+        reset()
+        return
+      }
 
       const payload = { userId: checkUser.id }
       const secret = process.env.JWT_SECRET
