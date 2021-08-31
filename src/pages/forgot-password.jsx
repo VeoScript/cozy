@@ -5,13 +5,67 @@ import toast, { Toaster } from 'react-hot-toast'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import emailjs from 'emailjs-com'
+import jwt from 'jwt-simple'
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function ForgotPassword() {
+
+  const router = useRouter()
+
+  const { data: all_users } = useSWR('/api/auth/users', fetcher, {
+    refreshInterval: 1000
+  })
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
 
   async function forgotPassword(formData) {
-    console.log(formData)
+    try {
+      const email = formData.email
+
+      const checkUser = all_users.find(user => user.email === email)
+
+      const payload = { userId: checkUser.id }
+      const secret = process.env.JWT_SECRET
+      const token = jwt.encode(payload, secret)
+
+      const message = 'Here is your reset password link to recover your account'
+      const link = `https://www.veocozy.ml/reset-password/${token}`
+      // const link = `http://localhost:3000/reset-password/${token}`
+
+      const mail = await emailjs.send(
+        process.env.GMAIL_SERVICE_ID,
+        process.env.TEMPLATE_ID,
+        { email, message, link },
+        process.env.GMAIL_USER_ID
+      )
+
+      if (mail) {
+        toast.success('Check your email to reset your new password!', {
+          style: {
+            borderRadius: '10px',
+            background: '#222222',
+            color: '#fff',
+          }
+        })
+        reset()
+        router.push('/login')
+      } else {
+        toast.error('Something went wrong try again.', {
+          style: {
+            borderRadius: '10px',
+            background: '#222222',
+            color: '#fff',
+          }
+        })
+        reset()
+      }
+
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -39,7 +93,7 @@ export default function ForgotPassword() {
                   <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clipRule="evenodd"></path>
                   </svg>
-                  <input type="email" name="email" placeholder="Enter your email" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { required: true })} disabled={isSubmitting} />
+                  <input type="email" name="email" placeholder="Enter your email" {...register("email", { required: true })} className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { required: true })} disabled={isSubmitting} />
                   {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
                 </div>
                 <div className="flex flex-col items-center justify-end w-full space-y-1">
