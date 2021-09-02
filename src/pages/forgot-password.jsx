@@ -42,6 +42,7 @@ export default function ForgotPassword() {
       const secret = process.env.JWT_SECRET
       const token = jwt.encode(payload, secret)
 
+      const name = checkUser.name
       const message = 'Here is your reset password link to recover your account'
       const link = `https://www.veocozy.ml/reset-password/${token}`
       // const link = `http://localhost:3000/reset-password/${token}`
@@ -49,7 +50,7 @@ export default function ForgotPassword() {
       const mail = await emailjs.send(
         process.env.GMAIL_SERVICE_ID,
         process.env.TEMPLATE_ID,
-        { email, message, link },
+        { name, email, message, link },
         process.env.GMAIL_USER_ID
       )
 
