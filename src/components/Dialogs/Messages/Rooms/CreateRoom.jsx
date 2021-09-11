@@ -53,11 +53,6 @@ export default function CreateRoom({ online_user, rooms }) {
       return
     }
 
-    if (!image.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-      document.getElementById('custom_toast').innerText = 'Invalid Image URL'
-      return
-    }
-
     if (status === 'Private') {
       if (passcode === '') {
         setError('passcode')
@@ -182,9 +177,8 @@ export default function CreateRoom({ online_user, rooms }) {
                         <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                         </svg>
-                        <input type="text" name="image" placeholder="Room Image URL" {...register("image", { required: true })} className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting} />
-                        {errors.image && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
-                        <span id="custom_toast" className="flex flex-row justify-end text-[10px] text-honey"></span>
+                        <input type="text" name="image" placeholder="Profile URL" className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("image", { required: true, pattern: { value: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, message: "Invalid URL" } })} disabled={isSubmitting} />
+                        {errors.image && <span className="flex flex-row justify-end text-[10px] text-honey">{errors.image.message || 'Required'}</span>}
                       </div>
                       <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                         <RoomIcon />

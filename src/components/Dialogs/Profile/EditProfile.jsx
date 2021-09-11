@@ -34,11 +34,6 @@ export default function EditProfile({ online_user }) {
     const avatar = formData.avatar
     const name = formData.name
     const email = formData.email
-
-    if (!avatar.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-      document.getElementById('custom_toast').innerText = 'Invalid Image URL'
-      return
-    }
     
     await fetch('/api/profile/edit_profile', {
       method: 'PUT',
@@ -134,9 +129,8 @@ export default function EditProfile({ online_user }) {
                       <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd"></path>
                       </svg>
-                      <input type="text" name="avatar" placeholder="Profile URL" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("avatar", { required: true })} disabled={isSubmitting} />
-                      {errors.avatar && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
-                      <span id="custom_toast" className="flex flex-row justify-end text-[10px] text-honey"></span>
+                      <input type="text" name="avatar" placeholder="Profile URL" className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("avatar", { required: true, pattern: { value: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, message: "Invalid URL" } })} disabled={isSubmitting} />
+                      {errors.avatar && <span className="flex flex-row justify-end text-[10px] text-honey">{errors.avatar.message || 'Required'}</span>}
                     </div>
                     <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                       <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -149,8 +143,8 @@ export default function EditProfile({ online_user }) {
                       <svg className="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clipRule="evenodd"></path>
                       </svg>
-                      <input type="email" name="email" placeholder="Email" className="w-full h-full px-3 py-5 bg-[#1F1F1F] text-honey focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { required: true })} disabled={isSubmitting} />
-                      {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">Required</span>}
+                      <input type="text" name="email" placeholder="Email" className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { required: true, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Invalid Email" } })} disabled={isSubmitting} />
+                      {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">{errors.email.message || 'Required'}</span>}
                     </div>
                     <div className="flex flex-col items-center justify-end w-full space-y-3">
                       <button type="submit" className="flex justify-center w-full max-w-full md:max-w-full px-3 py-4 rounded-lg transition ease-in-out duration-200 transform hover:bg-opacity-80 bg-honey text-modern-dim focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" disabled={isSubmitting}>
