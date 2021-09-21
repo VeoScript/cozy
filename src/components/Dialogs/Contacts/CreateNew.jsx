@@ -170,8 +170,8 @@ export default function CreateNew({ online_user, contacts }) {
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clipRule="evenodd"></path>
                           </svg>
-                          <input type="text" name="email" placeholder="Email" className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { required: true, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Invalid Email" } })} disabled={isSubmitting} />
-                          {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">{errors.email.message || 'Required'}</span>}
+                          <input type="text" name="email" placeholder="Email" className="w-full h-full px-3 py-4 bg-[#1F1F1F] text-modern-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" {...register("email", { pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Invalid Email" } })} disabled={isSubmitting} />
+                          {errors.email && <span className="flex flex-row justify-end text-[10px] text-honey">{ errors.email.message }</span>}
                         </div>
                         <div className="flex items-center w-full px-3 rounded-lg bg-[#1F1F1F]">
                           <svg className="w-8 h-8 opacity-40" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
