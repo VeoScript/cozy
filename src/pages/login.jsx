@@ -6,7 +6,6 @@ import bcrypt from 'bcryptjs'
 import withSession from '~/lib/Session'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { NextSeo } from 'next-seo'
 import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -66,12 +65,13 @@ export default function Login() {
 
   return (
     <>
-      <NextSeo
-        title="Cozy Login"
-        description="Cozy Online Phonebook & Chat Room by VeoScript"
-      />
       <Head>
         <title>Cozy | Login</title>
+        <meta name="description" content="Cozy your online address book for the future. It was used by over 25 Million people around the globe." />
+        <meta name="og:title" content="Cozy" />
+        <meta name="og:description" content="Cozy your online address book for the future. It was used by over 25 Million people around the globe." />
+        <meta name="og:url" content="https://www.veocozy.ml/login" />
+        <meta name="og:type" content="website" />
       </Head>
       <Guard>
         <Toaster
